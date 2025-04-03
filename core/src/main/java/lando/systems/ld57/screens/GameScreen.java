@@ -5,19 +5,55 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Icons;
+import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.ScenePlatformer;
+import lando.systems.ld57.world.SceneTest;
 
 public class GameScreen extends BaseScreen {
 
     private final Color backgroundColor = new Color(0x131711ff);
+    private final Stage stage;
+
+    private Scene<?> scene;
 
     public GameScreen() {
-//        this.scene = new SceneTest(this);
         this.scene = new ScenePlatformer(this);
+        this.stage = new Stage();
+
+        var table = new VisTable();
+        table.setFillParent(true);
+        table.align(Align.top);
+        table.add(new VisTextButton("Switch Scene", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                scene = (scene instanceof ScenePlatformer)
+                    ? new SceneTest(GameScreen.this)
+                    : new ScenePlatformer(GameScreen.this);
+            }
+        })).pad(10f).expandX().top().center();
+
+        stage.addActor(table);
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -30,6 +66,7 @@ public class GameScreen extends BaseScreen {
         }
 
         scene.update(dt);
+        stage.act(dt);
 
         super.update(dt);
     }
@@ -46,6 +83,8 @@ public class GameScreen extends BaseScreen {
             scene.render(shapes);
         }
         batch.end();
+
+        stage.draw();
 
         batch.setProjectionMatrix(windowCamera.combined);
         batch.begin();
@@ -100,6 +139,7 @@ public class GameScreen extends BaseScreen {
         return false;
     }
 
+    // TODO(brian): handle these as checkboxes in the ui instead
     private void renderConfigFlagIcons() {
         float size = 32f;
         float margin = 20f;

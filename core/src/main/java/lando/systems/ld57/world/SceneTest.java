@@ -34,7 +34,7 @@ public class SceneTest extends Scene<GameScreen> {
         var interior = new Rectangle(
             margin + thickness,
             margin + thickness,
-            width - 2 * (margin + thickness),
+            width   - 2 * (margin + thickness),
             height - 2 * (margin + thickness)
         );
 

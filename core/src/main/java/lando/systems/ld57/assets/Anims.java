@@ -54,6 +54,12 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
             this.name = (name != null) ? name : name().toLowerCase().replace("_", "-");
             this.data = (data != null) ? data : new AnimData();
         }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Animation<TextureRegion> get() {
+            return (Animation<TextureRegion>) container.get(this);
+        }
     }
 
     public Anims() {

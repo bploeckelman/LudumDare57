@@ -3,11 +3,14 @@ package lando.systems.ld57.scene.components;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.reflect.ClassReflection;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import text.formic.Stringf;
@@ -40,6 +43,11 @@ public class Tilemap extends RenderableComponent {
 
     public OrthographicCamera camera;
 
+    /**
+     * Create a {@link Tilemap} component attached to the specified {@link Entity}.
+     * <br>
+     * NOTE: web build uses webgl 1.0 - requires power-of-2 textures and no mipmaps!
+     */
     public Tilemap(Entity entity, String tmxFilePath, OrthographicCamera camera, SpriteBatch batch) {
         super(entity);
         this.camera = camera;

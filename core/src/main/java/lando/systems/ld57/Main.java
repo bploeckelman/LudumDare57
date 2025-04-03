@@ -14,7 +14,9 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.ScreenTransitions;
 import lando.systems.ld57.screens.BaseScreen;
@@ -52,17 +54,18 @@ public class Main extends ApplicationAdapter {
 
         assets = new Assets();
         Transition.init(assets);
+        VisUI.load(assets.mgr.get("ui/uiskin.json", Skin.class));
 
         tween = new TweenManager();
         Tween.setWaypointsLimit(4);
         Tween.setCombinedAttributesLimit(4);
-        Tween.registerAccessor(OrthographicCamera.class, new CameraAccessor());
-        Tween.registerAccessor(Circle.class, new CircleAccessor());
         Tween.registerAccessor(Color.class, new ColorAccessor());
-        Tween.registerAccessor(PerspectiveCamera.class, new PerspectiveCameraAccessor());
+        Tween.registerAccessor(Circle.class, new CircleAccessor());
         Tween.registerAccessor(Rectangle.class, new RectangleAccessor());
         Tween.registerAccessor(Vector2.class, new Vector2Accessor());
         Tween.registerAccessor(Vector3.class, new Vector3Accessor());
+        Tween.registerAccessor(OrthographicCamera.class, new CameraAccessor());
+        Tween.registerAccessor(PerspectiveCamera.class, new PerspectiveCameraAccessor());
 
         var format = Pixmap.Format.RGBA8888;
         int width = Config.framebuffer_width;
