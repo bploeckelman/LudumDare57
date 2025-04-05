@@ -5,18 +5,20 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 },
 com.badlogic.gdx.graphics.Color: {
 	black: {a: 1, b: 0, g: 0, r: 0 },
+    grey: {a: 1, b: 0.32, g: 0.32, r: 0.32 },
 	white: {a: 1, b: 1, g: 1, r: 1 },
+    red: {a: 1, b: 0, g: 0, r: 1 },
 	green: {a: 1, b: 0, g: 1, r: 0 },
-	red: {a: 1, b: 0, g: 0, r: 1 },
-	blue: {a: 1, b: 1, g: 0, r: 0 },
-	grey: {a: 1, b: 0.32, g: 0.32, r: 0.32 },
+    blue: {a: 1, b: 1, g: 0, r: 0 },
+    magenta: {a: 1, b: 1, g: 0, r: 1 }
 	vis-blue: {a: 1, b: 0.886, g: 0.631, r: 0.105 },
 	vis-red: {a: 1, b: 0.047, g: 0, r: 0.862 },
 	menuitem: {a: 1, b: 0.65, g: 0.65, r: 0.65 },
-	link-label: {a: 1, b: 0.886, g: 0.631, r: 0.105 }
+	link-label: {a: 1, b: 0.886, g: 0.631, r: 0.105 },
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: {name: white, color: {r: 0, g: 0, b: 0, a: 0.45} }
+    grey: {name: grey, color: { r: 0.32, g: 0.32, b: 0.32, a: 0.5 } }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {down: button-down, up: button },
@@ -124,6 +126,7 @@ com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle: {
 },
 com.kotcrab.vis.ui.widget.VisCheckBox$VisCheckBoxStyle: {
 	default: {checkBackground: vis-check, checkBackgroundOver: vis-check-over, checkBackgroundDown: vis-check-down, tick: vis-check-tick, tickDisabled: vis-check-tick-disabled, focusBorder: border, errorBorder: border-error, font: default-font, fontColor: white, disabledFontColor: grey },
+    small: {checkBackground: vis-check, checkBackgroundOver: vis-check-over, checkBackgroundDown: vis-check-down, tick: vis-check-tick, tickDisabled: vis-check-tick-disabled, focusBorder: border, errorBorder: border-error, font: small-font, fontColor: white, disabledFontColor: grey },
 	radio: {checkBackground: vis-radio, checkBackgroundOver: vis-radio-over, checkBackgroundDown: vis-radio-down, tick: vis-radio-tick, tickDisabled: vis-radio-tick-disabled, focusBorder: border-circle, errorBorder: border-circle-error, font: default-font, fontColor: white, disabledFontColor: grey }
 },
 com.kotcrab.vis.ui.widget.PopupMenu$PopupMenuStyle: {

@@ -22,9 +22,9 @@ public class Config {
     public enum Flag {
         //@formatter:off
           GLOBAL(true)
-        , RENDER(false)
-        , UI(false)
         , LOG(true)
+        , UI(false)
+        , RENDER(false)
         , FRAME_STEP(false)
         , START_ON_GAMESCREEN(false)
         ;
