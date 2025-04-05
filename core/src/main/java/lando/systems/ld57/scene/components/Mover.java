@@ -12,6 +12,8 @@ import java.util.List;
 
 public class Mover extends Component {
 
+    public static float BASE_GRAVITY = -1050f;
+
     private final Vector2 remainder = new Vector2();
 
     /**
@@ -25,7 +27,7 @@ public class Mover extends Component {
     public Collider collider;
     public Callbacks.TypedArg<OnHitParams> onHitX;
     public Callbacks.TypedArg<OnHitParams> onHitY;
-    public Vector2 speed;
+    public Vector2 velocity;
     public float gravity;
     public float friction;
 
@@ -48,9 +50,9 @@ public class Mover extends Component {
         this.collider = collider;
         this.onHitX = null;
         this.onHitY = null;
-        this.speed = new Vector2();
+        this.velocity = new Vector2();
         this.gravity = 0f;
-        this.friction = 0f;
+        this.friction = 1f;
     }
 
     // ------------------------------------------------------------------------
@@ -96,18 +98,19 @@ public class Mover extends Component {
         if (position == null) return;
 
         // apply friction, maybe
-        if (friction > 0 && onGround()) {
-            speed.x = Calc.approach(speed.x, 0, friction * dt);
+        if (onGround()) {
+            velocity.x *= (float) Math.pow(friction, dt);
+//            velocity.x = Calc.approach(velocity.x, 0, friction * dt);
         }
 
         // apply gravity, maybe
         if (gravity != 0 && !onGround()) {
-            speed.y += gravity * dt;
+            velocity.y += gravity * dt;
         }
 
         // how far should we move this tick, assuming nothing is in the way
-        float xTotal = remainder.x + speed.x * dt;
-        float yTotal = remainder.y + speed.y * dt;
+        float xTotal = remainder.x + velocity.x * dt;
+        float yTotal = remainder.y + velocity.y * dt;
 
         // round to integer values because we only move a pixel at a time
         int xAmount = (int) xTotal;
@@ -151,22 +154,22 @@ public class Mover extends Component {
     }
 
     public void stopX() {
-        speed.x = 0f;
+        velocity.x = 0f;
         remainder.x = 0f;
     }
 
     public void stopY() {
-        speed.y = 0f;
+        velocity.y = 0f;
         remainder.y = 0f;
     }
 
     public void invertX() {
-        speed.x *= -1f;
+        velocity.x *= -1f;
         remainder.x = 0f;
     }
 
     public void invertY() {
-        speed.y *= -1f;
+        velocity.y *= -1f;
         remainder.y = 0f;
     }
 

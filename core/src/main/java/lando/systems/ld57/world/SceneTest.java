@@ -48,22 +48,22 @@ public class SceneTest extends Scene<GameScreen> {
                 // test pairs of circles bouncing off each other and the boundary walls
                 var l = EntityFactory.circle(this, centerX - 200f, centerY, 10f);
                 var r = EntityFactory.circle(this, centerX + 200f, centerY, 10f);
-                l.get(Mover.class).speed.set( 300f, 0f);
-                r.get(Mover.class).speed.set(-300f, 0f);
+                l.get(Mover.class).velocity.set( 300f, 0f);
+                r.get(Mover.class).velocity.set(-300f, 0f);
 
                 var d = EntityFactory.circle(this, centerX, centerY - 100f, 10f);
                 var u = EntityFactory.circle(this, centerX, centerY + 100f, 10f);
-                d.get(Mover.class).speed.set(0f,  300f);
-                u.get(Mover.class).speed.set(0f, -300f);
+                d.get(Mover.class).velocity.set(0f,  300f);
+                u.get(Mover.class).velocity.set(0f, -300f);
             } break;
             case TILE_GRID: {
                 // test colliding with a grid-shaped collider from a tilemap component
                 var vert = EntityFactory.circle(this, centerX - 420f, centerY + 100f, 10f);
                 var horz = EntityFactory.circle(this, centerX + 200f, centerY - 260f, 10f);
                 var diag = EntityFactory.circle(this, centerX, centerY, 5f);
-                vert.get(Mover.class).speed.set(0, -300f);
-                horz.get(Mover.class).speed.set(-300f, 0f);
-                diag.get(Mover.class).speed.set(-270f, -200f);
+                vert.get(Mover.class).velocity.set(0, -300f);
+                horz.get(Mover.class).velocity.set(-300f, 0f);
+                diag.get(Mover.class).velocity.set(-270f, -200f);
             } break;
             case MANY: {
                 // test a bunch of circles all randomized and colliding with each other

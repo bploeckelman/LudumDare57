@@ -7,25 +7,15 @@ import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Icons;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Boundary;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Image;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.Patch;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.Tilemap;
-import lando.systems.ld57.scene.components.Timer;
-import lando.systems.ld57.scene.components.ViewController;
-import lando.systems.ld57.scene.components.Viewer;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.BaseScreen;
-import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
+
+
 
     public static Entity heart(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
@@ -46,7 +36,7 @@ public class EntityFactory {
         var collider = Collider.makeRect(entity, Collider.Mask.effect, -width / 2f, -height / 2f, width, height);
 
         var mover = new Mover(entity, collider);
-        mover.speed.setToRandomDirection().scl(MathUtils.random(300, 500));
+        mover.velocity.setToRandomDirection().scl(MathUtils.random(300, 500));
         mover.addCollidesWith(Collider.Mask.npc);
         mover.setOnHit((params) -> {
             // change the image/tint to indicate a hit
@@ -115,7 +105,7 @@ public class EntityFactory {
 
         var speed = MathUtils.random(100f, 300f);
         var mover = new Mover(entity, collider);
-        mover.speed.setToRandomDirection().scl(speed);
+        mover.velocity.setToRandomDirection().scl(speed);
         mover.addCollidesWith(Collider.Mask.object, Collider.Mask.solid);
         mover.setOnHit((params) -> {
             // invert speed on the hit axis and add some squash/stretch
@@ -151,16 +141,21 @@ public class EntityFactory {
 
         @Override
         public void update(float dt) {
+            if (mover.velocity.x > 0) {
+                animator.facing = 1;
+            } else if (mover.velocity.x < 0) {
+                animator.facing = -1;
+            }
             if (mover.onGround()) {
-                if (mover.speed.x != 0) {
+                if (Math.abs(mover.velocity.x) > 5) {
                     animator.play(Anims.Type.HERO_RUN);
                 } else {
                     animator.play(Anims.Type.HERO_IDLE);
                 }
             } else {
-                if (mover.speed.y > 0) {
+                if (mover.velocity.y > 0) {
                     animator.play(Anims.Type.HERO_JUMP);
-                } else if (mover.speed.y < 0) {
+                } else if (mover.velocity.y < 0) {
                     animator.play(Anims.Type.HERO_FALL);
                 }
             }
@@ -182,46 +177,51 @@ public class EntityFactory {
 
         var collider = Collider.makeRect(entity, Collider.Mask.npc, -4 * scale, 0, 6 * scale, 12 * scale);
 
+        new PlayerInput(entity);
+
         var mover = new Mover(entity, collider);
-        mover.gravity = -150f;
-        mover.speed.set(40, 0);
-        mover.setOnHit((params) -> {
-            switch (params.direction) {
-                case LEFT:
-                case RIGHT: {
-                    // invert and save the new speed, then stop for a bit
-                    mover.invertX();
-                    var speedX = mover.speed.x;
-                    mover.stopX();
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.velocity.set(0, 0);
+        mover.friction = .01f;
+//        mover.setOnHit((params) -> {
+//            switch (params.direction) {
+//                case LEFT:
+//                case RIGHT: {
+//                    // invert and save the new speed, then stop for a bit
+//                    mover.invertX();
+//                    var speedX = mover.speed.x;
+//                    mover.stopX();
+//
+//                    // do an 'oof'
+//                    Time.pause_for(0.1f);
+//                    animator.scale.scl(0.66f, 1.33f);
+//
+//                    // take a moment to recover
+//                    // NOTE(brian): example use of Timer component for rudimentary game logic, 'self-destructing' when complete
+//                    var duration = 0.3f;
+//                    var timer = entity.get(Timer.class);
+//                    if (timer != null) {
+//                        // timer was still in progress, reset it
+//                        timer.start(duration);
+//                    } else {
+//                        new Timer(entity, duration, () -> {
+//                            // turn around
+//                            animator.facing *= -1;
+//                            // resume moving in the opposite direction
+//                            mover.speed.x = speedX;
+//                            // jump!
+//                            mover.speed.y = 125;
+//
+//                            // self-destruct the timer
+//                            entity.destroy(Timer.class);
+//                        });
+//                    }
+//                }
+//                break;
+//            }
+//        });
 
-                    // do an 'oof'
-                    Time.pause_for(0.1f);
-                    animator.scale.scl(0.66f, 1.33f);
 
-                    // take a moment to recover
-                    // NOTE(brian): example use of Timer component for rudimentary game logic, 'self-destructing' when complete
-                    var duration = 0.3f;
-                    var timer = entity.get(Timer.class);
-                    if (timer != null) {
-                        // timer was still in progress, reset it
-                        timer.start(duration);
-                    } else {
-                        new Timer(entity, duration, () -> {
-                            // turn around
-                            animator.facing *= -1;
-                            // resume moving in the opposite direction
-                            mover.speed.x = speedX;
-                            // jump!
-                            mover.speed.y = 125;
-
-                            // self-destruct the timer
-                            entity.destroy(Timer.class);
-                        });
-                    }
-                }
-                break;
-            }
-        });
 
         // behavior 'component' - example of an anonymous component used to implement simple game logic
         new HeroBehavior(entity, animator, mover);
