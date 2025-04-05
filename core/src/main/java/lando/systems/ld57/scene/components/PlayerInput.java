@@ -1,12 +1,17 @@
 package lando.systems.ld57.scene.components;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import de.golfgl.gdx.controllers.mapping.MappedController;
+import lando.systems.ld57.Main;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.ldgame.HeroBehavior;
+
+import static lando.systems.ld57.assets.MyControllerMapping.*;
 
 public class PlayerInput extends Component {
     public static float COYOTE_TIME = 0.2f;
@@ -21,7 +26,7 @@ public class PlayerInput extends Component {
     private boolean isGrounded;
     private boolean jumpButtonLastFrame;
     private float lastOnGround;
-
+    private MappedController mappedController;
 
     public PlayerInput(Entity entity) {
         super(entity);
@@ -30,6 +35,11 @@ public class PlayerInput extends Component {
         wasGrounded = false;
         isGrounded = false;
         jumpButtonLastFrame = false;
+        Controller controller = Controllers.getCurrent();
+        if (controller != null) {
+            mappedController = new MappedController(Controllers.getCurrent(), Main.game.assets.controllerMappings);
+        }
+
     }
 
     @Override
@@ -68,9 +78,9 @@ public class PlayerInput extends Component {
             }
         }
 
-        Controller controller = Controllers.getCurrent();
-        if (controller != null) {
-            boolean jumpButton = controller.getButton(controller.getMapping().buttonB);
+
+        if (mappedController != null) {
+            boolean jumpButton = mappedController.isButtonPressed(BUTTON_JUMP);
             if (jumpButton
                 && lastOnGround < COYOTE_TIME
                 && jumpCoolDown <= 0
@@ -78,17 +88,11 @@ public class PlayerInput extends Component {
                 mover.velocity.y = JUMP_SPEED;
                 jumpCoolDown = .2f;
             }
-            float xDir = controller.getAxis(controller.getMapping().axisLeftX);
+            float xDir = mappedController.getConfiguredAxisValue(AXIS_HORIZONTAL);
             if (Math.abs(xDir) > CONTROLLER_DEADZONE) {
                 moveDirX += xDir;
             }
-
-            if (controller.getButton(controller.getMapping().buttonDpadRight)) {
-                moveDirX += 1f;
-            }
-            if (controller.getButton(controller.getMapping().buttonDpadLeft)) {
-                moveDirX += -1f;
-            }
+            moveDirX += mappedController.getConfiguredAxisValue(D_PAD_AXIS);
 
             if (controller.getButton(controller.getMapping().buttonBack)) {
                 var heroBehavior = entity.get(HeroBehavior.class);

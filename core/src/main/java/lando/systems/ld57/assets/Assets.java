@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
+import de.golfgl.gdx.controllers.mapping.ControllerMappings;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.framework.AssetContainer;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -47,6 +48,8 @@ public class Assets implements Disposable {
     public final Texture pixel;
 
     public TextureRegion pixelRegion;
+
+    public ControllerMappings controllerMappings;
 
     public Assets() {
         this(Load.SYNC);
@@ -79,6 +82,8 @@ public class Assets implements Disposable {
         }
         disposables.add(pixmap);
         disposables.add(pixel);
+
+        controllerMappings = new MyControllerMapping();
 
         mgr = new AssetManager();
         batch = new SpriteBatch();
