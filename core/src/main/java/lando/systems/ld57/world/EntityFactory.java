@@ -148,15 +148,15 @@ public class EntityFactory {
             }
             if (mover.onGround()) {
                 if (Math.abs(mover.velocity.x) > 5) {
-                    animator.play(Anims.Type.HERO_RUN);
+                    animator.play(Anims.Type.BELMONT_WALK);
                 } else {
-                    animator.play(Anims.Type.HERO_IDLE);
+                    animator.play(Anims.Type.BELMONT_IDLE);
                 }
             } else {
                 if (mover.velocity.y > 0) {
-                    animator.play(Anims.Type.HERO_JUMP);
+                    animator.play(Anims.Type.BELMONT_JUMP);
                 } else if (mover.velocity.y < 0) {
-                    animator.play(Anims.Type.HERO_FALL);
+                    animator.play(Anims.Type.BELMONT_FALL);
                 }
             }
         }
@@ -171,11 +171,15 @@ public class EntityFactory {
 
         new Position(entity, x, y);
 
-        var animator = new Animator(entity, Anims.Type.HERO_FALL);
+        var animator = new Animator(entity, Anims.Type.BELMONT_IDLE);
         animator.origin.set(8 * scale, 0);
         animator.size.scl(scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.npc, -4 * scale, 0, 6 * scale, 12 * scale);
+        // hero animation collider size
+//        var collider = Collider.makeRect(entity, Collider.Mask.npc, -4 * scale, 0, 6 * scale, 12 * scale);
+
+        // belmont animation collider size
+        var collider = Collider.makeRect(entity, Collider.Mask.npc, -5 * scale, 0, 10 * scale, 28 * scale);
 
         new PlayerInput(entity);
 
@@ -227,22 +231,22 @@ public class EntityFactory {
         new HeroBehavior(entity, animator, mover);
 
         // quick test of using fonts from their asset container
-//        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
-        DebugRender.makeForBatch(entity, (params) -> {
-            if (params instanceof DebugRender.TextParams) {
-                var textParams = (DebugRender.TextParams) params;
-                var batch = textParams.batch;
-                var position = entity.get(Position.class);
-
-                var font = textParams.fontType.getVariant(textParams.fontVariant);
-                var assets = entity.scene.screen.assets;
-                var layout = assets.layout;
-                layout.setText(font, textParams.text);
-                font.draw(batch, layout,
-                    position.x() - layout.width / 2f,
-                    position.y() + animator.size.y);
-            }
-        }, new DebugRender.TextParams(Fonts.Type.ROUNDABOUT, "tiny", "Hero"));
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+//        DebugRender.makeForBatch(entity, (params) -> {
+//            if (params instanceof DebugRender.TextParams) {
+//                var textParams = (DebugRender.TextParams) params;
+//                var batch = textParams.batch;
+//                var position = entity.get(Position.class);
+//
+//                var font = textParams.fontType.getVariant(textParams.fontVariant);
+//                var assets = entity.scene.screen.assets;
+//                var layout = assets.layout;
+//                layout.setText(font, textParams.text);
+//                font.draw(batch, layout,
+//                    position.x() - layout.width / 2f,
+//                    position.y() + animator.size.y);
+//            }
+//        }, new DebugRender.TextParams(Fonts.Type.ROUNDABOUT, "tiny", "Hero"));
 
         return entity;
     }

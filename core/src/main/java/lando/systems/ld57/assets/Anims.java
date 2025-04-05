@@ -18,18 +18,25 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
 
     private static class Path {
         private static final String HERO = "character/hero/";
+        private static final String BELMONT = "character/belmont/";
     }
 
     public enum Type implements AssetEnum<Animation> {
         // hero animations ------------------------------------------
-        HERO_ATTACK_EFFECT(Path.HERO),
-        HERO_ATTACK(Path.HERO),
-        HERO_DEATH(Path.HERO),
-        HERO_FALL(Path.HERO),
-        HERO_IDLE(Path.HERO),
-        HERO_JUMP(Path.HERO),
-        HERO_LAND_EFFECT(Path.HERO),
-        HERO_RUN(Path.HERO)
+          HERO_LAND_EFFECT(Path.HERO)
+        , HERO_ATTACK_EFFECT(Path.HERO)
+        , HERO_ATTACK(Path.HERO)
+        , HERO_DEATH(Path.HERO)
+        , HERO_FALL(Path.HERO)
+        , HERO_IDLE(Path.HERO)
+        , HERO_JUMP(Path.HERO)
+        , HERO_RUN(Path.HERO)
+        // belmont animations ---------------------------------------
+        , BELMONT_IDLE(Path.BELMONT)
+        , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BELMONT_JUMP(Path.BELMONT)
+        , BELMONT_FALL(Path.BELMONT)
+        , BELMONT_HURT(Path.BELMONT)
         // ----------------------------------------------------------
         ;
 
