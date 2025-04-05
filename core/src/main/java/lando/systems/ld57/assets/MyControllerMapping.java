@@ -40,7 +40,7 @@ public class MyControllerMapping extends ControllerMappings {
         defaultMapping.putMapping(new MappedInput(BUTTON_JUMP, new ControllerButton(web ? 0 : 1)));
         defaultMapping.putMapping(new MappedInput(BUTTON_FIRE, new ControllerButton(web ? 1 : 0)));
         defaultMapping.putMapping(new MappedInput(BUTTON_START, new ControllerButton(web ? 9 : 6)));
-        defaultMapping.putMapping(new MappedInput(BUTTON_CANCEL, new ControllerButton(web ? 8 : 7)));
+        defaultMapping.putMapping(new MappedInput(BUTTON_CANCEL, new ControllerButton(web ? 8 : 4)));
 
         return true;
 

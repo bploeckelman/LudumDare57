@@ -28,6 +28,7 @@ public class PlayerInput extends Component {
     private float lastOnGround;
     private MappedController mappedController;
 
+
     public PlayerInput(Entity entity) {
         super(entity);
         jumpCoolDown = 0;
@@ -94,7 +95,7 @@ public class PlayerInput extends Component {
             }
             moveDirX += mappedController.getConfiguredAxisValue(D_PAD_AXIS);
 
-            if (controller.getButton(controller.getMapping().buttonBack)) {
+            if (mappedController.isButtonPressed(BUTTON_CANCEL)) {
                 var heroBehavior = entity.get(HeroBehavior.class);
                 if (heroBehavior != null) {
                     heroBehavior.nextCharacter();
