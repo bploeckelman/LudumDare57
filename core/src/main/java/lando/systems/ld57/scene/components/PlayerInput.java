@@ -6,6 +6,7 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.ldgame.HeroBehavior;
 
 public class PlayerInput extends Component {
     public static float COYOTE_TIME = 0.2f;
@@ -60,6 +61,12 @@ public class PlayerInput extends Component {
             mover.velocity.y = JUMP_SPEED;
             jumpCoolDown = .2f;
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            var heroBehavior = entity.get(HeroBehavior.class);
+            if (heroBehavior != null) {
+                heroBehavior.nextCharacter();
+            }
+        }
 
         Controller controller = Controllers.getCurrent();
         if (controller != null) {
@@ -81,6 +88,13 @@ public class PlayerInput extends Component {
             }
             if (controller.getButton(controller.getMapping().buttonDpadLeft)) {
                 moveDirX += -1f;
+            }
+
+            if (controller.getButton(controller.getMapping().buttonBack)) {
+                var heroBehavior = entity.get(HeroBehavior.class);
+                if (heroBehavior != null) {
+                    heroBehavior.nextCharacter();
+                }
             }
 
             jumpButtonLastFrame = jumpButton;

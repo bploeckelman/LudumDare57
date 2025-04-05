@@ -19,6 +19,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
     private static class Path {
         private static final String HERO = "character/hero/";
         private static final String BELMONT = "character/belmont/";
+        private static final String LINK = "character/link/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -37,7 +38,14 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , BELMONT_JUMP(Path.BELMONT)
         , BELMONT_FALL(Path.BELMONT)
         , BELMONT_HURT(Path.BELMONT)
+        , BELMONT_ATTACK(Path.BELMONT)
         // ----------------------------------------------------------
+        , LINK_IDLE(Path.LINK)
+        , LINK_WALK(Path.LINK)
+        , LINK_JUMP(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , LINK_FALL(Path.LINK)
+        , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , LINK_ATTACK(Path.LINK)
         ;
 
         private final String path;
