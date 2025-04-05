@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Mover extends Component {
 
-    public static float BASE_GRAVITY = -1050f;
+    public static float BASE_GRAVITY = -800f;
 
     private final Vector2 remainder = new Vector2();
 

@@ -1,5 +1,8 @@
 package lando.systems.ld57.world;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.assets.Anims;
@@ -10,6 +13,7 @@ import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.ldgame.HeroBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 
@@ -128,39 +132,6 @@ public class EntityFactory {
         return entity;
     }
 
-    public static class HeroBehavior extends Component {
-
-        private final Animator animator;
-        private final Mover mover;
-
-        public HeroBehavior(Entity entity, Animator animator, Mover mover) {
-            super(entity);
-            this.animator = animator;
-            this.mover = mover;
-        }
-
-        @Override
-        public void update(float dt) {
-            if (mover.velocity.x > 0) {
-                animator.facing = 1;
-            } else if (mover.velocity.x < 0) {
-                animator.facing = -1;
-            }
-            if (mover.onGround()) {
-                if (Math.abs(mover.velocity.x) > 5) {
-                    animator.play(Anims.Type.BELMONT_WALK);
-                } else {
-                    animator.play(Anims.Type.BELMONT_IDLE);
-                }
-            } else {
-                if (mover.velocity.y > 0) {
-                    animator.play(Anims.Type.BELMONT_JUMP);
-                } else if (mover.velocity.y < 0) {
-                    animator.play(Anims.Type.BELMONT_FALL);
-                }
-            }
-        }
-    }
 
     public static Entity hero(Scene<? extends BaseScreen> scene, float x, float y) {
         return hero(scene, x, y, 4f);
@@ -186,7 +157,7 @@ public class EntityFactory {
         var mover = new Mover(entity, collider);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.velocity.set(0, 0);
-        mover.friction = .01f;
+        mover.friction = .001f;
 //        mover.setOnHit((params) -> {
 //            switch (params.direction) {
 //                case LEFT:
@@ -229,6 +200,8 @@ public class EntityFactory {
 
         // behavior 'component' - example of an anonymous component used to implement simple game logic
         new HeroBehavior(entity, animator, mover);
+
+        new DebugRender(entity);
 
         // quick test of using fonts from their asset container
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);

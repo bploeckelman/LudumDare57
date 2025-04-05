@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import lando.systems.ld57.scene.Scene;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.PlayerInput;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
@@ -40,6 +42,8 @@ public class World<ScreenType extends BaseScreen> {
 
     public World(Scene<ScreenType> scene) {
         this.scene = scene;
+        componentClasses.add(PlayerInput.class);
+        componentClasses.add(Mover.class);
     }
 
     /**
