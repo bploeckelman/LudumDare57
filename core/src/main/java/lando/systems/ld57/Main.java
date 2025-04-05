@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.ScreenTransitions;
+import lando.systems.ld57.audio.AudioManager;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.screens.TitleScreen;
@@ -41,6 +42,7 @@ public class Main extends ApplicationAdapter {
     public FrameBuffer frameBuffer;
     public TextureRegion frameBufferRegion;
     public OrthographicCamera windowCamera;
+    public AudioManager audioManager;
 
     public BaseScreen currentScreen;
 
@@ -81,6 +83,8 @@ public class Main extends ApplicationAdapter {
         windowCamera = new OrthographicCamera();
         windowCamera.setToOrtho(false, Config.window_width, Config.window_height);
         windowCamera.update();
+
+        audioManager = new AudioManager(assets);
 
         var startingScreen = Config.Flag.START_ON_GAMESCREEN.isEnabled() ? new GameScreen() : new TitleScreen();
         setScreen(startingScreen);

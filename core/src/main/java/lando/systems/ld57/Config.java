@@ -25,6 +25,7 @@ public class Config {
         , LOG(true)
         , UI(false)
         , RENDER(false)
+        , MUTE(false)
         , FRAME_STEP(false)
         , START_ON_GAMESCREEN(false)
         ;

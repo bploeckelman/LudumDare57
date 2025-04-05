@@ -15,7 +15,7 @@ public class TitleScreen extends BaseScreen {
 
     public TitleScreen() {
         this.logo = assets.atlas.findRegion("libgdx");
-        audioManager.playMusic(Musics.Type.TEST);
+        game.audioManager.playMusic(Musics.Type.TEST);
     }
 
     @Override
