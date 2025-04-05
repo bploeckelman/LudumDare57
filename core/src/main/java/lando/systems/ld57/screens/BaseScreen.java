@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Disposable;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Assets;
+import lando.systems.ld57.audio.AudioManager;
 import lando.systems.ld57.scene.Scene;
 
 public abstract class BaseScreen implements Disposable {
@@ -17,6 +18,7 @@ public abstract class BaseScreen implements Disposable {
     public final SpriteBatch batch;
     public final TweenManager tween;
     public final OrthographicCamera windowCamera;
+    public final AudioManager audioManager;
 
     public Scene<? extends BaseScreen> scene;
 
@@ -30,6 +32,7 @@ public abstract class BaseScreen implements Disposable {
         this.batch = game.assets.batch;
         this.tween = game.tween;
         this.windowCamera = game.windowCamera;
+        this.audioManager = new AudioManager(assets);
 
         this.worldCamera = new OrthographicCamera();
         worldCamera.setToOrtho(false, Config.framebuffer_width, Config.framebuffer_height);
@@ -41,7 +44,9 @@ public abstract class BaseScreen implements Disposable {
 
     public void resize(int width, int height) {}
 
-    public void alwaysUpdate(float delta) {}
+    public void alwaysUpdate(float delta) {
+        audioManager.update(delta);
+    }
 
     public void update(float delta) {
         windowCamera.update();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import lando.systems.ld57.assets.Musics;
 
 public class TitleScreen extends BaseScreen {
 
@@ -14,6 +15,7 @@ public class TitleScreen extends BaseScreen {
 
     public TitleScreen() {
         this.logo = assets.atlas.findRegion("libgdx");
+        audioManager.playMusic(Musics.Type.TEST);
     }
 
     @Override
