@@ -20,6 +20,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String HERO = "character/hero/";
         private static final String BELMONT = "character/belmont/";
         private static final String LINK = "character/link/";
+        private static final String MEGAMAN = "character/megaman/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -46,6 +47,13 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_FALL(Path.LINK)
         , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , LINK_ATTACK(Path.LINK)
+        // ----------------------------------------------------------
+        , MEGAMAN_IDLE(Path.MEGAMAN, new AnimData(0.25f, Animation.PlayMode.LOOP_RANDOM))
+        , MEGAMAN_WALK(Path.MEGAMAN)
+        , MEGAMAN_JUMP(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , MEGAMAN_FALL(Path.MEGAMAN)
+        , MEGAMAN_HURT(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , MEGAMAN_ATTACK(Path.MEGAMAN)
         ;
 
         private final String path;

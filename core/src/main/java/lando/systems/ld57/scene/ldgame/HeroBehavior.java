@@ -53,6 +53,8 @@ public class HeroBehavior extends Component {
         if (character == Character.BELMONT) {
             character = Character.LINK;
         } else if (character == Character.LINK) {
+            character = Character.MEGAMAN;
+        } else {
             character = Character.BELMONT;
         }
     }
@@ -62,7 +64,7 @@ public class HeroBehavior extends Component {
     // ------------------------------------------------------------------------
 
     // NOTE: hero anim was for testing and doesn't match the sizes of the others, skipping it
-    private enum Character { /*HERO,*/ BELMONT, LINK }
+    private enum Character { /*HERO,*/ BELMONT, LINK, MEGAMAN }
 
     private enum AnimType { IDLE, WALK, JUMP, FALL, ATTACK, HURT }
 
@@ -73,23 +75,27 @@ public class HeroBehavior extends Component {
 //            , AnimType.JUMP, Anims.Type.HERO_JUMP
 //            , AnimType.FALL, Anims.Type.HERO_FALL
 //            , AnimType.HURT, Anims.Type.HERO_FALL // TODO: missing
-//            , AnimType.ATTACK, Anims.Type.HERO_ATTACK
-//        )
+//            , AnimType.ATTACK, Anims.Type.HERO_ATTACK)
           Character.BELMONT, Map.of(
               AnimType.IDLE, Anims.Type.BELMONT_IDLE
             , AnimType.WALK, Anims.Type.BELMONT_WALK
             , AnimType.JUMP, Anims.Type.BELMONT_JUMP
             , AnimType.FALL, Anims.Type.BELMONT_FALL
             , AnimType.HURT, Anims.Type.BELMONT_HURT
-            , AnimType.ATTACK, Anims.Type.BELMONT_ATTACK // TODO: missing
-        )
+            , AnimType.ATTACK, Anims.Type.BELMONT_ATTACK) // TODO: missing
         , Character.LINK, Map.of(
               AnimType.IDLE, Anims.Type.LINK_IDLE
             , AnimType.WALK, Anims.Type.LINK_WALK
             , AnimType.JUMP, Anims.Type.LINK_JUMP
             , AnimType.FALL, Anims.Type.LINK_FALL
             , AnimType.HURT, Anims.Type.LINK_HURT
-            , AnimType.ATTACK, Anims.Type.LINK_ATTACK
-        )
+            , AnimType.ATTACK, Anims.Type.LINK_ATTACK)
+        , Character.MEGAMAN, Map.of(
+              AnimType.IDLE, Anims.Type.MEGAMAN_IDLE
+            , AnimType.WALK, Anims.Type.MEGAMAN_WALK
+            , AnimType.JUMP, Anims.Type.MEGAMAN_JUMP
+            , AnimType.FALL, Anims.Type.MEGAMAN_FALL
+            , AnimType.HURT, Anims.Type.MEGAMAN_HURT
+            , AnimType.ATTACK, Anims.Type.MEGAMAN_ATTACK)
     );
 }

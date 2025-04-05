@@ -6,567 +6,630 @@ filter: Nearest, Nearest
 repeat: none
 character/belmont/belmont-attack
   rotate: false
-  xy: 935, 214
-  size: 16, 32
-  orig: 16, 32
+  xy: 59, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-hurt
   rotate: false
-  xy: 935, 214
-  size: 16, 32
-  orig: 16, 32
+  xy: 59, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-fall
   rotate: false
-  xy: 1007, 215
-  size: 16, 31
-  orig: 16, 31
+  xy: 901, 210
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-jump
   rotate: false
-  xy: 1007, 215
-  size: 16, 31
-  orig: 16, 31
+  xy: 901, 210
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-idle
   rotate: false
-  xy: 1007, 182
-  size: 16, 31
-  orig: 16, 31
+  xy: 93, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-walk
   rotate: false
-  xy: 173, 20
-  size: 16, 31
-  orig: 16, 31
+  xy: 935, 210
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/belmont/belmont-walk
   rotate: false
-  xy: 191, 20
-  size: 16, 31
-  orig: 16, 31
+  xy: 127, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 1
 character/hero/hero-attack
   rotate: false
-  xy: 263, 35
+  xy: 495, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-attack
   rotate: false
-  xy: 973, 196
+  xy: 477, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-attack
   rotate: false
-  xy: 281, 35
+  xy: 495, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-attack
   rotate: false
-  xy: 299, 35
+  xy: 513, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-attack-effect
   rotate: false
-  xy: 417, 185
+  xy: 425, 74
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-attack-effect
   rotate: false
-  xy: 937, 196
+  xy: 1003, 190
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-attack-effect
   rotate: false
-  xy: 245, 35
+  xy: 459, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-attack-effect
   rotate: false
-  xy: 955, 196
+  xy: 477, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-death
   rotate: false
-  xy: 317, 35
+  xy: 495, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-death
   rotate: false
-  xy: 335, 35
+  xy: 513, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-death
   rotate: false
-  xy: 353, 35
+  xy: 531, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-death
   rotate: false
-  xy: 371, 35
+  xy: 513, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-death
   rotate: false
-  xy: 391, 167
+  xy: 531, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 5
 character/hero/hero-death
   rotate: false
-  xy: 391, 149
+  xy: 549, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 6
 character/hero/hero-death
   rotate: false
-  xy: 409, 167
+  xy: 531, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 7
 character/hero/hero-death
   rotate: false
-  xy: 391, 131
+  xy: 549, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 8
 character/hero/hero-fall
   rotate: false
-  xy: 409, 149
+  xy: 567, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-fall
   rotate: false
-  xy: 391, 113
+  xy: 549, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-fall
   rotate: false
-  xy: 409, 131
+  xy: 567, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-hurt
   rotate: false
-  xy: 391, 95
+  xy: 585, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-hurt
   rotate: false
-  xy: 409, 113
+  xy: 567, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-hurt
   rotate: false
-  xy: 391, 77
+  xy: 585, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-idle
   rotate: false
-  xy: 409, 95
+  xy: 603, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-idle
   rotate: false
-  xy: 391, 59
+  xy: 585, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-idle
   rotate: false
-  xy: 409, 77
+  xy: 603, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-idle
   rotate: false
-  xy: 409, 59
+  xy: 621, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-jump
   rotate: false
-  xy: 209, 17
+  xy: 603, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-jump
   rotate: false
-  xy: 227, 17
+  xy: 621, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-jump
   rotate: false
-  xy: 245, 17
+  xy: 639, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-land-effect
   rotate: false
-  xy: 263, 17
+  xy: 621, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-land-effect
   rotate: false
-  xy: 281, 17
+  xy: 639, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-land-effect
   rotate: false
-  xy: 299, 17
+  xy: 657, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-land-effect
   rotate: false
-  xy: 317, 17
+  xy: 639, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-land-effect
   rotate: false
-  xy: 335, 17
+  xy: 657, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 5
 character/hero/hero-land-effect
   rotate: false
-  xy: 353, 17
+  xy: 675, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 6
 character/hero/hero-land-effect
   rotate: false
-  xy: 371, 17
+  xy: 657, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 7
 character/hero/hero-run
   rotate: false
-  xy: 901, 178
+  xy: 675, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 character/hero/hero-run
   rotate: false
-  xy: 919, 178
+  xy: 693, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 character/hero/hero-run
   rotate: false
-  xy: 937, 178
+  xy: 675, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 character/hero/hero-run
   rotate: false
-  xy: 955, 178
+  xy: 693, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 character/hero/hero-run
   rotate: false
-  xy: 973, 178
+  xy: 711, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 5
 character/hero/hero-run
   rotate: false
-  xy: 59, 1
+  xy: 693, 124
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 6
 character/link/link-attack
   rotate: false
-  xy: 59, 19
+  xy: 969, 210
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/link/link-attack
+  rotate: false
+  xy: 161, 15
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
-character/link/link-attack
-  rotate: false
-  xy: 93, 19
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: 0
 character/link/link-fall
   rotate: false
-  xy: 119, 19
-  size: 16, 32
-  orig: 16, 32
+  xy: 195, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/link/link-jump
   rotate: false
-  xy: 119, 19
-  size: 16, 32
-  orig: 16, 32
+  xy: 195, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 1
 character/link/link-walk
   rotate: false
-  xy: 119, 19
-  size: 16, 32
-  orig: 16, 32
+  xy: 195, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 2
 character/link/link-hurt
   rotate: false
-  xy: 953, 214
-  size: 16, 32
-  orig: 16, 32
+  xy: 229, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/link/link-idle
   rotate: false
-  xy: 137, 19
-  size: 16, 32
-  orig: 16, 32
+  xy: 263, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/link/link-jump
   rotate: false
-  xy: 971, 214
-  size: 16, 32
-  orig: 16, 32
+  xy: 297, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/link/link-walk
   rotate: false
-  xy: 155, 19
-  size: 16, 32
-  orig: 16, 32
+  xy: 331, 15
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 0
 character/link/link-walk
   rotate: false
-  xy: 989, 214
-  size: 16, 32
-  orig: 16, 32
+  xy: 901, 176
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 1
+character/megaman/megaman-attack
+  rotate: false
+  xy: 935, 176
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-fall
+  rotate: false
+  xy: 969, 176
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-jump
+  rotate: false
+  xy: 969, 176
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-hurt
+  rotate: false
+  xy: 365, 15
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-idle
+  rotate: false
+  xy: 391, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-idle
+  rotate: false
+  xy: 391, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+character/megaman/megaman-walk
+  rotate: false
+  xy: 391, 97
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-walk
+  rotate: false
+  xy: 391, 63
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+character/megaman/megaman-walk
+  rotate: false
+  xy: 425, 144
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
 effects/fire
   rotate: false
-  xy: 901, 196
+  xy: 459, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 effects/fire
   rotate: false
-  xy: 209, 35
+  xy: 425, 92
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 effects/fire
   rotate: false
-  xy: 399, 185
+  xy: 1003, 208
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 effects/fire
   rotate: false
-  xy: 919, 196
+  xy: 459, 142
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 effects/fire
   rotate: false
-  xy: 227, 35
+  xy: 477, 160
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 icon/card-stack
   rotate: false
-  xy: 439, 182
+  xy: 439, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/circle-check
   rotate: false
-  xy: 505, 182
+  xy: 505, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/circle-x
   rotate: false
-  xy: 571, 182
+  xy: 571, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/heart
   rotate: false
-  xy: 1, 8
+  xy: 1, 4
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 icon/heart-broken
   rotate: false
-  xy: 381, 203
+  xy: 381, 199
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 icon/notepad
   rotate: false
-  xy: 637, 182
+  xy: 637, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/person-play
   rotate: false
-  xy: 703, 182
+  xy: 703, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/person-x
   rotate: false
-  xy: 769, 182
+  xy: 769, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon/puzzle
   rotate: false
-  xy: 835, 182
+  xy: 835, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 items/holy-water
   rotate: false
-  xy: 991, 204
+  xy: 381, 189
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: 0
 libgdx
   rotate: false
-  xy: 1, 183
+  xy: 1, 179
   size: 378, 63
   orig: 378, 63
   offset: 0, 0
   index: -1
 objects/circle
   rotate: false
-  xy: 381, 185
+  xy: 1003, 226
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 patch/plain
   rotate: false
-  xy: 1, 53
+  xy: 1, 49
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 patch/plain-dim
   rotate: false
-  xy: 131, 53
+  xy: 131, 49
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 patch/plain-gradient
   rotate: false
-  xy: 261, 53
+  xy: 261, 49
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 patch/rounded
   rotate: false
-  xy: 901, 214
+  xy: 425, 110
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 435, 200
+  xy: 1, 1
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
