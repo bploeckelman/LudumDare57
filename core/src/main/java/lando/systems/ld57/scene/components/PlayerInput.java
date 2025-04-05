@@ -10,6 +10,7 @@ import lando.systems.ld57.scene.framework.Entity;
 public class PlayerInput extends Component {
     public static float COYOTE_TIME = 0.2f;
     public static float MAX_SPEED = 100f;
+    public static float MAX_SPEED_AIR = 80f;
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
     public static float CONTROLLER_DEADZONE = 0.1f;
@@ -48,10 +49,10 @@ public class PlayerInput extends Component {
         float moveDirX = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
-            moveDirX = -1;
+            moveDirX += -1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)){
-            moveDirX = 1;
+            moveDirX += 1;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
             && lastOnGround < COYOTE_TIME
@@ -72,14 +73,14 @@ public class PlayerInput extends Component {
             }
             float xDir = controller.getAxis(controller.getMapping().axisLeftX);
             if (Math.abs(xDir) > CONTROLLER_DEADZONE) {
-                moveDirX = xDir;
+                moveDirX += xDir;
             }
 
             if (controller.getButton(controller.getMapping().buttonDpadRight)) {
-                moveDirX = 1f;
+                moveDirX += 1f;
             }
             if (controller.getButton(controller.getMapping().buttonDpadLeft)) {
-                moveDirX = -1f;
+                moveDirX += -1f;
             }
 
             jumpButtonLastFrame = jumpButton;
@@ -91,8 +92,14 @@ public class PlayerInput extends Component {
 
 
         // Cap Velocity
-        if (Math.abs(mover.velocity.x) > MAX_SPEED) {
-            mover.velocity.x = MAX_SPEED * (Math.signum(mover.velocity.x));
+        var maxSpeed = MAX_SPEED;
+        if (isGrounded){
+            maxSpeed = MAX_SPEED;
+        } else {
+            maxSpeed = MAX_SPEED_AIR;
+        }
+        if (Math.abs(mover.velocity.x) > maxSpeed) {
+            mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
         }
 
     }

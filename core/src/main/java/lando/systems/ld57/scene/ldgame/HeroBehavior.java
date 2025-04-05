@@ -8,6 +8,7 @@ import lando.systems.ld57.scene.framework.Entity;
 
 public class HeroBehavior extends Component {
 
+
     private final Animator animator;
     private final Mover mover;
 
