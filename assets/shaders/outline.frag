@@ -6,6 +6,7 @@ uniform sampler2D u_texture;
 uniform float u_time;
 uniform vec4 u_color1;
 uniform vec2 u_thickness;
+uniform vec4 u_fill_color;
 
 varying vec4 v_color;
 varying vec2 v_texCoord;
@@ -27,7 +28,7 @@ void main() {
         outline += getTexture(vec2(-u_thickness.x, 0.)).a;
         outline = clamp(outline, 0., 1.);
     }
-
+    texColor = mix(texColor, u_fill_color, u_fill_color.a * texColor.a);
 
     texColor = mix(texColor, u_color1, outline);
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.math.Calc;
@@ -18,6 +19,7 @@ public class Animator extends RenderableComponent {
     public TextureRegion keyframe;
     public float stateTime;
     public int facing;
+    public Color fillColor;
 
     public Animator(Entity entity, Anims.Type type) {
         this(entity, type.get());
@@ -33,8 +35,9 @@ public class Animator extends RenderableComponent {
         this.animation = null;
         this.keyframe = keyframe;
         this.size.set(keyframe.getRegionWidth(), keyframe.getRegionHeight());
-        this.stateTime = 0;
+        this.stateTime = MathUtils.random(2f);
         this.facing = 1;
+        fillColor = new Color(Color.RED);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +55,7 @@ public class Animator extends RenderableComponent {
     @Override
     public void update(float dt) {
         if (animation == null) return;
-
+        fillColor.a = .5f * (1f + MathUtils.sin(stateTime * 15f));
         stateTime += dt;
         keyframe = animation.getKeyFrame(stateTime);
 
@@ -70,6 +73,7 @@ public class Animator extends RenderableComponent {
         batch.setShader(shader);
         float outline = 1f;
         shader.setUniformf("u_time", stateTime);
+        shader.setUniformf("u_fill_color", fillColor);
         shader.setUniformf("u_color1", Util.hsvToRgb(stateTime, .8f, .6f, testColor ));
         shader.setUniformf("u_thickness", outline/ (float)keyframe.getTexture().getWidth(),
             outline/ (float)keyframe.getTexture().getHeight());
