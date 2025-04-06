@@ -43,6 +43,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , OLDMAN_FALL(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , OLDMAN_HURT(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , OLDMAN_ATTACK(Path.OLDMAN)
+        , OLDMAN_POWERATTACK(Path.OLDMAN)
         // ----------------------------------------------------------
         , BELMONT_IDLE(Path.BELMONT)
         , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))
@@ -50,6 +51,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , BELMONT_FALL(Path.BELMONT)
         , BELMONT_HURT(Path.BELMONT)
         , BELMONT_ATTACK(Path.BELMONT)
+        , BELMONT_POWERATTACK(Path.BELMONT)
         // ----------------------------------------------------------
         , LINK_IDLE(Path.LINK)
         , LINK_WALK(Path.LINK)
@@ -57,6 +59,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_FALL(Path.LINK)
         , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , LINK_ATTACK(Path.LINK)
+        , LINK_POWERATTACK(Path.LINK)
         // ----------------------------------------------------------
         , MARIO_IDLE(Path.MARIO)
         , MARIO_WALK(Path.MARIO)
@@ -64,6 +67,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MARIO_FALL(Path.MARIO)
         , MARIO_HURT(Path.MARIO, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , MARIO_ATTACK(Path.MARIO)
+        , MARIO_POWERATTACK(Path.MARIO)
         // ----------------------------------------------------------
         , MEGAMAN_IDLE(Path.MEGAMAN, new AnimData(0.25f, Animation.PlayMode.LOOP_RANDOM))
         , MEGAMAN_WALK(Path.MEGAMAN)
@@ -71,6 +75,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEGAMAN_FALL(Path.MEGAMAN)
         , MEGAMAN_HURT(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , MEGAMAN_ATTACK(Path.MEGAMAN, new AnimData(.2f, Animation.PlayMode.NORMAL))
+        , MEGAMAN_POWERATTACK(Path.MEGAMAN)
         // enemies ----------------------------------------------------
         , GOOMBA_WALK(Path.GOOMBA)
         , GOOMBA_DEATH(Path.GOOMBA)

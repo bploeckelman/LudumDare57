@@ -66,6 +66,7 @@ public class PlayerBehavior extends Component {
             if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && attackCoolDown <= 0) {
                 animator.stateTime = 0;
                 playerState = State.ATTACK;
+                animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
                 attackCoolDown = character.get().attackInfo.attackCooldown;
                 // spawn attack
             }
@@ -73,6 +74,7 @@ public class PlayerBehavior extends Component {
             if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && attackCoolDown <= 0) {
                 playerState = State.ATTACK;
                 animator.stateTime = 0;
+                animator.play(character.get().animByType.get(Characters.AnimType.POWERATTACK));
                 attackCoolDown = character.get().attackInfo.powerAttackCooldown;
                 spawnPowerAttack();
             }
@@ -136,7 +138,7 @@ public class PlayerBehavior extends Component {
                 }
                 break;
             case ATTACK:
-                animator.play(charData.animByType.get(Characters.AnimType.ATTACK));
+//                animator.play(charData.animByType.get(Characters.AnimType.ATTACK));
                 break;
         }
 
@@ -190,7 +192,7 @@ public class PlayerBehavior extends Component {
         var charPos = entity.get(Position.class);
 
         var powerAttackEntity = scene.createEntity();
-        new Position(powerAttackEntity, charPos.x() + 10 * charAnimator.facing, charPos.y() + 10);
+        new Position(powerAttackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 13);
         var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
         var mover = new Mover(powerAttackEntity, collider);
         mover.velocity.x = 100 * charAnimator.facing;

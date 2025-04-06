@@ -18,6 +18,13 @@ character/belmont/belmont-hurt
   orig: 32, 32
   offset: 0, 0
   index: 0
+character/belmont/belmont-powerattack
+  rotate: false
+  xy: 2, 7
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
 character/belmont/belmont-fall
   rotate: false
   xy: 1449, 156
@@ -354,6 +361,13 @@ character/link/link-attack
   orig: 32, 32
   offset: 0, 0
   index: 0
+character/link/link-powerattack
+  rotate: false
+  xy: 1755, 156
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
 character/link/link-attack
   rotate: false
   xy: 342, 7
@@ -424,6 +438,13 @@ character/mario/mario-attack
   orig: 32, 32
   offset: 0, 0
   index: 0
+character/mario/mario-powerattack
+  rotate: false
+  xy: 1517, 122
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
 character/mario/mario-fall
   rotate: false
   xy: 1551, 122
@@ -481,6 +502,13 @@ character/mario/mario-walk
   offset: 0, 0
   index: 2
 character/megaman/megaman-attack
+  rotate: false
+  xy: 1789, 122
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/megaman/megaman-powerattack
   rotate: false
   xy: 1789, 122
   size: 32, 32
@@ -550,7 +578,14 @@ character/oldman/oldman-attack
   orig: 32, 32
   offset: 0, 0
   index: 0
-character/oldman/oldman-attack
+character/oldman/oldman-powerattack
+  rotate: false
+  xy: 624, 46
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/oldman/oldman-powerattack
   rotate: false
   xy: 624, 46
   size: 32, 32
@@ -564,7 +599,21 @@ character/oldman/oldman-attack
   orig: 32, 32
   offset: 0, 0
   index: 1
+character/oldman/oldman-powerattack
+  rotate: false
+  xy: 658, 46
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
 character/oldman/oldman-attack
+  rotate: false
+  xy: 692, 46
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+character/oldman/oldman-powerattack
   rotate: false
   xy: 692, 46
   size: 32, 32
@@ -578,35 +627,35 @@ character/oldman/oldman-attack
   orig: 32, 32
   offset: 0, 0
   index: 3
-character/oldman/oldman-attack
+character/oldman/oldman-powerattack
+  rotate: false
+  xy: 726, 46
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+character/oldman/oldman-fall
   rotate: false
   xy: 750, 80
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 5
-character/oldman/oldman-attack
-  rotate: false
-  xy: 750, 80
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 7
-character/oldman/oldman-attack
+  index: 0
+character/oldman/oldman-fall
   rotate: false
   xy: 784, 82
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 6
-character/oldman/oldman-fall
+  index: 1
+character/oldman/oldman-hurt
   rotate: false
   xy: 818, 82
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
-character/oldman/oldman-fall
+character/oldman/oldman-hurt
   rotate: false
   xy: 852, 82
   size: 32, 32
@@ -619,98 +668,105 @@ character/oldman/oldman-hurt
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
+  index: 2
 character/oldman/oldman-hurt
   rotate: false
   xy: 794, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
-character/oldman/oldman-hurt
-  rotate: false
-  xy: 828, 48
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 2
-character/oldman/oldman-hurt
-  rotate: false
-  xy: 862, 48
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
   index: 3
 character/oldman/oldman-hurt
   rotate: false
-  xy: 862, 48
+  xy: 794, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 character/oldman/oldman-hurt
   rotate: false
-  xy: 886, 82
+  xy: 828, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 character/oldman/oldman-hurt
   rotate: false
-  xy: 886, 82
+  xy: 828, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 character/oldman/oldman-hurt
   rotate: false
-  xy: 896, 48
+  xy: 862, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 character/oldman/oldman-jump
   rotate: false
-  xy: 896, 48
+  xy: 862, 48
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
+character/oldman/oldman-idle
+  rotate: false
+  xy: 886, 82
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+character/oldman/oldman-idle
+  rotate: false
+  xy: 896, 48
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
 character/oldman/oldman-idle
   rotate: false
   xy: 920, 96
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
+  index: 2
 character/oldman/oldman-idle
   rotate: false
   xy: 954, 96
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
-character/oldman/oldman-idle
+  index: 3
+character/oldman/oldman-jump
   rotate: false
   xy: 988, 96
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 2
-character/oldman/oldman-idle
+  index: 1
+character/oldman/oldman-powerattack
   rotate: false
   xy: 1022, 96
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 3
-character/oldman/oldman-jump
+  index: 5
+character/oldman/oldman-powerattack
+  rotate: false
+  xy: 1022, 96
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+character/oldman/oldman-powerattack
   rotate: false
   xy: 1056, 92
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: 6
 character/oldman/oldman-walk
   rotate: false
   xy: 1090, 92

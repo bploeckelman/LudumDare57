@@ -14,7 +14,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
 
     public static AssetContainer<Type, Data> container;
 
-    public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK }
+    public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK, POWERATTACK }
 
     public enum Type implements AssetEnum<Data> {
           OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), Color.WHITE)
@@ -84,13 +84,14 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
             data.animByType.put(AnimType.IDLE,   Anims.Type.valueOf(name + "_IDLE"));
             data.animByType.put(AnimType.JUMP,   Anims.Type.valueOf(name + "_JUMP"));
             data.animByType.put(AnimType.WALK,   Anims.Type.valueOf(name + "_WALK"));
+            data.animByType.put(AnimType.POWERATTACK, Anims.Type.valueOf(name + "_POWERATTACK"));
 
             switch(type) {
                 case OLDMAN:
                     data.attackInfo.attackCooldown = .1f;
                     data.attackInfo.powerAttackCooldown = .2f;
                     data.attackInfo.attackDamage = 1f;
-                    data.attackInfo.powerAttackCooldown = 2f;
+                    data.attackInfo.powerAttackDamage = 2f;
                     break;
                 case BELMONT:
                     data.attackInfo.attackCooldown = .1f;
