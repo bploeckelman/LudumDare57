@@ -11,6 +11,7 @@
   <inherits name="aurelienribon.tweenengine" />
   <inherits name="com.badlogic.gdx.controllers" />
   <inherits name="com.badlogic.gdx.controllers.controllers-gwt" />
+  <inherits name="de.golfgl.gdx.controllers.mapping" />
   <inherits name="com.github.tommyettinger.cringe" />
   <inherits name="com.github.tommyettinger.crux" />
   <inherits name="com.github.tommyettinger.digital" />
