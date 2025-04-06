@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.*;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ParticleEffectParams;
+import lando.systems.ld57.particles.effects.SparkEffect;
 import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
@@ -28,15 +29,16 @@ public class ParticleManager implements Disposable {
     }
 
     private void initEffects() {
-        for (var effectType : ParticleEffect.Type.values()) {
-            try {
-                ParticleEffect effect = (ParticleEffect) effectType.particleEffect.getConstructor(ParticleManager.class).newInstance(this);
-                effects.put(effectType, effect);
-            } catch(Exception e) {
-                Util.log("Error initiating effects");
-            }
-        }
-        //effects.put(ParticleEffect.Type.DIRT, new DirtEffect(this));
+//        for (var effectType : ParticleEffect.Type.values()) {
+//            try {
+//                ParticleEffect effect = (ParticleEffect) effectType.particleEffect.getConstructor(ParticleManager.class).newInstance(this);
+//                effects.put(effectType, effect);
+//            } catch(Exception e) {
+//                Util.log("Error initiating effects");
+//            }
+//        }
+        effects.put(ParticleEffect.Type.DIRT, new DirtEffect(this));
+        effects.put(ParticleEffect.Type.SPARK, new SparkEffect(this));
     }
 
     public void clear() {
