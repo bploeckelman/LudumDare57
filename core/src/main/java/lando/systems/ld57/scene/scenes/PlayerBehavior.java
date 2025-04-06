@@ -106,11 +106,6 @@ public class PlayerBehavior extends Component {
                 mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
             }
 
-            // set facing direction based on velocity
-            var moveDir = (int) Calc.sign(mover.velocity.x);
-            if (moveDir != 0) {
-                animator.facing = moveDir;
-            }
         }
 
         var charData = character.get();

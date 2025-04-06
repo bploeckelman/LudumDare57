@@ -15,6 +15,63 @@ import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
+
+    public static Entity koopa(Scene<? extends BaseScreen> scene, float x, float y) {
+        var WIDTH = 16f;
+        var HEIGHT = 24f;
+        var entity = scene.createEntity();
+        new Position(entity, x,y);
+        new Health(entity, 1f);
+
+        var scale = .5f;
+        var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);
+        animator.origin.set(scale * -WIDTH, 0);
+        animator.size.scl(-scale, scale);
+
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH / 2f, 0, WIDTH * scale, HEIGHT * scale);
+        var mover = new Mover(entity, collider);
+        mover.velocity.setToRandomDirection().scl(10f);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask == Collider.Mask.solid) {
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+            else if (params.hitCollider.mask == Collider.Mask.player) {
+                animator.play(Anims.Type.KOOPA_REVIVE);
+
+                var hitDuration = 0.5f;
+                var timer = entity.get(Timer.class);
+                if (timer == null) {
+                    // no active timer, create and attach one
+                    new Timer(entity, hitDuration, () -> {
+                        animator.play(Anims.Type.KOOPA_WALK);
+                        entity.destroy(Timer.class);
+                    });
+                } else {
+                    // timer was still in progress, reset it
+                    timer.start(hitDuration);
+                }
+
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+        });
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
+
     public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
         new Position(entity, x,y);

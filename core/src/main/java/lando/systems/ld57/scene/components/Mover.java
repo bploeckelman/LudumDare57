@@ -122,6 +122,13 @@ public class Mover extends Component {
         // apply the movement
         moveX(xAmount);
         moveY(yAmount);
+
+        // set facing direction based on velocity
+        var moveDir = (int) Calc.sign(velocity.x);
+        var animator = entity.getIfActive(Animator.class);
+        if (moveDir != 0 && animator != null) {
+            animator.facing = moveDir;
+        }
     }
 
     /**

@@ -24,6 +24,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String MARIO = "character/mario/";
         private static final String MEGAMAN = "character/megaman/";
         private static final String GOOMBA = "enemies/goomba/";
+        private static final String KOOPA = "enemies/koopa/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -79,6 +80,9 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         // enemies ----------------------------------------------------
         , GOOMBA_WALK(Path.GOOMBA)
         , GOOMBA_DEATH(Path.GOOMBA)
+        , KOOPA_WALK(Path.KOOPA)
+        , KOOPA_REVIVE(Path.KOOPA)
+        , KOOPA_SHELL_SPIN(Path.KOOPA)
 
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN, new AnimData(.1f, Animation.PlayMode.LOOP))

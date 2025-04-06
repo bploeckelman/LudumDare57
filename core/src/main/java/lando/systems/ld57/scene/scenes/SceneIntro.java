@@ -36,6 +36,7 @@ public class SceneIntro extends Scene<GameScreen> {
         cam.get(ViewController.class).target(boundary.center());
 
         EntityFactory.goomba(this, (float) width / 2,  height * 0.2f);
+        EntityFactory.koopa(this, (float) width / 3,  height * 0.2f);
     }
 
     private void makeMapObjects(Tilemap tilemap) {
