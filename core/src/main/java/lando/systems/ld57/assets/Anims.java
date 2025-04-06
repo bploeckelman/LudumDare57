@@ -82,6 +82,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
 
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN, new AnimData(.1f, Animation.PlayMode.LOOP))
+        , MARIO_FIREBALL(Path.MARIO)
         ;
 
         private final String path;

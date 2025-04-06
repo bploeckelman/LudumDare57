@@ -39,7 +39,8 @@ public class ParticleManager implements Disposable {
         effects.put(ParticleEffect.Type.BLOOD, new BloodEffect(this));
         effects.put(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect(this));
         effects.put(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect(this));
-        effects.put(ParticleEffect.Type.BULLET_EXPLOSION, new BulletExplosionEffect(this));
+        effects.put(ParticleEffect.Type.BULLET_EXPLOSION, new BulletExposionEffect(this));
+        effects.put(ParticleEffect.Type.FIRE, new FireEffect(this));
     }
 
     public void clear() {

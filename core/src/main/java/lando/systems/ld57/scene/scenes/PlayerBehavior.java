@@ -194,6 +194,7 @@ public class PlayerBehavior extends Component {
         var charPos = entity.get(Position.class);
 
         var powerAttackEntity = scene.createEntity();
+        new FireParticle(powerAttackEntity);
         new Position(powerAttackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 13);
         var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
         var mover = new Mover(powerAttackEntity, collider);
@@ -219,9 +220,10 @@ public class PlayerBehavior extends Component {
             })
         );
 
-        var animator = new Animator(powerAttackEntity, Anims.Type.GOOMBA_WALK);
+        var animator = new Animator(powerAttackEntity, Anims.Type.MARIO_FIREBALL);
         animator.size.set(size, size);
         animator.origin.set(size/2f, size/2f);
+        animator.outlineColor.a = 0;
 
         var timer = new Timer(powerAttackEntity, 1, () -> {
             destroyBulletParticle(powerAttackEntity);
