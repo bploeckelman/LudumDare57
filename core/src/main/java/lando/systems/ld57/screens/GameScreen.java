@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.github.tommyettinger.textra.TextraLabel;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -25,13 +28,15 @@ public class GameScreen extends BaseScreen {
 
     private final Color backgroundColor = new Color(0x131711ff);
     private final Stage stage;
+    private TextraLabel posLabel;
 
+    private Vector3 screenPos;
     private Scene<?> scene;
 
     public GameScreen() {
         this.scene = new ScenePlatformer(this);
         this.stage = new Stage();
-
+        this.screenPos = new Vector3();
         initializeUI();
     }
 
@@ -54,9 +59,15 @@ public class GameScreen extends BaseScreen {
             return;
         }
 
+        screenPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        worldCamera.unproject(screenPos);
+
+        posLabel.setText("Mouse: "+ (int)screenPos.x +", " + (int)screenPos.y);
+
         scene.update(dt);
         stage.act(dt);
         particleManager.update(dt);
+
 
         super.update(dt);
     }
@@ -113,6 +124,9 @@ public class GameScreen extends BaseScreen {
             var checkbox = ConfigUI.checkboxes.get(flag);
             configTable.add(checkbox).pad(10f).expandX().top();
         }
+        posLabel = new TextraLabel();
+        posLabel.setText("Mouse:");
+        configTable.add(posLabel).pad(10f).expandX().top();
 
         table.add(configTable);
 
