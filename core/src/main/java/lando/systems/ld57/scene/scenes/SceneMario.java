@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.scenes;
 
 import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Position;
@@ -17,9 +18,11 @@ public class SceneMario extends Scene<GameScreen> {
     private static final String TAG = SceneMario.class.getSimpleName();
 
     private Entity player;
+    public static Musics.Type music = Musics.Type.MARIO;
 
     public SceneMario(GameScreen screen) {
         super(screen);
+        screen.music = music;
 
         // configure the camera to emulate a low res display
         var width = 240;

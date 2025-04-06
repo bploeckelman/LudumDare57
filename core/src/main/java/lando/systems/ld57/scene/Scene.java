@@ -3,6 +3,8 @@ package lando.systems.ld57.scene;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.assets.Musics;
+import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
 import lando.systems.ld57.scene.components.DebugRender;

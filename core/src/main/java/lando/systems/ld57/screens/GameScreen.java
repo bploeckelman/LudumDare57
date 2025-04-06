@@ -15,6 +15,8 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
+import lando.systems.ld57.Main;
+import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.particles.effects.*;
 import lando.systems.ld57.scene.Scene;
@@ -37,6 +39,8 @@ public class GameScreen extends BaseScreen {
     private Vector3 screenPos;
     private Scene<?> scene;
     private VisTextButton switchSceneButton;
+
+    public Musics.Type music;
 
     public GameScreen() {
         this.scene = new SceneIntro(this);
@@ -130,6 +134,14 @@ public class GameScreen extends BaseScreen {
                 else if (scene instanceof SceneMegaman)     scene = new SceneZelda(GameScreen.this);
                 else if (scene instanceof SceneZelda)       scene = new SceneCastlevania(GameScreen.this);
                 else if (scene instanceof SceneCastlevania) scene = new SceneIntro(GameScreen.this);
+
+                if      (scene instanceof SceneIntro)       game.audioManager.playMusic(SceneIntro.music);
+                else if (scene instanceof SceneMario)       game.audioManager.playMusic(SceneMario.music);
+                else if (scene instanceof SceneMegaman)     game.audioManager.playMusic(SceneMegaman.music);
+                else if (scene instanceof SceneZelda)       game.audioManager.playMusic(SceneZelda.music);
+                else if (scene instanceof SceneCastlevania) game.audioManager.playMusic(SceneCastlevania.music);
+
+
             }
         });
         configTable.add(switchSceneButton).pad(10f).expandX().top();

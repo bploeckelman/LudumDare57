@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.scenes;
 
 import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Tilemap;
@@ -13,6 +14,7 @@ import text.formic.Stringf;
 public class SceneIntro extends Scene<GameScreen> {
 
     private static final String TAG = SceneIntro.class.getSimpleName();
+    public static Musics.Type music = Musics.Type.MEGAMAN3;
 
     public SceneIntro(GameScreen screen) {
         super(screen);

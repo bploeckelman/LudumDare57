@@ -2,6 +2,7 @@ package lando.systems.ld57.scene.scenes;
 
 import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.ViewController;
@@ -11,6 +12,7 @@ import lando.systems.ld57.world.EntityFactory;
 public class SceneMegaman extends Scene<GameScreen> {
 
     private static final String TAG = SceneMegaman.class.getSimpleName();
+    public static Musics.Type music = Musics.Type.MEGAMAN2;
 
     public SceneMegaman(GameScreen screen) {
         super(screen);
