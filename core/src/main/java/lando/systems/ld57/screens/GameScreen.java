@@ -13,6 +13,7 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
+import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.world.ScenePlatformer;
 import lando.systems.ld57.world.SceneTest;
@@ -55,6 +56,7 @@ public class GameScreen extends BaseScreen {
 
         scene.update(dt);
         stage.act(dt);
+        particleManager.update(dt);
 
         super.update(dt);
     }
@@ -69,6 +71,7 @@ public class GameScreen extends BaseScreen {
         {
             scene.render(batch);
             scene.render(shapes);
+            particleManager.render(batch, ParticleManager.Layer.FOREGROUND);
         }
         batch.end();
 

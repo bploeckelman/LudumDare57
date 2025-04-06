@@ -5,13 +5,10 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Fonts;
-import lando.systems.ld57.assets.Icons;
-import lando.systems.ld57.assets.Patches;
+import lando.systems.ld57.assets.*;
+import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.*;
-import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.ldgame.HeroBehavior;
 import lando.systems.ld57.screens.BaseScreen;
@@ -154,6 +151,8 @@ public class EntityFactory {
 
         new PlayerInput(entity);
 
+        var particle = new ParticleEmitter(entity, ParticleEffect.Type.DIRT, scene.screen.particleManager);
+
         var mover = new Mover(entity, collider);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.velocity.set(0, 0);
@@ -199,7 +198,7 @@ public class EntityFactory {
 
 
         // behavior 'component' - example of an anonymous component used to implement simple game logic
-        new HeroBehavior(entity, animator, mover);
+        new HeroBehavior(entity, animator, mover, particle);
 
         new DebugRender(entity);
 

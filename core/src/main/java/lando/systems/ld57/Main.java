@@ -20,6 +20,7 @@ import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.ScreenTransitions;
 import lando.systems.ld57.audio.AudioManager;
+import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.screens.TitleScreen;
@@ -43,6 +44,7 @@ public class Main extends ApplicationAdapter {
     public TextureRegion frameBufferRegion;
     public OrthographicCamera windowCamera;
     public AudioManager audioManager;
+    public ParticleManager particleManager;
 
     public BaseScreen currentScreen;
 
@@ -57,6 +59,8 @@ public class Main extends ApplicationAdapter {
         assets = new Assets();
         Transition.init(assets);
         VisUI.load(assets.mgr.get("ui/uiskin.json", Skin.class));
+
+        particleManager = new ParticleManager();
 
         tween = new TweenManager();
         Tween.setWaypointsLimit(4);

@@ -8,7 +8,9 @@ import com.badlogic.gdx.utils.Disposable;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Assets;
+import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.Scene;
+
 
 public abstract class BaseScreen implements Disposable {
 
@@ -17,6 +19,7 @@ public abstract class BaseScreen implements Disposable {
     public final SpriteBatch batch;
     public final TweenManager tween;
     public final OrthographicCamera windowCamera;
+    public final ParticleManager particleManager;
 
     public Scene<? extends BaseScreen> scene;
 
@@ -30,6 +33,7 @@ public abstract class BaseScreen implements Disposable {
         this.batch = game.assets.batch;
         this.tween = game.tween;
         this.windowCamera = game.windowCamera;
+        this.particleManager = game.particleManager;
 
         this.worldCamera = new OrthographicCamera();
         worldCamera.setToOrtho(false, Config.framebuffer_width, Config.framebuffer_height);

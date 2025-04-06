@@ -67,6 +67,7 @@ public class Assets implements Disposable {
         containers.put(ScreenTransitions.class, new ScreenTransitions());
         containers.put(Musics.class, new Musics());
         containers.put(Sounds.class, new Sounds());
+        containers.put(Particles.class, new Particles());
 
         // create a single pixel texture and associated region
         var pixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);

@@ -1,10 +1,15 @@
 package lando.systems.ld57.scene.ldgame;
 
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
+import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.utils.Util;
 
 import java.util.Map;
 
@@ -12,13 +17,16 @@ public class HeroBehavior extends Component {
 
     private final Animator animator;
     private final Mover mover;
+    private final ParticleEmitter particleEmitter;
+    private boolean wasOnGround = true;
 
     private Character character;
 
-    public HeroBehavior(Entity entity, Animator animator, Mover mover) {
+    public HeroBehavior(Entity entity, Animator animator, Mover mover, ParticleEmitter particleEmitter) {
         super(entity);
         this.animator = animator;
         this.mover = mover;
+        this.particleEmitter = particleEmitter;
         this.character = Character.BELMONT;
     }
 
@@ -30,14 +38,21 @@ public class HeroBehavior extends Component {
             animator.facing = -1;
         }
         if (mover.onGround()) {
+            if (!wasOnGround) {
+                entity.scene.screen.game.audioManager.playSound(Sounds.Type.BOARD_CLICK);
+            }
+            wasOnGround = true;
             if (Math.abs(mover.velocity.x) > 20) {
                 var anim = charAnimMap.get(character).get(AnimType.WALK);
                 animator.play(anim);
+                particleEmitter.spawnParticle(entity.get(Position.class).x(), entity.get(Position.class).y());
+                Util.log("Spawned particle at " + entity.get(Position.class).x() + ", " + entity.get(Position.class).y());
             } else {
                 var anim = charAnimMap.get(character).get(AnimType.IDLE);
                 animator.play(anim);
             }
         } else {
+            wasOnGround = false;
             if (mover.velocity.y > 0) {
                 var anim = charAnimMap.get(character).get(AnimType.JUMP);
                 animator.play(anim);
