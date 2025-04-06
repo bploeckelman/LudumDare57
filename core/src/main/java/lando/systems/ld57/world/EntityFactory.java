@@ -25,12 +25,12 @@ public class EntityFactory {
 
         var scale = .5f;
         var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);
-        animator.origin.set(scale * -WIDTH, 0);
-        animator.size.scl(-scale, scale);
+        animator.origin.set(scale * WIDTH, 0);
+        animator.size.scl(scale); // X inverted to flip
 
         var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
         var mover = new Mover(entity, collider);
-        mover.velocity.setToRandomDirection().scl(10f);
+        mover.velocity.setToRandomDirection().scl(30f);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.addCollidesWith(Collider.Mask.player);
 
