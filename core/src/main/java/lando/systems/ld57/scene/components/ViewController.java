@@ -73,9 +73,11 @@ public class ViewController extends Component {
             camera.update();
         }
 
+        // TODO(brian): need a way to override this for manual zooming,
+        //  or other situations where we don't just want to zoom out
+        //  to fit the full boundary width
         // zoom to fit the boundary width
-        // TODO(brian): need a way to override this for manual zooming
-        camera.zoom = boundary.bounds.width / camera.viewportWidth;
+        //camera.zoom = boundary.bounds.width / camera.viewportWidth;
 
         // get half dimensions of the camera viewport, adjusted for the zoom factor
         var camHalfWidth  = viewer.width() / 2f;

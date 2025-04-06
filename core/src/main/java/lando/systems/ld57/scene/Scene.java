@@ -68,7 +68,7 @@ public class Scene<ScreenType extends BaseScreen> {
             });
     }
 
-    protected void spawnPlayer(Characters.Type charType, float x, float y) {
+    protected Entity spawnPlayer(Characters.Type charType, float x, float y) {
         var entity = createEntity();
 
         new Position(entity, x, y);
@@ -88,5 +88,7 @@ public class Scene<ScreenType extends BaseScreen> {
         mover.friction = .001f;
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
     }
 }
