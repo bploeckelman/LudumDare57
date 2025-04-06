@@ -20,6 +20,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String HERO = "character/hero/";
         private static final String BELMONT = "character/belmont/";
         private static final String LINK = "character/link/";
+        private static final String MARIO = "character/mario/";
         private static final String MEGAMAN = "character/megaman/";
     }
 
@@ -33,7 +34,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , HERO_IDLE(Path.HERO)
         , HERO_JUMP(Path.HERO)
         , HERO_RUN(Path.HERO)
-        // belmont animations ---------------------------------------
+        // ----------------------------------------------------------
         , BELMONT_IDLE(Path.BELMONT)
         , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))
         , BELMONT_JUMP(Path.BELMONT)
@@ -47,6 +48,13 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_FALL(Path.LINK)
         , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , LINK_ATTACK(Path.LINK)
+        // ----------------------------------------------------------
+        , MARIO_IDLE(Path.MARIO)
+        , MARIO_WALK(Path.MARIO)
+        , MARIO_JUMP(Path.MARIO, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , MARIO_FALL(Path.MARIO)
+        , MARIO_HURT(Path.MARIO, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , MARIO_ATTACK(Path.MARIO)
         // ----------------------------------------------------------
         , MEGAMAN_IDLE(Path.MEGAMAN, new AnimData(0.25f, Animation.PlayMode.LOOP_RANDOM))
         , MEGAMAN_WALK(Path.MEGAMAN)

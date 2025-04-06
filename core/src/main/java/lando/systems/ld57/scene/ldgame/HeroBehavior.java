@@ -50,13 +50,10 @@ public class HeroBehavior extends Component {
     }
 
     public void nextCharacter() {
-        if (character == Character.BELMONT) {
-            character = Character.LINK;
-        } else if (character == Character.LINK) {
-            character = Character.MEGAMAN;
-        } else {
-            character = Character.BELMONT;
-        }
+        if      (character == Character.BELMONT) character = Character.LINK;
+        else if (character == Character.LINK)    character = Character.MARIO;
+        else if (character == Character.MARIO)   character = Character.MEGAMAN;
+        else                                     character = Character.BELMONT;
     }
 
     // ------------------------------------------------------------------------
@@ -64,9 +61,9 @@ public class HeroBehavior extends Component {
     // ------------------------------------------------------------------------
 
     // NOTE: hero anim was for testing and doesn't match the sizes of the others, skipping it
-    private enum Character { /*HERO,*/ BELMONT, LINK, MEGAMAN }
+    private enum Character { /*HERO,*/ BELMONT, LINK, MARIO, MEGAMAN }
 
-    private enum AnimType { IDLE, WALK, JUMP, FALL, ATTACK, HURT }
+    private enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK }
 
     private final Map<Character, Map<AnimType, Anims.Type>> charAnimMap = Map.of(
 //          Character.HERO, Map.of(
@@ -77,25 +74,32 @@ public class HeroBehavior extends Component {
 //            , AnimType.HURT, Anims.Type.HERO_FALL // TODO: missing
 //            , AnimType.ATTACK, Anims.Type.HERO_ATTACK)
           Character.BELMONT, Map.of(
-              AnimType.IDLE, Anims.Type.BELMONT_IDLE
-            , AnimType.WALK, Anims.Type.BELMONT_WALK
-            , AnimType.JUMP, Anims.Type.BELMONT_JUMP
+              AnimType.ATTACK, Anims.Type.BELMONT_ATTACK
             , AnimType.FALL, Anims.Type.BELMONT_FALL
             , AnimType.HURT, Anims.Type.BELMONT_HURT
-            , AnimType.ATTACK, Anims.Type.BELMONT_ATTACK) // TODO: missing
+            , AnimType.IDLE, Anims.Type.BELMONT_IDLE
+            , AnimType.JUMP, Anims.Type.BELMONT_JUMP
+            , AnimType.WALK, Anims.Type.BELMONT_WALK) // TODO: missing
         , Character.LINK, Map.of(
-              AnimType.IDLE, Anims.Type.LINK_IDLE
-            , AnimType.WALK, Anims.Type.LINK_WALK
-            , AnimType.JUMP, Anims.Type.LINK_JUMP
+              AnimType.ATTACK, Anims.Type.LINK_ATTACK
             , AnimType.FALL, Anims.Type.LINK_FALL
             , AnimType.HURT, Anims.Type.LINK_HURT
-            , AnimType.ATTACK, Anims.Type.LINK_ATTACK)
+            , AnimType.IDLE, Anims.Type.LINK_IDLE
+            , AnimType.JUMP, Anims.Type.LINK_JUMP
+            , AnimType.WALK, Anims.Type.LINK_WALK)
+        , Character.MARIO, Map.of(
+              AnimType.ATTACK, Anims.Type.MARIO_ATTACK
+            , AnimType.FALL, Anims.Type.MARIO_FALL
+            , AnimType.HURT, Anims.Type.MARIO_FALL // TODO: missing
+            , AnimType.IDLE, Anims.Type.MARIO_IDLE
+            , AnimType.JUMP, Anims.Type.MARIO_JUMP
+            , AnimType.WALK, Anims.Type.MARIO_WALK)
         , Character.MEGAMAN, Map.of(
-              AnimType.IDLE, Anims.Type.MEGAMAN_IDLE
-            , AnimType.WALK, Anims.Type.MEGAMAN_WALK
-            , AnimType.JUMP, Anims.Type.MEGAMAN_JUMP
+              AnimType.ATTACK, Anims.Type.MEGAMAN_ATTACK
             , AnimType.FALL, Anims.Type.MEGAMAN_FALL
             , AnimType.HURT, Anims.Type.MEGAMAN_HURT
-            , AnimType.ATTACK, Anims.Type.MEGAMAN_ATTACK)
+            , AnimType.IDLE, Anims.Type.MEGAMAN_IDLE
+            , AnimType.JUMP, Anims.Type.MEGAMAN_JUMP
+            , AnimType.WALK, Anims.Type.MEGAMAN_WALK)
     );
 }
