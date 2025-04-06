@@ -3,7 +3,6 @@ package lando.systems.ld57.particles;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
 import lando.systems.ld57.particles.effects.*;
-import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class ParticleManager implements Disposable {
         effects.put(ParticleEffect.Type.BLOOD, new BloodEffect(this));
         effects.put(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect(this));
         effects.put(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect(this));
-        effects.put(ParticleEffect.Type.BULLET_EXPLOSION, new BulletExposionEffect(this));
+        effects.put(ParticleEffect.Type.BULLET_EXPLOSION, new BulletExplosionEffect(this));
     }
 
     public void clear() {

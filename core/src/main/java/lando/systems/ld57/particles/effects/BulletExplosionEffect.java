@@ -1,16 +1,14 @@
 package lando.systems.ld57.particles.effects;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import lando.systems.ld57.assets.Particles;
 import lando.systems.ld57.particles.Particle;
 import lando.systems.ld57.particles.ParticleManager;
 
 
-public class BulletExposionEffect extends ParticleEffect {
+public class BulletExplosionEffect extends ParticleEffect {
 
-    public BulletExposionEffect(ParticleManager particleManager) {
+    public BulletExplosionEffect(ParticleManager particleManager) {
         super(particleManager);
     }
 

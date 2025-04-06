@@ -4,7 +4,7 @@ import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.math.Calc;
-import lando.systems.ld57.particles.effects.BulletExposionEffect;
+import lando.systems.ld57.particles.effects.BulletExplosionEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
@@ -275,7 +275,7 @@ public class PlayerBehavior extends Component {
         var bulletPos = bulletEntity.get(Position.class);
         particleEmitter.spawnParticle(
             ParticleEffect.Type.BULLET_EXPLOSION,
-            new BulletExposionEffect.Params(bulletPos.x(), bulletPos.y(), bulletEntity.get(Animator.class).keyframe)
+            new BulletExplosionEffect.Params(bulletPos.x(), bulletPos.y(), bulletEntity.get(Animator.class).keyframe)
         );
     }
 }
