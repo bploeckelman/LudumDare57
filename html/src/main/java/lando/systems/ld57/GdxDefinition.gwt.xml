@@ -44,6 +44,7 @@
   <extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.maps.MapLayer" />
   <extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.maps.tiled.TiledMapImageLayer" />
   <extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.maps.tiled.TiledMapTileLayer" />
+  <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld57.particles.Particle" />
 
     <!-- Rarely, projects may need to include files but do not have access to the complete assets. -->
   <!-- This happens for libraries and shared projects, typically, and the configuration goes in that project. -->
