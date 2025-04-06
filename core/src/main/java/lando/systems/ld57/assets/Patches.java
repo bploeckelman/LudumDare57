@@ -1,6 +1,8 @@
 package lando.systems.ld57.assets;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import lando.systems.ld57.assets.framework.AssetContainer;
 import lando.systems.ld57.assets.framework.AssetEnum;
 import lando.systems.ld57.utils.Util;
@@ -40,6 +42,10 @@ public class Patches extends AssetContainer<Patches.Type, NinePatch> {
         @Override
         public NinePatch get() {
             return container.get(this);
+        }
+
+        public NinePatchDrawable getDrawable() {
+            return new NinePatchDrawable(container.get(this));
         }
     }
 

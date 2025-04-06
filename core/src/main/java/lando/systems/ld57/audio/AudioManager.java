@@ -11,7 +11,7 @@ public class AudioManager {
     private static final float DEFAULT_VOLUME = 0.5f;
 
     private Musics.Type currentMusicType;
-    private Music currentMusic = null;
+    public Music currentMusic = null;
 
     public MutableFloat musicVolume;
     public MutableFloat soundVolume;
@@ -26,6 +26,13 @@ public class AudioManager {
         var volume = Config.Flag.MUTE.isEnabled() ? 0f : musicVolume.floatValue();
         currentMusic.setVolume(volume);
         currentMusic.play();
+    }
+
+    public void setMusicVolume(float level) {
+        musicVolume.setValue(level);
+    }
+    public void setSoundVolume(float level) {
+        soundVolume.setValue(level);
     }
 
     public void playMusic(Musics.Type musicType) {
