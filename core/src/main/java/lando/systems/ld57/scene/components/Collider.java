@@ -38,6 +38,10 @@ public class Collider extends Component {
     // Factory methods and private constructors
     // ------------------------------------------------------------------------
 
+    public static Collider makeRect(Entity entity, Mask mask, Rectangle rect) {
+        return makeRect(entity, mask, rect.x, rect.y, rect.width, rect.height);
+    }
+
     public static Collider makeRect(Entity entity, Mask mask, float x, float y, float w, float h) {
         if (w <= 0 || h <= 0) {
             Util.log(TAG, "WARN: collider created with degenerate shape size");

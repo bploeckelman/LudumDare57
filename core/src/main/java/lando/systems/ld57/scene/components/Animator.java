@@ -40,10 +40,8 @@ public class Animator extends RenderableComponent {
         fillColor = new Color(Color.RED);
     }
 
-    @SuppressWarnings("unchecked")
     public float play(Anims.Type type) {
-        var anim = (Animation<TextureRegion>) Anims.container.get(type);
-        return play(anim);
+        return play(type.get());
     }
 
     public float play(Animation<TextureRegion> anim) {

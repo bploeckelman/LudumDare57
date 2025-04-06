@@ -7,16 +7,18 @@ import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 
 public class ParticleEmitter extends Component {
-    public final ParticleEffect.Type particleType;
-    public final ParticleManager particleManager;
 
-    public ParticleEmitter(Entity entity, ParticleEffect.Type particleType, ParticleManager particleManager) {
+    private final ParticleEffect.Type particleType;
+    private final ParticleManager particleManager;
+
+    public ParticleEmitter(Entity entity, ParticleEffect.Type particleType) {
         super(entity);
         this.particleType = particleType;
-        this.particleManager = particleManager;
+        this.particleManager = entity.scene.screen.particleManager;
     }
 
     public void spawnParticle(float x, float y) {
-        particleManager.spawn(ParticleEffect.Type.DIRT, new DirtEffect.Params(x, y));
+        // TODO(brian): params needs to be passed into constructor along with type
+        particleManager.spawn(particleType, new DirtEffect.Params(x, y));
     }
 }

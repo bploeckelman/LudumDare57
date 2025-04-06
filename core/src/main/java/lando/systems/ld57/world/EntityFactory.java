@@ -216,7 +216,7 @@ public class EntityFactory {
 
         new PlayerInput(entity);
 
-        var particle = new ParticleEmitter(entity, ParticleEffect.Type.DIRT, scene.screen.particleManager);
+        var particle = new ParticleEmitter(entity, ParticleEffect.Type.DIRT);
 
         var mover = new Mover(entity, collider);
         mover.gravity = Mover.BASE_GRAVITY;

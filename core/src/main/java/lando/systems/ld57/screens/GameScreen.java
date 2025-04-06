@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +17,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.Scene;
+import lando.systems.ld57.scene.scenes.SceneIntro;
 import lando.systems.ld57.world.ScenePlatformer;
 import lando.systems.ld57.world.SceneTest;
 
@@ -34,7 +34,7 @@ public class GameScreen extends BaseScreen {
     private Scene<?> scene;
 
     public GameScreen() {
-        this.scene = new ScenePlatformer(this);
+        this.scene = new SceneIntro(this);
         this.stage = new Stage();
         this.screenPos = new Vector3();
         initializeUI();
@@ -113,9 +113,9 @@ public class GameScreen extends BaseScreen {
         configTable.add(new VisTextButton("Switch Scene", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                scene = (scene instanceof ScenePlatformer)
-                    ? new SceneTest(GameScreen.this)
-                    : new ScenePlatformer(GameScreen.this);
+                if      (scene instanceof SceneIntro)      scene = new ScenePlatformer(GameScreen.this);
+                else if (scene instanceof ScenePlatformer) scene = new SceneTest(GameScreen.this);
+                else if (scene instanceof SceneTest)       scene = new SceneIntro(GameScreen.this);
             }
         })).pad(10f).expandX().top();
 
@@ -124,6 +124,7 @@ public class GameScreen extends BaseScreen {
             var checkbox = ConfigUI.checkboxes.get(flag);
             configTable.add(checkbox).pad(10f).expandX().top();
         }
+
         posLabel = new TextraLabel();
         posLabel.setText("Mouse:");
         configTable.add(posLabel).pad(10f).expandX().top();
