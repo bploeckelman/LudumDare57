@@ -23,7 +23,7 @@ public class ScenePlatformer extends Scene<GameScreen> {
         camera.setToOrtho(false, width, height);
         camera.update();
 
-        var map = EntityFactory.map(this, "maps/start.tmx", "middle");
+        var map = EntityFactory.map(this, "maps/test/start.tmx", "middle");
         var boundary = map.get(Boundary.class);
         var tilemap = map.get(Tilemap.class);
 

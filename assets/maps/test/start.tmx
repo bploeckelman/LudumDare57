@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="4">
- <tileset firstgid="1" source="tilesets/warp-room.tsx"/>
- <tileset firstgid="257" source="tilesets/boss-room.tsx"/>
- <tileset firstgid="513" source="tilesets/dungeon.tsx"/>
+ <tileset firstgid="1" source="../tilesets/warp-room.tsx"/>
+ <tileset firstgid="257" source="../tilesets/boss-room.tsx"/>
+ <tileset firstgid="513" source="../tilesets/dungeon.tsx"/>
  <imagelayer id="4" name="background">
-  <image source="backgrounds/bg_00_warp_room.png" width="256" height="256"/>
+  <image source="../backgrounds/bg_00_warp_room.png" width="256" height="256"/>
  </imagelayer>
  <layer id="3" name="back" width="15" height="10">
   <data encoding="csv">
@@ -35,7 +35,7 @@
 </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="3" template="templates/object-spawn.tx" name="spawn" x="120" y="120"/>
+  <object id="3" template="../templates/object-spawn.tx" name="spawn" x="120" y="120"/>
  </objectgroup>
  <layer id="1" name="front" width="15" height="10">
   <data encoding="csv">
