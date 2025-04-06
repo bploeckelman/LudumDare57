@@ -1,8 +1,11 @@
 package lando.systems.ld57.scene.components;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.scene.framework.Entity;
@@ -58,12 +61,21 @@ public class Animator extends RenderableComponent {
         scale.set(facing * sx, sy);
     }
 
+    Color testColor = new Color(Color.WHITE);
     @Override
     public void render(SpriteBatch batch) {
         if (keyframe == null) return;
 
+        ShaderProgram shader = Main.game.assets.outlineShader;
+        batch.setShader(shader);
+        shader.setUniformf("u_time", stateTime);
+        shader.setUniformf("u_color1", Util.hsvToRgb(stateTime, 1f, 1f, testColor ));
+        shader.setUniformf("u_thickness", 8);
+
         var rect = obtainPooledRectBounds();
         Util.draw(batch, keyframe, rect, tint);
         Util.free(rect);
+
+        batch.setShader(null);
     }
 }

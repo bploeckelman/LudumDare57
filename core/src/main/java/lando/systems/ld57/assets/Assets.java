@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.framework.AssetContainer;
+import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.utils.controllers.mapping.ControllerMappings;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -45,6 +47,7 @@ public class Assets implements Disposable {
     public I18NBundle strings;
 
     public final Texture pixel;
+    public ShaderProgram outlineShader;
 
     public TextureRegion pixelRegion;
 
@@ -134,6 +137,7 @@ public class Assets implements Disposable {
             return mgr.getProgress();
         }
 
+        outlineShader = Util.loadShader("shaders/default.vert", "shaders/outline.frag");
         atlas = mgr.get("sprites/sprites.atlas");
         strings = mgr.get("i18n/strings");
 
