@@ -27,8 +27,6 @@ import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
-
-
     public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
         new Position(entity, x,y);
@@ -38,7 +36,7 @@ public class EntityFactory {
         animator.origin.set(scale, 0);
         animator.size.scl(scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.npc, -0.5f * scale, 0, 32, 32);
+        var collider = Collider.makeRect(entity, Collider.Mask.npc, -0.5f * scale, 0, 14, 14);
 
         var mover = new Mover(entity, collider);
         mover.velocity.setToRandomDirection().scl(MathUtils.random(50, 150));
@@ -46,7 +44,15 @@ public class EntityFactory {
         mover.addCollidesWith(Collider.Mask.player);
 
         mover.setOnHit((params) -> {
-            if (params.hitCollider.mask != Collider.Mask.solid) {
+            if (params.hitCollider.mask == Collider.Mask.solid) {
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+            else if (params.hitCollider.mask == Collider.Mask.player) {
                 animator.play(Anims.Type.GOOMBA_DEATH);
 
                 var hitDuration = 0.5f;
@@ -72,7 +78,6 @@ public class EntityFactory {
         });
 
 
-        new DebugRender(entity);
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return entity;
