@@ -15,6 +15,7 @@ public class MyControllerMapping extends ControllerMappings {
     public static final int D_PAD_AXIS = 4;
     public static final int BUTTON_START = 5;
     public static final int BUTTON_CANCEL = 6;
+    public static final int BUTTON_POWER_ATTACK = 7;
 
     public MyControllerMapping() {
         super();
@@ -26,6 +27,7 @@ public class MyControllerMapping extends ControllerMappings {
         addConfiguredInput(new ConfiguredInput(ConfiguredInput.Type.axis, AXIS_VERTICAL));
         addConfiguredInput(new ConfiguredInput(ConfiguredInput.Type.axis, AXIS_HORIZONTAL));
         addConfiguredInput(new ConfiguredInput(ConfiguredInput.Type.axis, D_PAD_AXIS));
+        addConfiguredInput(new ConfiguredInput(ConfiguredInput.Type.button, BUTTON_POWER_ATTACK));
 
 
         commitConfig();
@@ -42,6 +44,7 @@ public class MyControllerMapping extends ControllerMappings {
         defaultMapping.putMapping(new MappedInput(BUTTON_FIRE, new ControllerButton(web ? 1 : 0)));
         defaultMapping.putMapping(new MappedInput(BUTTON_START, new ControllerButton(web ? 9 : 6)));
         defaultMapping.putMapping(new MappedInput(BUTTON_CANCEL, new ControllerButton(web ? 8 : 4)));
+        defaultMapping.putMapping(new MappedInput(BUTTON_POWER_ATTACK, new ControllerButton(web ? 2: 2)));
 
         return true;
 

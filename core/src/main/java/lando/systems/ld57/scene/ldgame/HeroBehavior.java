@@ -1,10 +1,9 @@
 package lando.systems.ld57.scene.ldgame;
 
-import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.PlayerInput;
 import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.framework.Component;
@@ -15,10 +14,20 @@ import java.util.Map;
 
 public class HeroBehavior extends Component {
 
+    public static float COYOTE_TIME = 0.2f;
+    public static float MAX_SPEED = 100f;
+    public static float MAX_SPEED_AIR = 80f;
+    public static float JUMP_SPEED = 300f;
+    public static float MOVE_SPEED = 800f;
+
     private final Animator animator;
     private final Mover mover;
     private final ParticleEmitter particleEmitter;
     private boolean wasOnGround = true;
+    private float jumpCoolDown;
+    private boolean wasGrounded;
+    private boolean isGrounded;
+    private float lastOnGround;
 
     private Character character;
 
@@ -32,6 +41,48 @@ public class HeroBehavior extends Component {
 
     @Override
     public void update(float dt) {
+        jumpCoolDown = Math.max(0, jumpCoolDown - dt);
+
+        var playerInput = entity.get(PlayerInput.class);
+        // Handle input
+        if (playerInput != null) {
+            mover.velocity.x += playerInput.getWalkAmount() * MOVE_SPEED * dt;
+
+            wasGrounded = isGrounded;
+            isGrounded = mover.onGround();
+            lastOnGround += dt;
+            if (isGrounded) {
+                lastOnGround = 0;
+            }
+
+            if (playerInput.actionJustPressed(PlayerInput.Action.JUMP)
+                    && lastOnGround < COYOTE_TIME
+                    && jumpCoolDown <= 0) {
+                mover.velocity.y = JUMP_SPEED;
+                jumpCoolDown = .2f;
+            }
+
+            if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
+                nextCharacter();
+            }
+
+            if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
+                prevCharacter();
+            }
+
+
+            // Cap Velocity
+            var maxSpeed = MAX_SPEED;
+            if (isGrounded){
+                maxSpeed = MAX_SPEED;
+            } else {
+                maxSpeed = MAX_SPEED_AIR;
+            }
+            if (Math.abs(mover.velocity.x) > maxSpeed) {
+                mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
+            }
+        }
+
         if (mover.velocity.x > 0) {
             animator.facing = 1;
         } else if (mover.velocity.x < 0) {
@@ -67,6 +118,13 @@ public class HeroBehavior extends Component {
         if      (character == Character.BELMONT) character = Character.LINK;
         else if (character == Character.LINK)    character = Character.MARIO;
         else if (character == Character.MARIO)   character = Character.MEGAMAN;
+        else                                     character = Character.BELMONT;
+    }
+
+    public void prevCharacter() {
+        if (character == Character.BELMONT)      character = Character.MEGAMAN;
+        else if (character == Character.MEGAMAN) character = Character.MARIO;
+        else if (character == Character.MARIO)   character = Character.LINK;
         else                                     character = Character.BELMONT;
     }
 

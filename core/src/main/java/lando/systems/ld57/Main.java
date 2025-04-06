@@ -2,7 +2,9 @@ package lando.systems.ld57;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -92,6 +94,7 @@ public class Main extends ApplicationAdapter {
 
         var startingScreen = Config.Flag.START_ON_GAMESCREEN.isEnabled() ? new GameScreen() : new TitleScreen();
         setScreen(startingScreen);
+//        Gdx.app.setLogLevel(Application.LOG_DEBUG);
     }
 
     public void update(float delta) {
