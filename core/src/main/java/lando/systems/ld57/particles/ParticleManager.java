@@ -28,7 +28,15 @@ public class ParticleManager implements Disposable {
     }
 
     private void initEffects() {
-        effects.put(ParticleEffect.Type.DIRT, new DirtEffect(this));
+        for (var effectType : ParticleEffect.Type.values()) {
+            try {
+                ParticleEffect effect = (ParticleEffect) effectType.particleEffect.getConstructor(ParticleManager.class).newInstance(this);
+                effects.put(effectType, effect);
+            } catch(Exception e) {
+                Util.log("Error initiating effects");
+            }
+        }
+        //effects.put(ParticleEffect.Type.DIRT, new DirtEffect(this));
     }
 
     public void clear() {

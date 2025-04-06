@@ -216,7 +216,8 @@ public class EntityFactory {
 
         new PlayerInput(entity);
 
-        var particle = new ParticleEmitter(entity, ParticleEffect.Type.DIRT);
+        new ParticleEmitter(entity);
+
 
         var mover = new Mover(entity, collider);
         mover.gravity = Mover.BASE_GRAVITY;
@@ -261,7 +262,7 @@ public class EntityFactory {
 //        });
 
         // behavior 'component' - example of an anonymous component used to implement simple game logic
-        new HeroBehavior(entity, animator, mover, particle);
+        new HeroBehavior(entity, animator, mover);
 
         // quick test of using fonts from their asset container
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);

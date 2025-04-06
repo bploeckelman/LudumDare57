@@ -76,7 +76,7 @@ public class SceneIntro extends Scene<GameScreen> {
         new Position(entity, x, y);
         new PlayerInput(entity);
         new PlayerBehavior(entity, charType);
-        new ParticleEmitter(entity, ParticleEffect.Type.DIRT);
+        new ParticleEmitter(entity);
 
         var animType = charType.get().animByType.get(Characters.AnimType.IDLE);
         var animator = new Animator(entity, animType);

@@ -2,6 +2,8 @@ package lando.systems.ld57.scene.scenes;
 
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.particles.effects.DirtEffect;
+import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
@@ -87,7 +89,7 @@ public class PlayerBehavior extends Component {
             if (Math.abs(mover.velocity.x) > 20) {
                 animType = Characters.AnimType.WALK;
                 var pos = entity.get(Position.class);
-                particleEmitter.spawnParticle(pos.x(), pos.y());
+                particleEmitter.spawnParticle(ParticleEffect.Type.DIRT, new DirtEffect.Params(pos.x(), pos.y()));
             }
             animator.play(charData.animByType.get(animType));
         } else {

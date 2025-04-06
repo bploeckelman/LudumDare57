@@ -7,9 +7,9 @@ import lando.systems.ld57.particles.Particle;
 import lando.systems.ld57.particles.ParticleManager;
 
 
-public class DirtEffect extends ParticleEffect {
+public class SparkEffect extends ParticleEffect {
 
-    public DirtEffect(ParticleManager particleManager) {
+    public SparkEffect(ParticleManager particleManager) {
         super(particleManager);
     }
 
@@ -29,22 +29,29 @@ public class DirtEffect extends ParticleEffect {
         var layer = particleManager.activeParticlesByLayer.get(ParticleManager.Layer.FOREGROUND);
         var pool = particleManager.particlePool;
 
-        var amount = 1;
-        var keyframe = Particles.Type.DIRT.get().getKeyFrame(MathUtils.random(1f));
+        var amount = 50;
 
         for (int i = 0; i < amount; i++) {
-            var angle = MathUtils.random(30f, 140f);
-            var speed = MathUtils.random(10f, 20f);
-            var startSize = MathUtils.random(1f, 5f);
+            var keyframe = Particles.Type.SPARK.get().getKeyFrame(MathUtils.random(1f));
+            var angle = MathUtils.random(0f, 360f);
+            var speed = MathUtils.random(50f, 100f);
+            var endRotation = MathUtils.random(angle - 360f, angle + 360f);
+            var startSize = MathUtils.random(5f, 10f);
             var ttl = MathUtils.random(.25f, .5f);
+
             layer.add(Particle.initializer(pool.obtain())
                 .keyframe(keyframe)
                 .startPos(params.startX, params.startY)
-                .velocity(MathUtils.cosDeg(angle) * speed, MathUtils.sinDeg(angle) * speed)
-                .startColor(Color.BROWN)
-                .endColor(Color.CLEAR)
+                .startRotation(angle)
+                .endRotation(endRotation)
+                .velocity(
+                    MathUtils.cosDeg(angle) * speed, // X velocity
+                    MathUtils.sinDeg(angle) * speed  // Y velocity
+                )
+                .startColor(Color.YELLOW)
                 .startSize(startSize)
                 .endSize(startSize * 2f)
+                .endAlpha(.25f)
                 .timeToLive(ttl)
                 .init()
             );

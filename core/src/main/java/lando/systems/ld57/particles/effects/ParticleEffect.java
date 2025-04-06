@@ -9,7 +9,14 @@ public abstract class ParticleEffect {
     }
     public abstract void spawn(ParticleEffectParams params);
 
-    public static enum Type {
-        DIRT,
+    public enum Type {
+        DIRT(DirtEffect.class),
+        SPARK(SparkEffect.class),
+        ;
+
+        public Class particleEffect;
+        Type(Class particleEffect) {
+            this.particleEffect = particleEffect;
+        }
     }
 }

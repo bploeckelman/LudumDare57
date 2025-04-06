@@ -2,6 +2,9 @@ package lando.systems.ld57.scene.ldgame;
 
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.particles.effects.DirtEffect;
+import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.SparkEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
@@ -20,7 +23,6 @@ public class HeroBehavior extends Component {
 
     private final Animator animator;
     private final Mover mover;
-    private final ParticleEmitter particleEmitter;
     private boolean wasOnGround = true;
     private float jumpCoolDown;
     private boolean wasGrounded;
@@ -29,11 +31,10 @@ public class HeroBehavior extends Component {
 
     private Characters.Type character;
 
-    public HeroBehavior(Entity entity, Animator animator, Mover mover, ParticleEmitter particleEmitter) {
+    public HeroBehavior(Entity entity, Animator animator, Mover mover) {
         super(entity);
         this.animator = animator;
         this.mover = mover;
-        this.particleEmitter = particleEmitter;
         this.character = Characters.Type.OLDMAN;
     }
 
@@ -58,13 +59,16 @@ public class HeroBehavior extends Component {
                 mover.velocity.y = JUMP_SPEED;
                 jumpCoolDown = .2f;
             }
+            var pos = entity.get(Position.class);
 
             if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
                 nextCharacter();
+                entity.get(ParticleEmitter.class).spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y()));
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
                 prevCharacter();
+                entity.get(ParticleEmitter.class).spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y()));
             }
 
 
@@ -97,7 +101,8 @@ public class HeroBehavior extends Component {
             if (Math.abs(mover.velocity.x) > 20) {
                 animType = Characters.AnimType.WALK;
                 var pos = entity.get(Position.class);
-                particleEmitter.spawnParticle(pos.x(), pos.y());
+                var particleEmitter = entity.get(ParticleEmitter.class);
+                particleEmitter.spawnParticle(ParticleEffect.Type.DIRT, new DirtEffect.Params(pos.x(), pos.y()));
             }
             animator.play(charData.animByType.get(animType));
         } else {
