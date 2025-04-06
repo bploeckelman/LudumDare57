@@ -35,6 +35,9 @@ public class Particles extends AssetContainer<Particles.Type, Animation> {
         TRACE(0.1f, "kenney/trace", Animation.PlayMode.LOOP),
         TWIRL(0.1f, "kenney/twirl", Animation.PlayMode.LOOP),
         WINDOW(0.1f, "kenney/window", Animation.PlayMode.LOOP),
+        SHAPE(0.1f, "kenney-puzzle/shape", Animation.PlayMode.LOOP),
+        SPLAT(0.1f, "splats/splat", Animation.PlayMode.LOOP),
+        BLOOD(0.1f, "blood/particle-blood", Animation.PlayMode.LOOP)
         ;
         public final float frameDuration;
         public final String regionsName;

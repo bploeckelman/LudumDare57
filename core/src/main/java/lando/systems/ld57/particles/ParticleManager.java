@@ -2,10 +2,7 @@ package lando.systems.ld57.particles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.*;
-import lando.systems.ld57.particles.effects.DirtEffect;
-import lando.systems.ld57.particles.effects.ParticleEffect;
-import lando.systems.ld57.particles.effects.ParticleEffectParams;
-import lando.systems.ld57.particles.effects.SparkEffect;
+import lando.systems.ld57.particles.effects.*;
 import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
@@ -39,6 +36,10 @@ public class ParticleManager implements Disposable {
 //        }
         effects.put(ParticleEffect.Type.DIRT, new DirtEffect(this));
         effects.put(ParticleEffect.Type.SPARK, new SparkEffect(this));
+        effects.put(ParticleEffect.Type.SHAPE, new ShapeEffect(this));
+        effects.put(ParticleEffect.Type.BLOOD, new BloodEffect(this));
+        effects.put(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect(this));
+        effects.put(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect(this));
     }
 
     public void clear() {

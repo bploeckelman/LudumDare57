@@ -7,9 +7,9 @@ import lando.systems.ld57.particles.Particle;
 import lando.systems.ld57.particles.ParticleManager;
 
 
-public class SparkEffect extends ParticleEffect {
+public class ShapeEffect extends ParticleEffect {
 
-    public SparkEffect(ParticleManager particleManager) {
+    public ShapeEffect(ParticleManager particleManager) {
         super(particleManager);
     }
 
@@ -31,15 +31,15 @@ public class SparkEffect extends ParticleEffect {
         var layer = particleManager.activeParticlesByLayer.get(ParticleManager.Layer.FOREGROUND);
         var pool = particleManager.particlePool;
 
-        var amount = 100;
+        var amount = 10;
 
         for (int i = 0; i < amount; i++) {
-            var keyframe = Particles.Type.SPARK.get().getKeyFrame(MathUtils.random(1f));
+            var keyframe = Particles.Type.SHAPE.get().getKeyFrame(MathUtils.random(1f));
             var angle = MathUtils.random(0f, 360f);
-            var speed = MathUtils.random(50f, 100f);
+            var speed = MathUtils.random(10f, 20f);
             var endRotation = MathUtils.random(angle - 360f, angle + 360f);
-            var startSize = MathUtils.random(10f, 20f);
-            var ttl = MathUtils.random(.25f, .5f);
+            var startSize = MathUtils.random(3f, 5f);
+            var ttl = .5f;
 
             layer.add(Particle.initializer(pool.obtain())
                 .keyframe(keyframe)
@@ -52,7 +52,7 @@ public class SparkEffect extends ParticleEffect {
                 )
                 .startColor(params.startColor)
                 .startSize(startSize)
-                .endSize(0f, startSize * 2f)
+                .endSize(0f, 0f)
                 .timeToLive(ttl)
                 .init()
             );

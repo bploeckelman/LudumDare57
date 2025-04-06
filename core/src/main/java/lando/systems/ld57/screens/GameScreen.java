@@ -16,14 +16,14 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.particles.ParticleManager;
+import lando.systems.ld57.particles.effects.*;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.scenes.SceneCastlevania;
 import lando.systems.ld57.scene.scenes.SceneIntro;
 import lando.systems.ld57.scene.scenes.SceneMario;
 import lando.systems.ld57.scene.scenes.SceneMegaman;
 import lando.systems.ld57.scene.scenes.SceneZelda;
-import lando.systems.ld57.world.ScenePlatformer;
-import lando.systems.ld57.world.SceneTest;
+import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +61,12 @@ public class GameScreen extends BaseScreen {
         var shouldSkipFrame = handleDebugFlags();
         if (shouldSkipFrame) {
             return;
+        }
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(screenPos.x, screenPos.y, Util.randomColor()));
+//            particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(screenPos.x, screenPos.y));
+//            particleManager.spawn(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect.Params(screenPos.x, screenPos.y));
+//            particleManager.spawn(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect.Params(screenPos.x, screenPos.y));
         }
 
         screenPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);

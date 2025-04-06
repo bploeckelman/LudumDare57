@@ -7,7 +7,6 @@ import com.badlogic.gdx.controllers.Controllers;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
-import lando.systems.ld57.scene.ldgame.HeroBehavior;
 import lando.systems.ld57.utils.controllers.mapping.MappedController;
 
 import java.util.HashMap;

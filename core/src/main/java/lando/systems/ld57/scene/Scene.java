@@ -10,6 +10,8 @@ import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.PlayerInput;
 import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.particles.ParticleManager;
+import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
@@ -50,6 +52,9 @@ public class Scene<ScreenType extends BaseScreen> {
             .forEach(component -> {
                 if (component.active) {
                     component.render(batch);
+                    if (component instanceof Tilemap) {
+                        screen.particleManager.render(screen.batch, ParticleManager.Layer.BACKGROUND);
+                    }
                 }
             });
     }

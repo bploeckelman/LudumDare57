@@ -12,6 +12,10 @@ public abstract class ParticleEffect {
     public enum Type {
         DIRT(DirtEffect.class),
         SPARK(SparkEffect.class),
+        SHAPE(ShapeEffect.class),
+        BLOOD_SPLAT(BloodSplatEffect.class),
+        BLOOD(BloodEffect.class),
+        BLOOD_FOUNTAIN(BloodFountainEffect.class),
         ;
 
         public Class particleEffect;
