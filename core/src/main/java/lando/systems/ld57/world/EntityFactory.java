@@ -28,6 +28,56 @@ import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
 
+
+    public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
+        var entity = scene.createEntity();
+        new Position(entity, x,y);
+
+        var scale = 1f;
+        var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);
+        animator.origin.set(scale, 0);
+        animator.size.scl(scale);
+
+        var collider = Collider.makeRect(entity, Collider.Mask.npc, -0.5f * scale, 0, 32, 32);
+
+        var mover = new Mover(entity, collider);
+        mover.velocity.setToRandomDirection().scl(MathUtils.random(50, 150));
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask != Collider.Mask.solid) {
+                animator.play(Anims.Type.GOOMBA_DEATH);
+
+                var hitDuration = 0.5f;
+                var timer = entity.get(Timer.class);
+                if (timer == null) {
+                    // no active timer, create and attach one
+                    new Timer(entity, hitDuration, () -> {
+                        animator.play(Anims.Type.GOOMBA_WALK);
+                        entity.destroy(Timer.class);
+                    });
+                } else {
+                    // timer was still in progress, reset it
+                    timer.start(hitDuration);
+                }
+
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+        });
+
+
+        new DebugRender(entity);
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
+
     public static Entity heart(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
 
@@ -157,7 +207,7 @@ public class EntityFactory {
 //        var collider = Collider.makeRect(entity, Collider.Mask.npc, -4 * scale, 0, 6 * scale, 12 * scale);
 
         // belmont animation collider size
-        var collider = Collider.makeRect(entity, Collider.Mask.npc, -5 * scale, 0, 10 * scale, 28 * scale);
+        var collider = Collider.makeRect(entity, Collider.Mask.player, -5 * scale, 0, 10 * scale, 28 * scale);
 
         new PlayerInput(entity);
 

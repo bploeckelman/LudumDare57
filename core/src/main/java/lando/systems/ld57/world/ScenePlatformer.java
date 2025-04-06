@@ -31,6 +31,8 @@ public class ScenePlatformer extends Scene<GameScreen> {
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(boundary.center());
+
+        EntityFactory.goomba(this, (float) width / 2,  height * 0.2f);
     }
 
     private void makeMapObjects(Tilemap tilemap) {

@@ -22,9 +22,13 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String LINK = "character/link/";
         private static final String MARIO = "character/mario/";
         private static final String MEGAMAN = "character/megaman/";
+        private static final String GOOMBA = "enemies/goomba/";
     }
 
     public enum Type implements AssetEnum<Animation> {
+        // enemies ----------------------------------------------------
+        GOOMBA_WALK(Path.GOOMBA),
+        GOOMBA_DEATH(Path.GOOMBA),
         // hero animations ------------------------------------------
           HERO_LAND_EFFECT(Path.HERO)
         , HERO_ATTACK_EFFECT(Path.HERO)

@@ -21,6 +21,7 @@ public class SceneTest extends Scene<GameScreen> {
         var centerX = width / 2;
         var centerY = height / 2;
 
+        EntityFactory.goomba(this, centerX, centerY);
         EntityFactory.heart(this, centerX, centerY);
         EntityFactory.hero(this, centerX, height * (2f / 3f));
 
