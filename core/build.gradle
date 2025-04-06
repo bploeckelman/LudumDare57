@@ -18,7 +18,6 @@ dependencies {
   api "com.github.tommyettinger:regexodus:$regExodusVersion"
   api "com.github.tommyettinger:textratypist:$textratypistVersion"
   api "com.kotcrab.vis:vis-ui:$visUiVersion"
-  api "de.golfgl.gdxcontrollerutils:gdx-controllerutils-mapping:$cuversion"
   api "org.mini2Dx:universal-tween-engine:$universalTweenVersion"
   api "space.earlygrey:shapedrawer:$shapeDrawerVersion"
   api "space.earlygrey:simple-graphs:$simpleGraphsVersion"

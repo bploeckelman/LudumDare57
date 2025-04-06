@@ -3,8 +3,9 @@ package lando.systems.ld57.assets;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
-import de.golfgl.gdx.controllers.mapping.ConfiguredInput;
-import de.golfgl.gdx.controllers.mapping.ControllerMappings;
+import lando.systems.ld57.utils.controllers.mapping.ConfiguredInput;
+import lando.systems.ld57.utils.controllers.mapping.ControllerMappings;
+
 
 public class MyControllerMapping extends ControllerMappings {
     public static final int BUTTON_JUMP = 0;

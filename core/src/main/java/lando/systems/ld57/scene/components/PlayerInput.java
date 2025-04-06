@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
-import de.golfgl.gdx.controllers.mapping.MappedController;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.ldgame.HeroBehavior;
+import lando.systems.ld57.utils.controllers.mapping.MappedController;
 
 import static lando.systems.ld57.assets.MyControllerMapping.*;
 

@@ -21,9 +21,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
-import de.golfgl.gdx.controllers.mapping.ControllerMappings;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.framework.AssetContainer;
+import lando.systems.ld57.utils.controllers.mapping.ControllerMappings;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Assets implements Disposable {
