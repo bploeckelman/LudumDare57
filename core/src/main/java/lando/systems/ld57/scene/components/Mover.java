@@ -100,7 +100,6 @@ public class Mover extends Component {
         // apply friction, maybe
         if (onGround()) {
             velocity.x *= (float) Math.pow(friction, dt);
-//            velocity.x = Calc.approach(velocity.x, 0, friction * dt);
         }
 
         // apply gravity, maybe

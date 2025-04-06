@@ -2,9 +2,9 @@ package lando.systems.ld57.scene.ldgame;
 
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
-import lando.systems.ld57.particles.effects.SparkEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
@@ -80,12 +80,12 @@ public class HeroBehavior extends Component {
             if (Math.abs(mover.velocity.x) > maxSpeed) {
                 mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
             }
-        }
 
-        if (mover.velocity.x > 0) {
-            animator.facing = 1;
-        } else if (mover.velocity.x < 0) {
-            animator.facing = -1;
+            // set facing direction based on velocity
+            var moveDir = (int) Calc.sign(mover.velocity.x);
+            if (moveDir != 0) {
+                animator.facing = moveDir;
+            }
         }
 
         var charData = character.get();

@@ -2,6 +2,7 @@ package lando.systems.ld57.scene.scenes;
 
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
@@ -76,11 +77,13 @@ public class PlayerBehavior extends Component {
             if (Math.abs(mover.velocity.x) > maxSpeed) {
                 mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
             }
-        }
 
-        // set facing direction based on velocity
-        if      (mover.velocity.x > 0) animator.facing =  1;
-        else if (mover.velocity.x < 0) animator.facing = -1;
+            // set facing direction based on velocity
+            var moveDir = (int) Calc.sign(mover.velocity.x);
+            if (moveDir != 0) {
+                animator.facing = moveDir;
+            }
+        }
 
         var charData = character.get();
         if (mover.onGround()) {
