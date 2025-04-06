@@ -8,7 +8,7 @@ import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
-import lando.systems.ld57.utils.Util;
+import lando.systems.ld57.assets.Sounds;
 
 import java.util.Map;
 
