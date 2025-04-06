@@ -1,10 +1,10 @@
 package lando.systems.ld57.scene.scenes;
 
-import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.math.Calc;
+import lando.systems.ld57.particles.effects.BulletExposionEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
@@ -196,6 +196,7 @@ public class PlayerBehavior extends Component {
                 if (health != null) {
                     health.takeDamage(4f);
                 }
+                destroyBulletParticle(powerAttackEntity);
                 powerAttackEntity.scene.world.destroy(powerAttackEntity);
             })
         );
@@ -204,12 +205,22 @@ public class PlayerBehavior extends Component {
         animator.size.set(size, size);
         animator.origin.set(size/2f, size/2f);
 
-        var timer = new Timer(powerAttackEntity, 2, () -> {
+        var timer = new Timer(powerAttackEntity, 1, () -> {
+            destroyBulletParticle(powerAttackEntity);
             powerAttackEntity.destroy(Timer.class);
             powerAttackEntity.scene.world.destroy(powerAttackEntity);
             // TODO particle effect
         });
 
         return powerAttackEntity;
+    }
+
+    private void destroyBulletParticle(Entity bulletEntity) {
+        var particleEmitter = entity.get(ParticleEmitter.class);
+        var bulletPos = bulletEntity.get(Position.class);
+        particleEmitter.spawnParticle(
+            ParticleEffect.Type.BULLET_EXPLOSION,
+            new BulletExposionEffect.Params(bulletPos.x(), bulletPos.y(), bulletEntity.get(Animator.class).keyframe)
+        );
     }
 }
