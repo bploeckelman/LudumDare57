@@ -30,6 +30,10 @@ public class MappedController {
         refreshMappingCache();
     }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
     /**
      * refreshes the cached mapping from the ControllerMappings. Call this after you resetted mappings or filled from
      * json

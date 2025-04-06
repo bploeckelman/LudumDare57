@@ -36,9 +36,8 @@ public class PlayerInput extends Component {
         isGrounded = false;
         jumpButtonLastFrame = false;
         Controller controller = Controllers.getCurrent();
-        if (controller != null) {
-            mappedController = new MappedController(Controllers.getCurrent(), Main.game.assets.controllerMappings);
-        }
+        mappedController = new MappedController(Controllers.getCurrent(), Main.game.assets.controllerMappings);
+
 
     }
 
@@ -49,6 +48,11 @@ public class PlayerInput extends Component {
 
         var mover = entity.get(Mover.class);
         if (mover == null) return; // Early Out
+
+        Controller controller = Controllers.getCurrent();
+        if (controller != null) {
+            mappedController.setController(controller);
+        }
 
         wasGrounded = isGrounded;
         isGrounded = mover.onGround();
@@ -79,7 +83,7 @@ public class PlayerInput extends Component {
         }
 
 
-        if (mappedController != null) {
+        if (controller != null) {
             boolean jumpButton = mappedController.isButtonPressed(BUTTON_JUMP);
             if (jumpButton
                 && lastOnGround < COYOTE_TIME
