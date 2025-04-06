@@ -36,6 +36,7 @@ public class GameScreen extends BaseScreen {
 
     private Vector3 screenPos;
     private Scene<?> scene;
+    private VisTextButton switchSceneButton;
 
     public GameScreen() {
         this.scene = new SceneIntro(this);
@@ -73,11 +74,12 @@ public class GameScreen extends BaseScreen {
         worldCamera.unproject(screenPos);
 
         posLabel.setText("Mouse: "+ (int)screenPos.x +", " + (int)screenPos.y);
+        var currentScene = scene.getClass().getSimpleName().replace("Scene", "");
+        switchSceneButton.setText("Switch Scene (" + currentScene + ")");
 
         scene.update(dt);
         stage.act(dt);
         particleManager.update(dt);
-
 
         super.update(dt);
     }
@@ -120,7 +122,7 @@ public class GameScreen extends BaseScreen {
         configTable.setWidth(windowCamera.viewportWidth);
         configTable.align(Align.top);
 
-        configTable.add(new VisTextButton("Switch Scene", new ChangeListener() {
+        switchSceneButton = new VisTextButton("Switch Scene", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if      (scene instanceof SceneIntro)       scene = new SceneMario(GameScreen.this);
@@ -129,7 +131,8 @@ public class GameScreen extends BaseScreen {
                 else if (scene instanceof SceneZelda)       scene = new SceneCastlevania(GameScreen.this);
                 else if (scene instanceof SceneCastlevania) scene = new SceneIntro(GameScreen.this);
             }
-        })).pad(10f).expandX().top();
+        });
+        configTable.add(switchSceneButton).pad(10f).expandX().top();
 
         ConfigUI.init();
         for (var flag : ConfigUI.checkboxes.keySet()) {

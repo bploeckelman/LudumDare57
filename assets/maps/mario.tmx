@@ -190,7 +190,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="objects">
-  <object id="1" template="templates/object-spawn.tx" name="spawn" x="160" y="1276"/>
+  <object id="1" template="templates/object-spawn.tx" name="spawn" x="160" y="1376"/>
  </objectgroup>
  <layer id="4" name="front" width="160" height="90">
   <data encoding="csv">

@@ -1,8 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld57.assets.Characters;
-import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Position;
@@ -40,23 +38,6 @@ public class SceneMario extends Scene<GameScreen> {
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(playerPos);
-    }
-
-    @Override
-    public void render(SpriteBatch batch) {
-        super.render(batch);
-
-        var assets = screen.assets;
-        var layout = assets.layout;
-        var font = Fonts.Type.DOGICA.getDefault();
-        var camera = screen.game.windowCamera;
-        var x = camera.viewportWidth / 2f;
-        var y = camera.viewportHeight / 2f;
-
-        batch.setProjectionMatrix(screen.windowCamera.combined);
-        layout.setText(font, TAG);
-        font.draw(batch, layout, x - layout.width / 2f, y);
-        batch.setProjectionMatrix(screen.worldCamera.combined);
     }
 
     private void makeMapObjects(Tilemap tilemap) {
