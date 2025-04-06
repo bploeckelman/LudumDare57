@@ -17,7 +17,11 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.Scene;
+import lando.systems.ld57.scene.scenes.SceneCastlevania;
 import lando.systems.ld57.scene.scenes.SceneIntro;
+import lando.systems.ld57.scene.scenes.SceneMario;
+import lando.systems.ld57.scene.scenes.SceneMegaman;
+import lando.systems.ld57.scene.scenes.SceneZelda;
 import lando.systems.ld57.world.ScenePlatformer;
 import lando.systems.ld57.world.SceneTest;
 
@@ -113,9 +117,11 @@ public class GameScreen extends BaseScreen {
         configTable.add(new VisTextButton("Switch Scene", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if      (scene instanceof SceneIntro)      scene = new ScenePlatformer(GameScreen.this);
-                else if (scene instanceof ScenePlatformer) scene = new SceneTest(GameScreen.this);
-                else if (scene instanceof SceneTest)       scene = new SceneIntro(GameScreen.this);
+                if      (scene instanceof SceneIntro)       scene = new SceneMario(GameScreen.this);
+                else if (scene instanceof SceneMario)       scene = new SceneMegaman(GameScreen.this);
+                else if (scene instanceof SceneMegaman)     scene = new SceneZelda(GameScreen.this);
+                else if (scene instanceof SceneZelda)       scene = new SceneCastlevania(GameScreen.this);
+                else if (scene instanceof SceneCastlevania) scene = new SceneIntro(GameScreen.this);
             }
         })).pad(10f).expandX().top();
 

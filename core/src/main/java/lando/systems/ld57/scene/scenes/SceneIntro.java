@@ -1,7 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
 import lando.systems.ld57.assets.Characters;
-import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Boundary;
@@ -64,31 +63,8 @@ public class SceneIntro extends Scene<GameScreen> {
             var y = props.get("y", Float.class);
 
             if (name.equals("spawn")) {
-                spawnPlayer(x, y);
+                spawnPlayer(Characters.Type.OLDMAN, x, y);
             }
         }
-    }
-
-    private void spawnPlayer(float x, float y) {
-        var entity = createEntity();
-        var charType = Characters.Type.OLDMAN;
-
-        new Position(entity, x, y);
-        new PlayerInput(entity);
-        new PlayerBehavior(entity, charType);
-        new ParticleEmitter(entity);
-
-        var animType = charType.get().animByType.get(Characters.AnimType.IDLE);
-        var animator = new Animator(entity, animType);
-        animator.origin.set(charType.get().origin);
-
-        var collider = Collider.makeRect(entity, Collider.Mask.player, charType.get().colliderOffset);
-
-        var mover = new Mover(entity, collider);
-        mover.gravity = Mover.BASE_GRAVITY;
-        mover.velocity.set(0, 0);
-        mover.friction = .001f;
-
-        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
     }
 }

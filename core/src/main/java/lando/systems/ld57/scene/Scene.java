@@ -2,9 +2,18 @@ package lando.systems.ld57.scene;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld57.Config;
+import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
+import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -52,5 +61,27 @@ public class Scene<ScreenType extends BaseScreen> {
                     component.render(shapes);
                 }
             });
+    }
+
+    protected void spawnPlayer(Characters.Type charType, float x, float y) {
+        var entity = createEntity();
+
+        new Position(entity, x, y);
+        new PlayerInput(entity);
+        new PlayerBehavior(entity, charType);
+        new ParticleEmitter(entity);
+
+        var animType = charType.get().animByType.get(Characters.AnimType.IDLE);
+        var animator = new Animator(entity, animType);
+        animator.origin.set(charType.get().origin);
+
+        var collider = Collider.makeRect(entity, Collider.Mask.player, charType.get().colliderOffset);
+
+        var mover = new Mover(entity, collider);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.velocity.set(0, 0);
+        mover.friction = .001f;
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
     }
 }
