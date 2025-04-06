@@ -35,6 +35,7 @@ public class Health extends Component {
     }
 
     public void takeDamage(float amount) {
+        Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
     }
 }

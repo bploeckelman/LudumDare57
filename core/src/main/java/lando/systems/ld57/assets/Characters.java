@@ -17,17 +17,17 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
     public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK }
 
     public enum Type implements AssetEnum<Data> {
-          OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.WHITE)
-        , BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.ORANGE)
-        , LINK    (new Vector2(16, 0), new Rectangle(-5, 0, 10, 32), List.of(), Color.GREEN)
-        , MARIO   (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.RED)
-        , MEGAMAN (new Vector2(16, 0), new Rectangle(-5, 0, 10, 20), List.of(), Color.BLUE)
+          OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), Color.WHITE)
+        , BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), Color.ORANGE)
+        , LINK    (new Vector2(16, 0), new Rectangle(-5, 0, 10, 32), Color.GREEN)
+        , MARIO   (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), Color.RED)
+        , MEGAMAN (new Vector2(16, 0), new Rectangle(-5, 0, 10, 20), Color.BLUE)
         ;
 
         private final Data data;
 
-        Type(Vector2 origin, Rectangle colliderOffset, List<Rectangle> attackColliderOffsets, Color primaryColor) {
-            this.data = new Data(origin, colliderOffset, attackColliderOffsets, primaryColor);
+        Type(Vector2 origin, Rectangle colliderOffset, Color primaryColor) {
+            this.data = new Data(origin, colliderOffset, primaryColor);
         }
 
         @Override
@@ -36,24 +36,35 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         }
     }
 
+    public static class AttackInfo {
+        public float attackCooldown;
+        public float powerAttackCooldown;
+        public float attackDamage;
+        public float powerAttackDamage;
+
+        public AttackInfo() {}
+    }
+
+
     public static class Data {
         public final Vector2 origin;
         public final Rectangle colliderOffset;
-        public final List<Rectangle> attackColliderOffsets;
         public final Color primaryColor;
 
         public Map<AnimType, Anims.Type> animByType = new HashMap<>();
+        public List<Rectangle> attackColliderOffsets;
+        public AttackInfo attackInfo;
 
         public Data(
             Vector2 origin,
             Rectangle colliderOffset,
-            List<Rectangle> attackColliderOffsets,
             Color primaryColor
         ) {
             this.origin = origin;
             this.colliderOffset = colliderOffset;
-            this.attackColliderOffsets = attackColliderOffsets;
+            this.attackColliderOffsets = List.of();
             this.primaryColor = primaryColor;
+            this.attackInfo = new AttackInfo();
         }
     }
 
@@ -73,6 +84,41 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
             data.animByType.put(AnimType.IDLE,   Anims.Type.valueOf(name + "_IDLE"));
             data.animByType.put(AnimType.JUMP,   Anims.Type.valueOf(name + "_JUMP"));
             data.animByType.put(AnimType.WALK,   Anims.Type.valueOf(name + "_WALK"));
+
+            switch(type) {
+                case OLDMAN:
+                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.powerAttackCooldown = .2f;
+                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.powerAttackCooldown = 2f;
+                    break;
+                case BELMONT:
+                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.powerAttackCooldown = .25f;
+                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.powerAttackDamage = 2f;
+                    break;
+                case LINK:
+                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.powerAttackCooldown = .1f;
+                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.powerAttackDamage = 2f;
+                    break;
+                case MARIO:
+                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.powerAttackCooldown = .25f;
+                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.powerAttackDamage = 2f;
+                    break;
+                case MEGAMAN:
+                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.powerAttackCooldown = .2f;
+                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.powerAttackDamage = 2f;
+                    break;
+            }
         }
+
+
     }
 }

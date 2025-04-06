@@ -70,7 +70,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEGAMAN_JUMP(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , MEGAMAN_FALL(Path.MEGAMAN)
         , MEGAMAN_HURT(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
-        , MEGAMAN_ATTACK(Path.MEGAMAN)
+        , MEGAMAN_ATTACK(Path.MEGAMAN, new AnimData(.2f, Animation.PlayMode.NORMAL))
         // enemies ----------------------------------------------------
         , GOOMBA_WALK(Path.GOOMBA)
         , GOOMBA_DEATH(Path.GOOMBA)

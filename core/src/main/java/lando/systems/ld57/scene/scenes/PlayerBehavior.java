@@ -23,10 +23,6 @@ public class PlayerBehavior extends Component {
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
 
-    // TODO: ?MAYBE THESE WILL BE CHAR BASED LATER
-    public static float NORMAL_ATTACK_COOLDOWN = .3f;
-    public static float POWER_ATTACK_COOLDOWN = 1f;
-
     private boolean wasOnGround = true;
     private float jumpCoolDown;
     private float attackCoolDown;
@@ -52,7 +48,7 @@ public class PlayerBehavior extends Component {
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 
-        if (playerState == State.ATTACK && attackCoolDown <= 0) {
+        if (playerState == State.ATTACK && animator.stateTime >= animator.animation.getAnimationDuration()) {
             playerState = State.NORMAL;
         }
 
@@ -67,16 +63,17 @@ public class PlayerBehavior extends Component {
                 lastOnGround = 0;
             }
 
-            if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && playerState == State.NORMAL) {
+            if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && attackCoolDown <= 0) {
+                animator.stateTime = 0;
                 playerState = State.ATTACK;
-                attackCoolDown = NORMAL_ATTACK_COOLDOWN;
+                attackCoolDown = character.get().attackInfo.attackCooldown;
                 // spawn attack
             }
 
-            if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && playerState == State.NORMAL) {
+            if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && attackCoolDown <= 0) {
                 playerState = State.ATTACK;
-                attackCoolDown = POWER_ATTACK_COOLDOWN;
-                // spawn power attack
+                animator.stateTime = 0;
+                attackCoolDown = character.get().attackInfo.powerAttackCooldown;
                 spawnPowerAttack();
             }
 
@@ -114,27 +111,35 @@ public class PlayerBehavior extends Component {
         }
 
         var charData = character.get();
-        if (mover.onGround()) {
+        switch (playerState) {
+            case NORMAL:
+                if (mover.onGround()) {
 
-            wasOnGround = true;
+                    wasOnGround = true;
 
-            var animType = Characters.AnimType.IDLE;
-            if (Math.abs(mover.velocity.x) > 20) {
-                animType = Characters.AnimType.WALK;
-                var pos = entity.get(Position.class);
-                particleEmitter.spawnParticle(ParticleEffect.Type.DIRT, new DirtEffect.Params(pos.x(), pos.y()));
-            }
-            animator.play(charData.animByType.get(animType));
-        } else {
-            wasOnGround = false;
-            if (mover.velocity.y > 0) {
-                var anim = charData.animByType.get(Characters.AnimType.JUMP);
-                animator.play(anim);
-            } else if (mover.velocity.y < 0) {
-                var anim = charData.animByType.get(Characters.AnimType.FALL);
-                animator.play(anim);
-            }
+                    var animType = Characters.AnimType.IDLE;
+                    if (Math.abs(mover.velocity.x) > 20) {
+                        animType = Characters.AnimType.WALK;
+                        var pos = entity.get(Position.class);
+                        particleEmitter.spawnParticle(ParticleEffect.Type.DIRT, new DirtEffect.Params(pos.x(), pos.y()));
+                    }
+                    animator.play(charData.animByType.get(animType));
+                } else {
+                    wasOnGround = false;
+                    if (mover.velocity.y > 0) {
+                        var anim = charData.animByType.get(Characters.AnimType.JUMP);
+                        animator.play(anim);
+                    } else if (mover.velocity.y < 0) {
+                        var anim = charData.animByType.get(Characters.AnimType.FALL);
+                        animator.play(anim);
+                    }
+                }
+                break;
+            case ATTACK:
+                animator.play(charData.animByType.get(Characters.AnimType.ATTACK));
+                break;
         }
+
         // TODO(brian): handle hurt and attack animations
     }
 
@@ -194,7 +199,7 @@ public class PlayerBehavior extends Component {
                 var collidedEntity = params.hitCollider.entity;
                 var health = collidedEntity.get(Health.class);
                 if (health != null) {
-                    health.takeDamage(4f);
+                    health.takeDamage(character.get().attackInfo.powerAttackDamage);
                 }
                 destroyBulletParticle(powerAttackEntity);
                 powerAttackEntity.scene.world.destroy(powerAttackEntity);

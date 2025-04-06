@@ -18,7 +18,7 @@ public class EntityFactory {
     public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
         new Position(entity, x,y);
-        new Health(entity, 10f);
+        new Health(entity, 2f);
 
         var scale = 1f;
         var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);
