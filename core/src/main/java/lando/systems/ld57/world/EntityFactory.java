@@ -28,7 +28,7 @@ public class EntityFactory {
         animator.origin.set(scale * -WIDTH, 0);
         animator.size.scl(-scale, scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH / 2f, 0, WIDTH * scale, HEIGHT * scale);
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
         var mover = new Mover(entity, collider);
         mover.velocity.setToRandomDirection().scl(10f);
         mover.gravity = Mover.BASE_GRAVITY;
