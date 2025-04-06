@@ -13,12 +13,10 @@ public class TitleScreen extends BaseScreen {
 
     private final Color backgroundColor = new Color(0x121212ff);
     private final TextureRegion logo;
-    private final ParticleManager particleManager;
 
     public TitleScreen() {
         this.logo = assets.atlas.findRegion("libgdx");
         game.audioManager.playMusic(Musics.Type.TEST);
-        this.particleManager = new ParticleManager();
     }
 
     @Override
