@@ -1,22 +1,32 @@
 package lando.systems.ld57.world;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import lando.systems.ld57.assets.*;
+import lando.systems.ld57.assets.Anims;
+import lando.systems.ld57.assets.Icons;
+import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Boundary;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Image;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.Patch;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Tilemap;
+import lando.systems.ld57.scene.components.Timer;
+import lando.systems.ld57.scene.components.ViewController;
+import lando.systems.ld57.scene.components.Viewer;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.ldgame.HeroBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
-
-
 
     public static Entity heart(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
@@ -195,12 +205,8 @@ public class EntityFactory {
 //            }
 //        });
 
-
-
         // behavior 'component' - example of an anonymous component used to implement simple game logic
         new HeroBehavior(entity, animator, mover, particle);
-
-        new DebugRender(entity);
 
         // quick test of using fonts from their asset container
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
