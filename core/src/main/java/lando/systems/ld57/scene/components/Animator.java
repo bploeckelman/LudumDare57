@@ -68,9 +68,11 @@ public class Animator extends RenderableComponent {
 
         ShaderProgram shader = Main.game.assets.outlineShader;
         batch.setShader(shader);
+        float outline = 1f;
         shader.setUniformf("u_time", stateTime);
-        shader.setUniformf("u_color1", Util.hsvToRgb(stateTime, 1f, 1f, testColor ));
-        shader.setUniformf("u_thickness", 8);
+        shader.setUniformf("u_color1", Util.hsvToRgb(stateTime, .8f, .6f, testColor ));
+        shader.setUniformf("u_thickness", outline/ (float)keyframe.getTexture().getWidth(),
+            outline/ (float)keyframe.getTexture().getHeight());
 
         var rect = obtainPooledRectBounds();
         Util.draw(batch, keyframe, rect, tint);
