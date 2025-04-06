@@ -26,7 +26,7 @@ public class DirtEffect extends ParticleEffect {
     @Override
     public void spawn(ParticleEffectParams parameters) {
         var params = (Params) parameters;
-        var layer = particleManager.activeParticlesByLayer.get(ParticleManager.Layer.FOREGROUND);
+        var layer = particleManager.activeParticlesByLayer.get(ParticleManager.Layer.BACKGROUND);
         var pool = particleManager.particlePool;
 
         var amount = 1;
@@ -35,7 +35,7 @@ public class DirtEffect extends ParticleEffect {
         for (int i = 0; i < amount; i++) {
             var angle = MathUtils.random(30f, 140f);
             var speed = MathUtils.random(10f, 20f);
-            var startSize = MathUtils.random(1f, 5f);
+            var startSize = MathUtils.random(5f, 15f);
             var ttl = MathUtils.random(.25f, .5f);
             layer.add(Particle.initializer(pool.obtain())
                 .keyframe(keyframe)
