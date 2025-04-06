@@ -17,10 +17,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld57.Main;
-import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Assets;
-import lando.systems.ld57.assets.Patches;
-import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.assets.*;
 import lando.systems.ld57.audio.AudioManager;
 
 public class SettingsUI extends Group {
@@ -120,6 +117,7 @@ public class SettingsUI extends Group {
 
         Label settingLabel = new Label("Settings", skin);
         Label.LabelStyle style = settingLabel.getStyle();
+        style.font = Fonts.Type.DOGICABOLD.getDefault();
         style.fontColor = Color.BLACK;
         settingLabel.setStyle(style);
         //settingLabel.setFontScale(3f);
@@ -178,7 +176,7 @@ public class SettingsUI extends Group {
         closeSettingsButton.setClip(false);
 
         TextButton.TextButtonStyle settingsButtonStyle = VisUI.getSkin().get("default", TextButton.TextButtonStyle.class);
-//        settingsButtonStyle.font = assets.smallFont;
+        settingsButtonStyle.font = Fonts.Type.DOGICA.getDefault();
         settingsButtonStyle.fontColor = Color.BLACK;
         settingsButtonStyle.up = Patches.Type.PLAIN.getDrawable();
         settingsButtonStyle.down = Patches.Type.PLAIN_GRADIENT.getDrawable();

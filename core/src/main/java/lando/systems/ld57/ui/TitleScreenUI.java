@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.Main;
+import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.screens.GameScreen;
 
@@ -16,7 +17,7 @@ public class TitleScreenUI extends Group {
     private TextButton startGameButton;
     private TextButton creditButton;
     private TextButton settingsButton;
-    private final float BUTTON_WIDTH = 180f;
+    private final float BUTTON_WIDTH = 220f;
     private final float BUTTON_HEIGHT = 50f;
     private final float BUTTON_PADDING = 10f;
 
@@ -24,6 +25,7 @@ public class TitleScreenUI extends Group {
         SettingsUI settingsUI = new SettingsUI();
         var skin = VisUI.getSkin();
         TextButton.TextButtonStyle titleScreenButtonStyle = new TextButton.TextButtonStyle(skin.get(TextButton.TextButtonStyle.class));
+        titleScreenButtonStyle.font = Fonts.Type.DOGICA.getDefault();
         titleScreenButtonStyle.fontColor = Color.WHITE;
         titleScreenButtonStyle.up = Patches.Type.PLAIN.getDrawable();
         titleScreenButtonStyle.down = Patches.Type.PLAIN_DIM.getDrawable();
