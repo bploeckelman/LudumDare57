@@ -1,5 +1,6 @@
 package lando.systems.ld57.assets;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.assets.framework.AssetContainer;
@@ -16,17 +17,17 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
     public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK }
 
     public enum Type implements AssetEnum<Data> {
-          OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
-        , BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
-        , LINK    (new Vector2(16, 0), new Rectangle(-5, 0, 10, 32), List.of())
-        , MARIO   (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
-        , MEGAMAN (new Vector2(16, 0), new Rectangle(-5, 0, 10, 20), List.of())
+          OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.WHITE)
+        , BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.ORANGE)
+        , LINK    (new Vector2(16, 0), new Rectangle(-5, 0, 10, 32), List.of(), Color.GREEN)
+        , MARIO   (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of(), Color.RED)
+        , MEGAMAN (new Vector2(16, 0), new Rectangle(-5, 0, 10, 20), List.of(), Color.BLUE)
         ;
 
         private final Data data;
 
-        Type(Vector2 origin, Rectangle colliderOffset, List<Rectangle> attackColliderOffsets) {
-            this.data = new Data(origin, colliderOffset, attackColliderOffsets);
+        Type(Vector2 origin, Rectangle colliderOffset, List<Rectangle> attackColliderOffsets, Color primaryColor) {
+            this.data = new Data(origin, colliderOffset, attackColliderOffsets, primaryColor);
         }
 
         @Override
@@ -39,17 +40,20 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         public final Vector2 origin;
         public final Rectangle colliderOffset;
         public final List<Rectangle> attackColliderOffsets;
+        public final Color primaryColor;
 
         public Map<AnimType, Anims.Type> animByType = new HashMap<>();
 
         public Data(
             Vector2 origin,
             Rectangle colliderOffset,
-            List<Rectangle> attackColliderOffsets
+            List<Rectangle> attackColliderOffsets,
+            Color primaryColor
         ) {
             this.origin = origin;
             this.colliderOffset = colliderOffset;
             this.attackColliderOffsets = attackColliderOffsets;
+            this.primaryColor = primaryColor;
         }
     }
 

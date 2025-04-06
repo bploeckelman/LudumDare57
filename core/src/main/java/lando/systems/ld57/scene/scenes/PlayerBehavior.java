@@ -4,6 +4,7 @@ import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.SparkEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
@@ -59,12 +60,15 @@ public class PlayerBehavior extends Component {
                 jumpCoolDown = .2f;
             }
 
+            var pos = entity.get(Position.class);
             if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
                 nextCharacter();
+                particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
                 prevCharacter();
+                particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
             }
 
             // Cap Velocity

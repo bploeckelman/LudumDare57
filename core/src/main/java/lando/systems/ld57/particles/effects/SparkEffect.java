@@ -16,10 +16,12 @@ public class SparkEffect extends ParticleEffect {
     public static class Params implements ParticleEffectParams {
         public float startX;
         public float startY;
+        public Color startColor;
 
-        public Params(float x, float y) {
+        public Params(float x, float y, Color startColor) {
             startX = x;
             startY = y;
+            this.startColor = startColor;
         }
     }
 
@@ -48,7 +50,7 @@ public class SparkEffect extends ParticleEffect {
                     MathUtils.cosDeg(angle) * speed, // X velocity
                     MathUtils.sinDeg(angle) * speed  // Y velocity
                 )
-                .startColor(Color.YELLOW)
+                .startColor(params.startColor)
                 .startSize(startSize)
                 .endSize(startSize * 2f)
                 .endAlpha(.25f)

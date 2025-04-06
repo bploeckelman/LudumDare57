@@ -63,12 +63,10 @@ public class HeroBehavior extends Component {
 
             if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
                 nextCharacter();
-                entity.get(ParticleEmitter.class).spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y()));
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
                 prevCharacter();
-                entity.get(ParticleEmitter.class).spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y()));
             }
 
 
