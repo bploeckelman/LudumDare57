@@ -60,6 +60,12 @@ public class PlayerInput extends Component {
             }
         }
 
+        for (int i = controller.getMinButtonIndex(); i <= controller.getMaxButtonIndex(); i++) {
+            if (controller.getButton(i)) {
+                Gdx.app.log("Controller", "Button #"+i + " is pressed");
+            }
+        }
+
         wasGrounded = isGrounded;
         isGrounded = mover.onGround();
         lastOnGround += dt;
