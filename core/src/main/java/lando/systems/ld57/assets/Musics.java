@@ -14,6 +14,11 @@ public class Musics extends AssetContainer<Musics.Type, Music> {
 
     public enum Type implements AssetEnum<Music> {
         TEST ("test_music.mp3"),
+        MARIO("mario.ogg"),
+        ZELDA("zelda.ogg"),
+        MEGAMAN2("mm2.ogg"),
+        MEGAMAN3("mm3.ogg"),
+        CASTLEVANIA("castlevania.ogg"),
         ;
 
         private final String path;
