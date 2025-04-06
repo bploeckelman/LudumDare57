@@ -16,7 +16,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
     public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK }
 
     public enum Type implements AssetEnum<Data> {
-          BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
+          OLDMAN  (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
+        , BELMONT (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
         , LINK    (new Vector2(16, 0), new Rectangle(-5, 0, 10, 32), List.of())
         , MARIO   (new Vector2(16, 0), new Rectangle(-5, 0, 10, 28), List.of())
         , MEGAMAN (new Vector2(16, 0), new Rectangle(-5, 0, 10, 20), List.of())

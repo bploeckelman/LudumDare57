@@ -17,6 +17,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
     public static AssetContainer<Type, Animation> container;
 
     private static class Path {
+        private static final String OLDMAN = "character/oldman/";
         private static final String HERO = "character/hero/";
         private static final String BELMONT = "character/belmont/";
         private static final String LINK = "character/link/";
@@ -26,9 +27,6 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
     }
 
     public enum Type implements AssetEnum<Animation> {
-        // enemies ----------------------------------------------------
-        GOOMBA_WALK(Path.GOOMBA),
-        GOOMBA_DEATH(Path.GOOMBA),
         // hero animations ------------------------------------------
           HERO_LAND_EFFECT(Path.HERO)
         , HERO_ATTACK_EFFECT(Path.HERO)
@@ -38,6 +36,13 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , HERO_IDLE(Path.HERO)
         , HERO_JUMP(Path.HERO)
         , HERO_RUN(Path.HERO)
+        // ----------------------------------------------------------
+        , OLDMAN_IDLE(Path.OLDMAN)
+        , OLDMAN_WALK(Path.OLDMAN, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , OLDMAN_JUMP(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , OLDMAN_FALL(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , OLDMAN_HURT(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , OLDMAN_ATTACK(Path.OLDMAN)
         // ----------------------------------------------------------
         , BELMONT_IDLE(Path.BELMONT)
         , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))
@@ -66,6 +71,9 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEGAMAN_FALL(Path.MEGAMAN)
         , MEGAMAN_HURT(Path.MEGAMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , MEGAMAN_ATTACK(Path.MEGAMAN)
+        // enemies ----------------------------------------------------
+        , GOOMBA_WALK(Path.GOOMBA)
+        , GOOMBA_DEATH(Path.GOOMBA)
         ;
 
         private final String path;

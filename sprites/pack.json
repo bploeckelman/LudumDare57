@@ -5,7 +5,7 @@
   bleed: true,
   bleedIterations: 2,
   edgePadding: true,
-  duplicatePadding: true,
+  duplicatePadding: false,
   rotation: false,
   minWidth: 16,
   minHeight: 16,

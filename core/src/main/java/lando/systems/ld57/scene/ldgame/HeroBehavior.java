@@ -34,7 +34,7 @@ public class HeroBehavior extends Component {
         this.animator = animator;
         this.mover = mover;
         this.particleEmitter = particleEmitter;
-        this.character = Characters.Type.BELMONT;
+        this.character = Characters.Type.OLDMAN;
     }
 
     @Override
@@ -114,16 +114,18 @@ public class HeroBehavior extends Component {
     }
 
     public void nextCharacter() {
-        if      (character == Characters.Type.BELMONT) character = Characters.Type.LINK;
+        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
+        else if (character == Characters.Type.BELMONT) character = Characters.Type.LINK;
         else if (character == Characters.Type.LINK)    character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.MEGAMAN;
-        else                                           character = Characters.Type.BELMONT;
+        else                                           character = Characters.Type.OLDMAN;
     }
 
     public void prevCharacter() {
-        if      (character == Characters.Type.BELMONT) character = Characters.Type.MEGAMAN;
+        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
+        else if (character == Characters.Type.BELMONT) character = Characters.Type.MEGAMAN;
         else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
-        else                                           character = Characters.Type.BELMONT;
+        else                                           character = Characters.Type.OLDMAN;
     }
 }
