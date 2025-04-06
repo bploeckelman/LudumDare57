@@ -11,6 +11,7 @@ import lando.systems.ld57.particles.effects.SparkEffect;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.utils.Direction;
 import lando.systems.ld57.utils.Util;
 
 public class PlayerBehavior extends Component {
@@ -172,6 +173,7 @@ public class PlayerBehavior extends Component {
             case LINK:
                 break;
             case MARIO:
+                powerAttackEntity = marioPowerAttack();
                 break;
             case MEGAMAN:
                 powerAttackEntity = megamanPowerAttack();
@@ -183,6 +185,52 @@ public class PlayerBehavior extends Component {
             DebugRender.makeForShapes(powerAttackEntity, DebugRender.DRAW_POSITION_AND_COLLIDER);
         }
 
+    }
+
+    public Entity marioPowerAttack() {
+        float size = 12f;
+        var scene = entity.scene;
+        var charAnimator = entity.get(Animator.class);
+        var charPos = entity.get(Position.class);
+
+        var powerAttackEntity = scene.createEntity();
+        new Position(powerAttackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 13);
+        var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
+        var mover = new Mover(powerAttackEntity, collider);
+        mover.velocity.x = 100 * charAnimator.facing;
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.enemy, Collider.Mask.solid);
+        mover.setOnHit((params -> {
+            if (params.hitCollider.mask == Collider.Mask.solid){
+                var move = powerAttackEntity.get(Mover.class);
+                if (params.direction == Direction.Relative.DOWN) {
+                    move.velocity.y = 100;
+                }
+
+            } else {
+                var collidedEntity = params.hitCollider.entity;
+                var health = collidedEntity.get(Health.class);
+                if (health != null) {
+                    health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                }
+                destroyBulletParticle(powerAttackEntity);
+                powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            }
+            })
+        );
+
+        var animator = new Animator(powerAttackEntity, Anims.Type.GOOMBA_WALK);
+        animator.size.set(size, size);
+        animator.origin.set(size/2f, size/2f);
+
+        var timer = new Timer(powerAttackEntity, 1, () -> {
+            destroyBulletParticle(powerAttackEntity);
+            powerAttackEntity.destroy(Timer.class);
+            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            // TODO particle effect
+        });
+
+        return powerAttackEntity;
     }
 
     public Entity megamanPowerAttack() {
