@@ -16,7 +16,6 @@ public abstract class ParticleEffect {
         BLOOD_SPLAT(BloodSplatEffect.class),
         BLOOD(BloodEffect.class),
         BLOOD_FOUNTAIN(BloodFountainEffect.class),
-        BULLET_EXPLOSION(BulletExposionEffect.class),
         FIRE(FireEffect.class),
         BULLET_EXPLOSION(BulletExplosionEffect.class),
         ;
