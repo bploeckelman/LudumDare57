@@ -36,7 +36,9 @@ public class PlayerInput extends Component {
         isGrounded = false;
         jumpButtonLastFrame = false;
         Controller controller = Controllers.getCurrent();
-        mappedController = new MappedController(Controllers.getCurrent(), Main.game.assets.controllerMappings);
+        if (controller != null) {
+            mappedController = new MappedController(Controllers.getCurrent(), Main.game.assets.controllerMappings);
+        }
 
 
     }
@@ -51,7 +53,11 @@ public class PlayerInput extends Component {
 
         Controller controller = Controllers.getCurrent();
         if (controller != null) {
-            mappedController.setController(controller);
+            if (mappedController == null) {
+                mappedController = new MappedController(controller, Main.game.assets.controllerMappings);
+            } else {
+                mappedController.setController(controller);
+            }
         }
 
         wasGrounded = isGrounded;
