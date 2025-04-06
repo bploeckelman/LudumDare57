@@ -16,9 +16,8 @@ public class Animator extends RenderableComponent {
     public float stateTime;
     public int facing;
 
-    @SuppressWarnings("unchecked")
     public Animator(Entity entity, Anims.Type type) {
-        this(entity, (Animation<TextureRegion>) Anims.container.get(type));
+        this(entity, type.get());
     }
 
     public Animator(Entity entity, Animation<TextureRegion> animation) {

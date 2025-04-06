@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -63,11 +62,12 @@ public class Assets implements Disposable {
         containers.put(Anims.class, new Anims());
         containers.put(Icons.class, new Icons());
         containers.put(Fonts.class, new Fonts());
-        containers.put(Patches.class, new Patches());
-        containers.put(ScreenTransitions.class, new ScreenTransitions());
         containers.put(Musics.class, new Musics());
         containers.put(Sounds.class, new Sounds());
+        containers.put(Patches.class, new Patches());
         containers.put(Particles.class, new Particles());
+        containers.put(Characters.class, new Characters());
+        containers.put(ScreenTransitions.class, new ScreenTransitions());
 
         // create a single pixel texture and associated region
         var pixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
