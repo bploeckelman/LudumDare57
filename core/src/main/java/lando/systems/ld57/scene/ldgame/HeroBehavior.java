@@ -46,7 +46,6 @@ public class HeroBehavior extends Component {
                 var anim = charAnimMap.get(character).get(AnimType.WALK);
                 animator.play(anim);
                 particleEmitter.spawnParticle(entity.get(Position.class).x(), entity.get(Position.class).y());
-                Util.log("Spawned particle at " + entity.get(Position.class).x() + ", " + entity.get(Position.class).y());
             } else {
                 var anim = charAnimMap.get(character).get(AnimType.IDLE);
                 animator.play(anim);
