@@ -1,20 +1,21 @@
 package lando.systems.ld57.scene.scenes;
 
+import com.badlogic.gdx.math.MathUtils;
+import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.PlayerInput;
-import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.utils.Util;
 
 public class PlayerBehavior extends Component {
+
+    public enum State {NORMAL, ATTACK}
 
     public static float COYOTE_TIME = 0.2f;
     public static float MAX_SPEED = 100f;
@@ -22,17 +23,24 @@ public class PlayerBehavior extends Component {
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
 
+    // TODO: ?MAYBE THESE WILL BE CHAR BASED LATER
+    public static float NORMAL_ATTACK_COOLDOWN = .3f;
+    public static float POWER_ATTACK_COOLDOWN = 1f;
+
     private boolean wasOnGround = true;
     private float jumpCoolDown;
+    private float attackCoolDown;
     private boolean wasGrounded;
     private boolean isGrounded;
     private float lastOnGround;
+    private State playerState;
 
     private Characters.Type character;
 
     public PlayerBehavior(Entity entity, Characters.Type character) {
         super(entity);
         this.character = character;
+        playerState = State.NORMAL;
     }
 
     @Override
@@ -42,6 +50,11 @@ public class PlayerBehavior extends Component {
         var mover = entity.get(Mover.class);
 
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
+        attackCoolDown = Math.max(0, attackCoolDown - dt);
+
+        if (playerState == State.ATTACK && attackCoolDown <= 0) {
+            playerState = State.NORMAL;
+        }
 
         var playerInput = entity.get(PlayerInput.class);
         if (playerInput != null) {
@@ -54,11 +67,26 @@ public class PlayerBehavior extends Component {
                 lastOnGround = 0;
             }
 
+            if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && playerState == State.NORMAL) {
+                playerState = State.ATTACK;
+                attackCoolDown = NORMAL_ATTACK_COOLDOWN;
+                // spawn attack
+            }
+
+            if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && playerState == State.NORMAL) {
+                playerState = State.ATTACK;
+                attackCoolDown = POWER_ATTACK_COOLDOWN;
+                // spawn power attack
+                spawnPowerAttack();
+            }
+
             if (playerInput.actionJustPressed(PlayerInput.Action.JUMP)
                 && lastOnGround < COYOTE_TIME
                 && jumpCoolDown <= 0) {
                 mover.velocity.y = JUMP_SPEED;
                 jumpCoolDown = .2f;
+                entity.scene.screen.game.audioManager.playSound(Sounds.Type.BOARD_CLICK);
+
             }
 
             var pos = entity.get(Position.class);
@@ -87,9 +115,7 @@ public class PlayerBehavior extends Component {
 
         var charData = character.get();
         if (mover.onGround()) {
-            if (!wasOnGround) {
-                entity.scene.screen.game.audioManager.playSound(Sounds.Type.BOARD_CLICK);
-            }
+
             wasOnGround = true;
 
             var animType = Characters.AnimType.IDLE;
@@ -126,5 +152,64 @@ public class PlayerBehavior extends Component {
         else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
         else                                           character = Characters.Type.OLDMAN;
+    }
+
+    private void spawnPowerAttack() {
+        Util.log("Launch Power Attack");
+        Entity powerAttackEntity  = null;
+        switch (character) {
+            case OLDMAN:
+                break;
+            case BELMONT:
+                break;
+            case LINK:
+                break;
+            case MARIO:
+                break;
+            case MEGAMAN:
+                powerAttackEntity = megamanPowerAttack();
+                break;
+        }
+
+
+        if (powerAttackEntity != null) {
+            DebugRender.makeForShapes(powerAttackEntity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+        }
+
+    }
+
+    public Entity megamanPowerAttack() {
+        float size = 12f;
+        var scene = entity.scene;
+        var charAnimator = entity.get(Animator.class);
+        var charPos = entity.get(Position.class);
+
+        var powerAttackEntity = scene.createEntity();
+        new Position(powerAttackEntity, charPos.x() + 10 * charAnimator.facing, charPos.y() + 10);
+        var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
+        var mover = new Mover(powerAttackEntity, collider);
+        mover.velocity.x = 100 * charAnimator.facing;
+        mover.addCollidesWith(Collider.Mask.enemy);
+        mover.setOnHit((params -> {
+                var collidedEntity = params.hitCollider.entity;
+                var health = collidedEntity.get(Health.class);
+                if (health != null) {
+                    health.takeDamage(4f);
+                }
+                powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            })
+        );
+
+        var animator = new Animator(powerAttackEntity, Anims.Type.GOOMBA_WALK);
+        animator.size.set(size, size);
+        animator.origin.set(size/2f, size/2f);
+
+        var timer = new Timer(powerAttackEntity, 2, () -> {
+            powerAttackEntity.destroy(Timer.class);
+            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            // TODO particle effect
+        });
+
+        return powerAttackEntity;
     }
 }

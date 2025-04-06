@@ -20,24 +20,26 @@ public class Animator extends RenderableComponent {
     public float stateTime;
     public int facing;
     public Color fillColor;
+    public Color outlineColor;
+    public float outlineThickness = 1f;
 
     public Animator(Entity entity, Anims.Type type) {
         this(entity, type.get());
     }
 
     public Animator(Entity entity, Animation<TextureRegion> animation) {
-        this(entity, animation.getKeyFrame(0));
-        this.animation = animation;
+        this(entity, animation.getKeyFrame(0), animation);
     }
 
-    public Animator(Entity entity, TextureRegion keyframe) {
+    public Animator(Entity entity, TextureRegion keyframe, Animation<TextureRegion> animation) {
         super(entity);
-        this.animation = null;
+        this.animation = animation;
         this.keyframe = keyframe;
         this.size.set(keyframe.getRegionWidth(), keyframe.getRegionHeight());
-        this.stateTime = MathUtils.random(2f);
+        this.stateTime = 0;
         this.facing = 1;
-        fillColor = new Color(Color.RED);
+        this.outlineColor = new Color(Color.BLACK);
+        this.fillColor = new Color(Color.CLEAR);
     }
 
     public float play(Anims.Type type) {
@@ -53,7 +55,6 @@ public class Animator extends RenderableComponent {
     @Override
     public void update(float dt) {
         if (animation == null) return;
-        fillColor.a = .5f * (1f + MathUtils.sin(stateTime * 15f));
         stateTime += dt;
         keyframe = animation.getKeyFrame(stateTime);
 
@@ -62,19 +63,17 @@ public class Animator extends RenderableComponent {
         scale.set(facing * sx, sy);
     }
 
-    Color testColor = new Color(Color.WHITE);
     @Override
     public void render(SpriteBatch batch) {
         if (keyframe == null) return;
 
         ShaderProgram shader = Main.game.assets.outlineShader;
         batch.setShader(shader);
-        float outline = 1f;
         shader.setUniformf("u_time", stateTime);
         shader.setUniformf("u_fill_color", fillColor);
-        shader.setUniformf("u_color1", Util.hsvToRgb(stateTime, .8f, .6f, testColor ));
-        shader.setUniformf("u_thickness", outline/ (float)keyframe.getTexture().getWidth(),
-            outline/ (float)keyframe.getTexture().getHeight());
+        shader.setUniformf("u_color1", outlineColor);
+        shader.setUniformf("u_thickness", outlineThickness/ (float)keyframe.getTexture().getWidth(),
+            outlineThickness/ (float)keyframe.getTexture().getHeight());
 
         var rect = obtainPooledRectBounds();
         Util.draw(batch, keyframe, rect, tint);

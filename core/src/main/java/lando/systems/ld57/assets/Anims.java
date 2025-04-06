@@ -74,6 +74,9 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         // enemies ----------------------------------------------------
         , GOOMBA_WALK(Path.GOOMBA)
         , GOOMBA_DEATH(Path.GOOMBA)
+
+        // projectiles ------------------------------------------------
+        , MEGAMAN_SHOT(Path.MEGAMAN, new AnimData(.1f, Animation.PlayMode.LOOP))
         ;
 
         private final String path;

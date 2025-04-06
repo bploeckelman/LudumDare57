@@ -21,7 +21,7 @@ public class Collider extends Component {
     // Collider specific types and values
     // ------------------------------------------------------------------------
 
-    public enum Mask { solid, npc, player, object, projectile, effect }
+    public enum Mask { solid, npc, player, object, projectile, effect, player_projectile, enemy}
 
     public interface Shape {
         boolean overlaps(Collider other, int xOffset, int yOffset);

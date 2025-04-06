@@ -7,20 +7,7 @@ import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Icons;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Boundary;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Image;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.Patch;
-import lando.systems.ld57.scene.components.PlayerInput;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.Tilemap;
-import lando.systems.ld57.scene.components.Timer;
-import lando.systems.ld57.scene.components.ViewController;
-import lando.systems.ld57.scene.components.Viewer;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.BaseScreen;
@@ -31,13 +18,14 @@ public class EntityFactory {
     public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
         new Position(entity, x,y);
+        new Health(entity, 10f);
 
         var scale = 1f;
         var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);
         animator.origin.set(scale, 0);
         animator.size.scl(scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.npc, -0.5f * scale, 0, 14, 14);
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -0.5f * scale, 0, 14, 14);
 
         var mover = new Mover(entity, collider);
         mover.velocity.setToRandomDirection().scl(MathUtils.random(50, 150));
