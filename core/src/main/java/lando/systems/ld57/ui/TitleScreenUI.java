@@ -10,7 +10,9 @@ import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Patches;
+import lando.systems.ld57.screens.EndingScreen;
 import lando.systems.ld57.screens.GameScreen;
+import lando.systems.ld57.screens.IntroScreen;
 
 public class TitleScreenUI extends Group {
 
@@ -40,11 +42,9 @@ public class TitleScreenUI extends Group {
         startGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                Main.game.audioManager.stopAllSounds();
-//                Main.game.audioManager.stopMusic();
                 Main.game.currentScreen.transitioning = true;
                 Gdx.input.setInputProcessor(null);
-                Main.game.setScreen(new GameScreen());
+                Main.game.setScreen(new IntroScreen());
             }
         });
 
@@ -62,14 +62,14 @@ public class TitleScreenUI extends Group {
         creditButton = new TextButton("Credits", titleScreenButtonStyle);
         creditButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         creditButton.setPosition(left, settingsButton.getY() - settingsButton.getHeight() - BUTTON_PADDING);
-//        creditButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                Gdx.input.setInputProcessor(null);
-//                Main.game.currentScreen.transitioning = true;
-//                Main.game.setScreen(new CreditScreen());
-//            }
-//        });
+        creditButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.input.setInputProcessor(null);
+                Main.game.currentScreen.transitioning = true;
+                Main.game.setScreen(new EndingScreen());
+            }
+        });
 
 
         addActor(startGameButton);

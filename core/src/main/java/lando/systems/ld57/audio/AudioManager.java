@@ -3,7 +3,9 @@ package lando.systems.ld57.audio;
 import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Assets;
@@ -54,22 +56,22 @@ public class AudioManager {
         startNewMusic(musicType);
     }
 
-    public void playSound(Sounds.Type soundType) {
-        playSound(soundType, 0f, 1f);
+    public long playSound(Sounds.Type soundType) {
+        return playSound(soundType, 0f, 1f);
     }
 
-    public void playSound(Sounds.Type soundType, float dynamicVolume, float pan) {
+    public long playSound(Sounds.Type soundType, float dynamicVolume, float pan) {
         var sounds = soundType.get();
         var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue() * dynamicVolume;
         var sound = sounds[MathUtils.random(sounds.length-1)];
-        sound.play(soundType.volume * volume, 1f, pan);
+        return sound.play(soundType.volume * volume, 1f, pan);
     }
 
-    public void playSound(Sounds.Type soundType, float dynamicVolume) {
+    public long playSound(Sounds.Type soundType, float dynamicVolume) {
         var sounds = soundType.get();
         var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue() * dynamicVolume;
         var sound = sounds[MathUtils.random(sounds.length-1)];
-        sound.play(soundType.volume * volume, 1f, 0f);
+        return sound.play(soundType.volume * volume, 1f, 0f);
     }
 
     private void stopCurrentMusic() {
