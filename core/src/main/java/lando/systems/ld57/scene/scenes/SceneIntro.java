@@ -6,6 +6,7 @@ import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.screens.GameScreen;
+import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EntityFactory;
 
 public class SceneIntro extends Scene<GameScreen> {
@@ -28,6 +29,8 @@ public class SceneIntro extends Scene<GameScreen> {
         var tilemap = map.get(Tilemap.class);
 
         makeMapObjects(tilemap);
+
+        BossFactory.createBoss(this, 100, 100);
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(boundary.center());
