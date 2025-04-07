@@ -31,6 +31,8 @@ public class SceneIntro extends Scene<GameScreen> {
         makeMapObjects(tilemap);
 
         EntityFactory.energyCapsule(this, 30, 20);
+        BossFactory.createBoss(this, 120, 98);
+        EntityFactory.monkey(this, 30, 20);
 
         EntityFactory.marioBoss(this, 50, 70);
 

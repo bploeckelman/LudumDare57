@@ -10,13 +10,42 @@ import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
+import lando.systems.ld57.scene.scenes.components.EnemyBehavior;
 import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
+import lando.systems.ld57.scene.scenes.components.MonkeyBehavior;
 import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
+
+    public static Entity monkey(Scene<? extends BaseScreen> scene, float x, float y) {
+        var WIDTH = 16f;
+        var HEIGHT = 24f;
+        var SPEED = 30f;
+        var entity = scene.createEntity();
+        new Position(entity, x,y);
+        new Health(entity, 2f);
+        new ParticleEmitter(entity);
+        new MonkeyBehavior(entity);
+
+        var scale = .75f;
+        var animator =  new Animator(entity, Anims.Type.MONKEY_WALK);
+        animator.origin.set(scale * WIDTH, 0);
+        animator.size.scl(scale);
+
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
+        var mover = new Mover(entity, collider);
+        var randomDirection = MathUtils.randomBoolean() ? 1 : -1;
+        mover.velocity.set(SPEED * randomDirection, 0f);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
 
     public static Entity energyCapsule(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
