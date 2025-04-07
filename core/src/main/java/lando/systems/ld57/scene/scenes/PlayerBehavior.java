@@ -100,7 +100,6 @@ public class PlayerBehavior extends Component {
                 mover.velocity.y = JUMP_SPEED;
                 jumpCoolDown = .2f;
 
-                var pos = entity.get(Position.class);
                 entity.scene.screen.game.audioManager.playSound(Sounds.Type.JUMP, 0.6f, 0f);
 //                entity.scene.screen.game.audioManager.playSound(Sounds.Type.JUMP, 1f);
 

@@ -18,7 +18,7 @@ public class EntityFactory {
 
     public static Entity bulletBill(Scene<? extends BaseScreen> scene, float x, float y) {
         var WIDTH = 16f;
-        var HEIGHT = 24f;
+        var HEIGHT = 12f;
         var SPEED = 30f;
         var entity = scene.createEntity();
         var pos = new Position(entity, x, y);
