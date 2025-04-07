@@ -6,14 +6,29 @@ import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
-import lando.systems.ld57.particles.effects.*;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.particles.effects.BulletExplosionEffect;
+import lando.systems.ld57.particles.effects.DirtEffect;
+import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.SparkEffect;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Energy;
+import lando.systems.ld57.scene.components.FireParticle;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.MeleeDamage;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Timer;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.components.EnemyBehavior;
 import lando.systems.ld57.utils.Direction;
+import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerBehavior extends Component {
@@ -25,6 +40,7 @@ public class PlayerBehavior extends Component {
     public static float MAX_SPEED_AIR = 80f;
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
+    private static float INVINCIBILITY_TIME = 0.5f;
 
     private float jumpCoolDown;
     private float attackCoolDown;
@@ -37,12 +53,33 @@ public class PlayerBehavior extends Component {
     private final Rectangle currentRectFacing = new Rectangle();
 
     public Characters.Type character;
+    public float invincibilityTime = 0f;
 
     public PlayerBehavior(Entity entity, Characters.Type character) {
         super(entity);
         this.character = character;
         playerState = State.NORMAL;
         lastSafePos = new Vector2();
+    }
+
+    public void attack() {
+
+    }
+
+    public void die() {
+
+    }
+
+    public void hurt(float damageAmount) {
+        if (invincibilityTime > 0) return;
+        invincibilityTime = INVINCIBILITY_TIME;
+
+        var playerHealth = entity.getIfActive(Health.class);
+        if (playerHealth != null) {
+            playerHealth.takeDamage(damageAmount);
+        }
+        Time.pause_for(0.1f);
+        knockBack(1f);
     }
 
     @Override
@@ -53,6 +90,39 @@ public class PlayerBehavior extends Component {
         var pos = entity.get(Position.class);
         var energy = entity.get(Energy.class);
         mover.addCollidesWith(Collider.Mask.enemy);
+
+        invincibilityTime -= dt;
+        invincibilityTime = Math.max(0, invincibilityTime);
+
+        // Deal with on HIT
+        if (character == Characters.Type.MARIO) {
+            mover.setOnHit( (params) -> {
+                var hitEntity = params.hitCollider.entity;
+                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
+                    Util.log("Mario Behavior", "Stomped enemy");
+                    var enemyBehavior = hitEntity.get(EnemyBehavior.class);
+                    if (enemyBehavior != null) {
+//                        hitEntity.getIfActive(Health.class).setHealth(0);
+                        enemyBehavior.die();
+                    }
+                    mover.velocity.y = 200f;
+                }
+
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
+                }
+            });
+        } else {
+            mover.setOnHit( (params) -> {
+                if (params.hitCollider.mask == Collider.Mask.enemy) {
+                    hurt(1f);
+                }
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
+                }
+            });
+        }
+
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 
@@ -349,15 +419,16 @@ public class PlayerBehavior extends Component {
                 if (params.direction == Direction.Relative.DOWN) {
                     move.velocity.y = 100;
                 }
-
             } else {
                 var collidedEntity = params.hitCollider.entity;
-                var health = collidedEntity.get(Health.class);
-                if (health != null) {
-                    health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+                if (enemyBehavior != null) {
+                    var damageAmount = character.get().attackInfo.powerAttackDamage;
+                    enemyBehavior.hurt(damageAmount);
                 }
                 destroyBulletParticle(powerAttackEntity);
-                powerAttackEntity.scene.world.destroy(powerAttackEntity);
+                powerAttackEntity.selfDestruct();
+//                powerAttackEntity.scene.world.destroy(powerAttackEntity);
             }
             })
         );
@@ -367,10 +438,11 @@ public class PlayerBehavior extends Component {
         animator.origin.set(size/2f, size/2f);
         animator.outlineColor.a = 0;
 
-        var timer = new Timer(powerAttackEntity, 1, () -> {
+        new Timer(powerAttackEntity, 1, () -> {
             destroyBulletParticle(powerAttackEntity);
             powerAttackEntity.destroy(Timer.class);
-            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            powerAttackEntity.selfDestruct();
+//            powerAttackEntity.scene.world.destroy(powerAttackEntity);
             // TODO particle effect
         });
 
@@ -404,9 +476,10 @@ public class PlayerBehavior extends Component {
         var meleeDamage = new MeleeDamage(attackEntity);
         meleeDamage.setOnHit((params -> {
             var collidedEntity = params.hitCollider.entity;
-            var health = collidedEntity.get(Health.class);
-            if (health != null) {
-                health.takeDamage(character.get().attackInfo.attackDamage);
+            var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+            if (enemyBehavior != null) {
+                var damageAmount = character.get().attackInfo.attackDamage;
+                enemyBehavior.hurt(damageAmount);
             }
         }));
 
@@ -470,9 +543,10 @@ public class PlayerBehavior extends Component {
         var meleeDamage = new MeleeDamage(attackEntity);
         meleeDamage.setOnHit((params -> {
             var collidedEntity = params.hitCollider.entity;
-            var health = collidedEntity.get(Health.class);
-            if (health != null) {
-                health.takeDamage(character.get().attackInfo.attackDamage);
+            var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+            if (enemyBehavior != null) {
+                var damageAmount = character.get().attackInfo.powerAttackDamage;
+                enemyBehavior.hurt(damageAmount);
             }
         }));
 
@@ -536,9 +610,10 @@ public class PlayerBehavior extends Component {
         var meleeDamage = new MeleeDamage(attackEntity);
         meleeDamage.setOnHit((params -> {
             var collidedEntity = params.hitCollider.entity;
-            var health = collidedEntity.get(Health.class);
-            if (health != null) {
-                health.takeDamage(character.get().attackInfo.attackDamage);
+            var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+            if (enemyBehavior != null) {
+                var damageAmount = character.get().attackInfo.attackDamage;
+                enemyBehavior.hurt(damageAmount);
             }
         }));
 
@@ -596,12 +671,13 @@ public class PlayerBehavior extends Component {
 
                 } else {
                     var collidedEntity = params.hitCollider.entity;
-                    var health = collidedEntity.get(Health.class);
-                    if (health != null) {
-                        health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                    var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+                    if (enemyBehavior != null) {
+                        var damageAmount = character.get().attackInfo.powerAttackDamage;
+                        enemyBehavior.hurt(damageAmount);
                     }
                     destroyBulletParticle(powerAttackEntity);
-                    powerAttackEntity.scene.world.destroy(powerAttackEntity);
+                    powerAttackEntity.selfDestruct();
                 }
             })
         );
@@ -611,10 +687,10 @@ public class PlayerBehavior extends Component {
         animator.origin.set(size/2f, size/2f);
         animator.outlineColor.a = 0;
 
-        var timer = new Timer(powerAttackEntity, 1, () -> {
+        new Timer(powerAttackEntity, 1, () -> {
             destroyBulletParticle(powerAttackEntity);
             powerAttackEntity.destroy(Timer.class);
-            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            powerAttackEntity.selfDestruct();
             // TODO particle effect
         });
 
@@ -650,9 +726,10 @@ public class PlayerBehavior extends Component {
         var meleeDamage = new MeleeDamage(attackEntity);
         meleeDamage.setOnHit((params -> {
             var collidedEntity = params.hitCollider.entity;
-            var health = collidedEntity.get(Health.class);
-            if (health != null) {
-                health.takeDamage(character.get().attackInfo.attackDamage);
+            var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+            if (enemyBehavior != null) {
+                var damageAmount = character.get().attackInfo.attackDamage;
+                enemyBehavior.hurt(damageAmount);
             }
         }));
         new Timer(attackEntity, attackDuration,
@@ -703,12 +780,13 @@ public class PlayerBehavior extends Component {
         mover.addCollidesWith(Collider.Mask.enemy);
         mover.setOnHit((params -> {
                 var collidedEntity = params.hitCollider.entity;
-                var health = collidedEntity.get(Health.class);
-                if (health != null) {
-                    health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+                if (enemyBehavior != null) {
+                    var damageAmount = character.get().attackInfo.powerAttackDamage;
+                    enemyBehavior.hurt(damageAmount);
                 }
                 destroyBulletParticle(powerAttackEntity);
-                powerAttackEntity.scene.world.destroy(powerAttackEntity);
+                powerAttackEntity.selfDestruct();
             })
         );
 
@@ -717,10 +795,10 @@ public class PlayerBehavior extends Component {
         animator.origin.set(size/2f, size/2f);
         animator.outlineColor.a = 0;
 
-        var timer = new Timer(powerAttackEntity, 5, () -> {
+        new Timer(powerAttackEntity, 5, () -> {
             destroyBulletParticle(powerAttackEntity);
             powerAttackEntity.destroy(Timer.class);
-            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            powerAttackEntity.selfDestruct();
             // TODO particle effect
         });
 
@@ -741,12 +819,13 @@ public class PlayerBehavior extends Component {
         mover.addCollidesWith(Collider.Mask.enemy);
         mover.setOnHit(params -> {
             var collidedEntity = params.hitCollider.entity;
-            var health = collidedEntity.get(Health.class);
-            if (health != null) {
-                health.takeDamage(character.get().attackInfo.attackDamage);
+            var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+            if (enemyBehavior != null) {
+                var damageAmount = character.get().attackInfo.attackDamage;
+                enemyBehavior.hurt(damageAmount);
             }
             destroyBulletParticle(attackEntity);
-            attackEntity.scene.world.destroy(attackEntity);
+            attackEntity.selfDestruct();
         });
 
         var animator = new Animator(attackEntity, Anims.Type.MEGAMAN_SHOT);
@@ -754,10 +833,10 @@ public class PlayerBehavior extends Component {
         animator.origin.set(size/2f, size/2f);
         animator.outlineColor.a = 0;
 
-        var timer = new Timer(attackEntity, 4, () -> {
+        new Timer(attackEntity, 4, () -> {
             destroyBulletParticle(attackEntity);
             attackEntity.destroy(Timer.class);
-            attackEntity.scene.world.destroy(attackEntity);
+            attackEntity.selfDestruct();
             // TODO particle effect
         });
 
@@ -778,12 +857,13 @@ public class PlayerBehavior extends Component {
         mover.addCollidesWith(Collider.Mask.enemy);
         mover.setOnHit((params -> {
                 var collidedEntity = params.hitCollider.entity;
-                var health = collidedEntity.get(Health.class);
-                if (health != null) {
-                    health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                var enemyBehavior = collidedEntity.get(EnemyBehavior.class);
+                if (enemyBehavior != null) {
+                    var damageAmount = character.get().attackInfo.powerAttackDamage;
+                    enemyBehavior.hurt(damageAmount);
                 }
                 destroyBulletParticle(powerAttackEntity);
-                powerAttackEntity.scene.world.destroy(powerAttackEntity);
+                powerAttackEntity.selfDestruct();
             })
         );
 
@@ -792,10 +872,10 @@ public class PlayerBehavior extends Component {
         animator.origin.set(size/2f, size/2f);
         animator.outlineColor.a = 0;
 
-        var timer = new Timer(powerAttackEntity, 1, () -> {
+        new Timer(powerAttackEntity, 1, () -> {
             destroyBulletParticle(powerAttackEntity);
             powerAttackEntity.destroy(Timer.class);
-            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            powerAttackEntity.selfDestruct();
             // TODO particle effect
         });
 

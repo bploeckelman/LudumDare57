@@ -1,17 +1,13 @@
 package lando.systems.ld57.scene.scenes.components;
 
 import com.badlogic.gdx.math.Vector2;
-import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Characters;
-import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.particles.effects.BloodSplatEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
 import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Health;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.Position;
@@ -102,26 +98,20 @@ public class SkeletonBehavior extends EnemyBehavior {
                 var bonePos = bone.get(Position.class);
                 emitter.spawnParticle(ParticleEffect.Type.BLOOD_SPLAT,
                     new BloodSplatEffect.Params(bonePos.x(), bonePos.y()));
-                entity.scene.destroy(bone);
+                bone.selfDestruct();
             } else if (hitMask == Collider.Mask.player) {
                 var player = params.hitCollider.entity;
 
                 var playerBehavior = player.get(PlayerBehavior.class);
                 if (playerBehavior != null) {
-                    playerBehavior.knockBack(1f);
-
-                }
-
-                var playerHealth = player.get(Health.class);
-                if (playerHealth != null) {
-                    playerHealth.takeDamage(1);
+                    playerBehavior.hurt(1f);
                 }
 
                 var bonePos = bone.get(Position.class);
                 emitter.spawnParticle(ParticleEffect.Type.BLOOD_SPLAT,
                     new BloodSplatEffect.Params(bonePos.x(), bonePos.y()));
 
-                entity.scene.destroy(bone);
+                bone.selfDestruct();
             }
         });
 

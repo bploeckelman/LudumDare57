@@ -14,6 +14,7 @@ import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.components.Timer;
 import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.scene.scenes.components.AngrySunBehavior;
 import lando.systems.ld57.scene.scenes.components.BulletBillBehavior;
 import lando.systems.ld57.scene.scenes.components.CastleBatBehavior;
@@ -390,10 +391,11 @@ public class EnemyFactory {
 
         return entity;
     }
+
     private static void damagePlayerOnHit(Entity player, float damage) {
-        var playerHealth = player.getIfActive(Health.class);
-        if (playerHealth != null) {
-            playerHealth.takeDamage(damage);
+        var playerBehavior = player.get(PlayerBehavior.class);
+        if (playerBehavior != null) {
+            playerBehavior.hurt(damage);
         }
     }
 }

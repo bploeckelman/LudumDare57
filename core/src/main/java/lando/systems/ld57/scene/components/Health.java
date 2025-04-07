@@ -1,6 +1,5 @@
 package lando.systems.ld57.scene.components;
 
-import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.particles.effects.BloodEffect;
@@ -37,24 +36,21 @@ public class Health extends Component {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.onDeath = onDeath;
-        this.immunityTime = 0;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        immunityTime = MathUtils.clamp(immunityTime-delta, 0f, 1f);
+
         if (health <= 0) {
-            onDeath.run();
+            // TODO(brian): use player/enemyBehavior.die();
         }
     }
 
     public void takeDamage(float amount) {
-        if (immunityTime > 0) return;
         Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
-        immunityTime = MAX_IMMUNITIY_TIME;
-        var emitter = entity.get(ParticleEmitter.class);
+
         var pos = entity.get(Position.class);
         var anim = entity.get(Animator.class);
         var playerBehavior = entity.get(PlayerBehavior.class);
@@ -65,6 +61,8 @@ public class Health extends Component {
         else {
             Main.game.audioManager.playSound(Sounds.Type.DAMAGE);
         }
+
+        var emitter = entity.get(ParticleEmitter.class);
         if (emitter != null) {
             entity.scene.screen.particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x() + anim.size.x / 2f, pos.y() + anim.size.x / 2f));
         }
@@ -72,13 +70,6 @@ public class Health extends Component {
 
     public void setHealth(float health) {
         this.health = health;
-    }
-
-    public float getImmunityTime() {
-        return immunityTime;
-    }
-
-    public float getImmunityPercent() {
-        return immunityTime / MAX_IMMUNITIY_TIME;
+        // TODO(brian): check for death
     }
 }
