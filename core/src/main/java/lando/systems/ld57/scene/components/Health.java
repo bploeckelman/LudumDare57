@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.components;
 
 import com.badlogic.gdx.math.MathUtils;
+import lando.systems.ld57.particles.effects.BloodEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.framework.Component;
@@ -49,6 +50,12 @@ public class Health extends Component {
         Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
         immunityTime = .3f;
+        var emitter = entity.get(ParticleEmitter.class);
+        var pos = entity.get(Position.class);
+        var anim = entity.get(Animator.class);
+        if (emitter != null) {
+            entity.scene.screen.particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x() + anim.size.x / 2f, pos.y() + anim.size.x / 2f));
+        }
     }
 
     public void setHealth(float health) {

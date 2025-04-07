@@ -33,7 +33,7 @@ public class EntityFactory {
 
     public static Entity megaBat(Scene<? extends BaseScreen> scene, float x, float y) {
         var width = 28f;
-        var height = 28f;
+        var height = 20f;
         var scale = 1f;
         var speed = 20f;
         var animType = Anims.Type.BAT_FLYING;
