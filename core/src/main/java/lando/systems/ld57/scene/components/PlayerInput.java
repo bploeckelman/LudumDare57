@@ -44,6 +44,7 @@ public class PlayerInput extends Component {
         this.pressedActions = new ArrayList<>();
         for (Action action : Action.values()) {
             pressedThisFrame.put(action, false);
+            pressedLastFrame.put(action, false);
         }
     }
 
