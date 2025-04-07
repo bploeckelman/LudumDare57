@@ -171,6 +171,24 @@ public class PlayerBehavior extends Component {
             case HURT:
                 Util.log("PlayerBehavior", "Player State is HURT so playing HURT animation");
                 animator.play(charData.animByType.get(Characters.AnimType.HURT));
+//                switch (character) {
+//                    case BELMONT:
+//                        Main.game.audioManager.playSound(Sounds.Type.PUNCHHIT, .7f);
+//                        break;
+//                    case LINK:
+//                        Main.game.audioManager.playSound(Sounds.Type.LINKPAIN);
+//                        break;
+//                    case MARIO:
+//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+//                        break;
+//                    case MEGAMAN:
+//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+//                        break;
+//                    default:
+//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+//                        break;
+//                }
+
                 break;
         }
 
@@ -192,6 +210,26 @@ public class PlayerBehavior extends Component {
 
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
 
+        switch (character) {
+            case BELMONT:
+                Main.game.audioManager.playSound(Sounds.Type.PUNCHHIT, .7f);
+                break;
+            case LINK:
+                Main.game.audioManager.playSound(Sounds.Type.LINKPAIN);
+                break;
+            case MARIO:
+                Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+                break;
+            case MEGAMAN:
+                Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+                break;
+            case OLDMAN:
+                Main.game.audioManager.playSound(Sounds.Type.GRUNT, .5f);
+                break;
+            default:
+                Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+                break;
+        }
         // disable automatic facing control so the player doesn't turn around
         // TODO(brian): this doesn't really work as a timer, need some sort of 'landed' callback
 //        animator.autoFacing = false;
@@ -242,9 +280,10 @@ public class PlayerBehavior extends Component {
                 break;
             case LINK:
                 attackEntity = linkAttack();
+                Main.game.audioManager.playSound(Sounds.Type.LINKATTACK);
                 break;
             case MARIO:
-                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
+//                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
                 break;
             case MEGAMAN:
                 attackEntity = megamanAttack();
@@ -271,6 +310,7 @@ public class PlayerBehavior extends Component {
                 break;
             case LINK:
                 powerAttackEntity = linkPowerAttack();
+                Main.game.audioManager.playSound(Sounds.Type.LINKSWORD);
                 break;
             case MARIO:
                 powerAttackEntity = marioPowerAttack();

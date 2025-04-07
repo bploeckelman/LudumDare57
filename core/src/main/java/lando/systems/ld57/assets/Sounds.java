@@ -17,17 +17,21 @@ public class Sounds extends AssetContainer<Sounds.Type, Sound[]> {
         BOARD_CLICK("board_click.ogg", "error-buzz.ogg"),
         JUMP("jump1.ogg"),
         FIREBALL("fireball1.ogg"),
+
+        LINKPAIN("linkPain1.ogg"),
+        LINKATTACK("linkAttack1.ogg", "linkAttack2.ogg","linkAttack3.ogg"),
+        LINKSWORD("linksword1.ogg"),
+        PUNCHHIT("punch_hit1.ogg"),
+        PUNCH("punch1.ogg"),
+
         SWIPE1("swipe1.ogg"),
         SWIPE2("swipe2.ogg"),
-        LINKPAIN1("linkPain1.ogg"),
-        LINKATTACK1("linkAttack1.ogg"),
-        LINKATTACK2("linkAttack2.ogg"),
-        LINKATTACK3("linkAttack3.ogg"),
-        PUNCHHIT1("punch_hit1.ogg"),
-        PUNCH1("punch1.ogg"),
+        GRUNT("grunt1.ogg", "grunt2.ogg", "grunt3.ogg", "grunt4.ogg", "grunt5.ogg", "grunt6.ogg"
+            , "grunt7.ogg", "grunt8.ogg", "grunt9.ogg", "grunt10.ogg", "grunt11.ogg"),
         TVSHOW("tvshow1.ogg"),
         STEELYDAN1("steelydan1.ogg"),
         BITCOIN1("bitcoin1.ogg"),
+        OZEMPIC("ozempic1.ogg"),
 
         ;
 
