@@ -53,35 +53,6 @@ public class PlayerBehavior extends Component {
         var pos = entity.get(Position.class);
         var energy = entity.get(Energy.class);
         mover.addCollidesWith(Collider.Mask.enemy);
-
-
-        // Deal with on HIT
-        if (character == Characters.Type.MARIO) {
-            mover.setOnHit( (params) -> {
-                var hitEntity = params.hitCollider.entity;
-                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
-                    Util.log("Mario Behavior", "Stomped enemy");
-                    hitEntity.getIfActive(Health.class).setHealth(0);
-                    mover.velocity.y = 200f;
-                }
-
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        } else {
-            mover.setOnHit( (params) -> {
-                if (params.hitCollider.mask == Collider.Mask.enemy) {
-                    var playerHealth = entity.scene.player.getIfActive(Health.class);
-                    if (playerHealth != null) {
-                        playerHealth.takeDamage(1f);
-                    }
-                }
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        }
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 

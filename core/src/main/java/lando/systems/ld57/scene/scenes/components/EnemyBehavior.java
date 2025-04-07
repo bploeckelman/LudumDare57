@@ -10,6 +10,8 @@ import lando.systems.ld57.scene.framework.Entity;
 
 public abstract class EnemyBehavior extends Component {
 
+    static Vector2 tempVec1 = new Vector2();
+    static Vector2 tempVec2 = new Vector2();
     public EnemyBehavior(Entity entity) {
         super(entity);
     }
@@ -49,8 +51,6 @@ public abstract class EnemyBehavior extends Component {
         if (mover == null) {
             return false;
         }
-        Vector2 tempVec1 = new Vector2();
-        Vector2 tempVec2 = new Vector2();
         var player = mover.entity.scene.player;
         if (player != null) {
             var thisPos = mover.entity.get(Position.class);
@@ -60,7 +60,7 @@ public abstract class EnemyBehavior extends Component {
             var distance = tempVec1.dst2(tempVec2);
             if (distance < 1000f) {
                 mover.velocity.y = 130f;
-                mover.velocity.x = animator.facing * 100f;
+                mover.velocity.x = animator.facing * 150f;
                 return true;
             } else {
                 return false;

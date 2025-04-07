@@ -14,6 +14,7 @@ public class MonkeyBehavior extends EnemyBehavior {
         RUNAWAY,
     }
     private STATE state = STATE.WALK;
+    private boolean wasOnGround = false;
 
     public MonkeyBehavior(Entity entity) {
         super(entity);
@@ -22,7 +23,6 @@ public class MonkeyBehavior extends EnemyBehavior {
 
     @Override
     public void update(float dt) {
-        Util.log("Monkey State:", state.toString());
         var mover = entity.get(Mover.class);
         var collider = entity.get(Collider.class);
         var animator = entity.get(Animator.class);
@@ -30,12 +30,12 @@ public class MonkeyBehavior extends EnemyBehavior {
             mover.velocity.x = 30f;
             turnAroundAtEdge(mover, collider);
             state = jumpTowardPlayer(mover, animator) ? STATE.JUMP : STATE.WALK;
-            if (state == STATE.JUMP) {
-                Util.log("jumping");
-            }
+            wasOnGround = true;
         }
-        else if (state == STATE.JUMP && mover.onGround()) {
-            Util.log("Just landed");
+        else if (state == STATE.JUMP && !mover.onGround()) {
+            wasOnGround = false; // don't raz me for this, sorry but my brain is fried and it kinda works
+        }
+        else if (state == STATE.JUMP && mover.onGround() && !wasOnGround) {
             state = STATE.RUNAWAY;
             mover.velocity.x = -60f * animator.facing;
             var timer = new Timer(entity, 2f, () -> {
