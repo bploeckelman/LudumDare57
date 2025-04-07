@@ -47,6 +47,7 @@ public class PlayerBehavior extends Component {
         var animator = entity.get(Animator.class);
         var mover = entity.get(Mover.class);
         var pos = entity.get(Position.class);
+        var energy = entity.get(Energy.class);
         mover.addCollidesWith(Collider.Mask.enemy);
 
         // Deal with on HIT
@@ -92,19 +93,31 @@ public class PlayerBehavior extends Component {
             }
 
             if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && attackCoolDown <= 0) {
-                animator.stateTime = 0;
-                playerState = State.ATTACK;
-                animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
-                attackCoolDown = character.get().attackInfo.attackCooldown;
-                spawnAttack();
+                if ( energy.getCurrentEnergy() > character.get().attackInfo.attackEnergyCost) {
+                    animator.stateTime = 0;
+                    energy.useEnergy(character.get().attackInfo.attackEnergyCost);
+                    playerState = State.ATTACK;
+                    animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
+                    attackCoolDown = character.get().attackInfo.attackCooldown;
+                    spawnAttack();
+                } else {
+                    // TODO: not enough energy to use attack, need sound
+                }
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && attackCoolDown <= 0) {
-                playerState = State.ATTACK;
-                animator.stateTime = 0;
-                animator.play(character.get().animByType.get(Characters.AnimType.POWERATTACK));
-                attackCoolDown = character.get().attackInfo.powerAttackCooldown;
-                spawnPowerAttack();
+                if (energy.getCurrentEnergy() > character.get().attackInfo.powerAttackEnergyCost) {
+                    playerState = State.ATTACK;
+                    animator.stateTime = 0;
+                    energy.useEnergy(character.get().attackInfo.powerAttackEnergyCost);
+                    animator.play(character.get().animByType.get(Characters.AnimType.POWERATTACK));
+                    attackCoolDown = character.get().attackInfo.powerAttackCooldown;
+                    spawnPowerAttack();
+                } else {
+                    // not enough Energy to do power attack
+                    // TODO: sound effect needed
+                }
+
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.JUMP)
