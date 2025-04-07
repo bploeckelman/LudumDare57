@@ -64,6 +64,10 @@ public class PlayerBehavior extends Component {
                     hitEntity.getIfActive(Health.class).setHealth(0);
                     mover.velocity.y = 200f;
                 }
+
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
+                }
             });
         } else {
             mover.setOnHit( (params) -> {
@@ -72,6 +76,9 @@ public class PlayerBehavior extends Component {
                     if (playerHealth != null) {
                         playerHealth.takeDamage(1f);
                     }
+                }
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
                 }
             });
         }
