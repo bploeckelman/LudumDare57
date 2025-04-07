@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.scenes;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
@@ -25,13 +26,13 @@ public class PlayerBehavior extends Component {
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
 
-    private boolean wasOnGround = true;
     private float jumpCoolDown;
     private float attackCoolDown;
     private boolean wasGrounded;
     private boolean isGrounded;
     private float lastOnGround;
     private State playerState;
+    public Vector2 lastSafePos;
 
     public Characters.Type character;
 
@@ -39,6 +40,7 @@ public class PlayerBehavior extends Component {
         super(entity);
         this.character = character;
         playerState = State.NORMAL;
+        lastSafePos = new Vector2();
     }
 
     @Override
@@ -47,6 +49,7 @@ public class PlayerBehavior extends Component {
         var animator = entity.get(Animator.class);
         var mover = entity.get(Mover.class);
         var pos = entity.get(Position.class);
+        var energy = entity.get(Energy.class);
         mover.addCollidesWith(Collider.Mask.enemy);
 
         // Deal with on HIT
@@ -91,20 +94,36 @@ public class PlayerBehavior extends Component {
                 lastOnGround = 0;
             }
 
+            if (wasGrounded && isGrounded) {
+                lastSafePos.set(pos.x(), pos.y());
+            }
+
             if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && attackCoolDown <= 0) {
-                animator.stateTime = 0;
-                playerState = State.ATTACK;
-                animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
-                attackCoolDown = character.get().attackInfo.attackCooldown;
-                spawnAttack();
+                if ( energy.getCurrentEnergy() > character.get().attackInfo.attackEnergyCost) {
+                    animator.stateTime = 0;
+                    energy.useEnergy(character.get().attackInfo.attackEnergyCost);
+                    playerState = State.ATTACK;
+                    animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
+                    attackCoolDown = character.get().attackInfo.attackCooldown;
+                    spawnAttack();
+                } else {
+                    // TODO: not enough energy to use attack, need sound
+                }
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && attackCoolDown <= 0) {
-                playerState = State.ATTACK;
-                animator.stateTime = 0;
-                animator.play(character.get().animByType.get(Characters.AnimType.POWERATTACK));
-                attackCoolDown = character.get().attackInfo.powerAttackCooldown;
-                spawnPowerAttack();
+                if (energy.getCurrentEnergy() > character.get().attackInfo.powerAttackEnergyCost) {
+                    playerState = State.ATTACK;
+                    animator.stateTime = 0;
+                    energy.useEnergy(character.get().attackInfo.powerAttackEnergyCost);
+                    animator.play(character.get().animByType.get(Characters.AnimType.POWERATTACK));
+                    attackCoolDown = character.get().attackInfo.powerAttackCooldown;
+                    spawnPowerAttack();
+                } else {
+                    // not enough Energy to do power attack
+                    // TODO: sound effect needed
+                }
+
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.JUMP)
@@ -145,9 +164,6 @@ public class PlayerBehavior extends Component {
         switch (playerState) {
             case NORMAL:
                 if (mover.onGround()) {
-
-                    wasOnGround = true;
-
                     var animType = Characters.AnimType.IDLE;
                     if (Math.abs(mover.velocity.x) > 20) {
                         animType = Characters.AnimType.WALK;
@@ -155,7 +171,6 @@ public class PlayerBehavior extends Component {
                     }
                     animator.play(charData.animByType.get(animType));
                 } else {
-                    wasOnGround = false;
                     if (mover.velocity.y > 0) {
                         var anim = charData.animByType.get(Characters.AnimType.JUMP);
                         animator.play(anim);
@@ -238,6 +253,13 @@ public class PlayerBehavior extends Component {
 //            animator.autoFacing = true;
 //            timer.selfDestruct();
 //        });
+    }
+
+    public void resetToSafePosition() {
+        var pos = entity.get(Position.class);
+        if (pos != null) {
+            pos.set(lastSafePos);
+        }
     }
 
     public void nextCharacter() {

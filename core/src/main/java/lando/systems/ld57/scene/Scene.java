@@ -98,6 +98,8 @@ public class Scene<ScreenType extends BaseScreen> {
         mover.velocity.set(0, 0);
         mover.friction = .001f;
 
+        new Energy(entity);
+
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return entity;

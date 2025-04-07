@@ -41,6 +41,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         public float powerAttackCooldown;
         public float attackDamage;
         public float powerAttackDamage;
+        public float attackEnergyCost;
+        public float powerAttackEnergyCost;
 
         public AttackInfo() {}
     }
@@ -94,6 +96,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .7f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackInfo.attackEnergyCost = 0;
+                    data.attackInfo.powerAttackEnergyCost = 3f;
                     data.size.set(34, 34);
                     data.attackColliderRects = List.of(
                         new Rectangle(0, -8, 18, 15)
@@ -108,9 +112,11 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     break;
                 case BELMONT:
                     data.attackInfo.attackCooldown = .6f;
-                    data.attackInfo.powerAttackCooldown = .25f;
+                    data.attackInfo.powerAttackCooldown = .5f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackInfo.attackEnergyCost = 2;
+                    data.attackInfo.powerAttackEnergyCost = 2f;
                     data.size.set(78, 34);
                     data.attackColliderRects = List.of(
                           new Rectangle(-28, -23, 8, 29)
@@ -123,6 +129,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .1f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackInfo.attackEnergyCost = 1;
+                    data.attackInfo.powerAttackEnergyCost = 5f;
                     data.size.set(34, 34);
                     data.attackColliderRects = List.of(
                         new Rectangle(-18, 0, 8, 15)
@@ -134,6 +142,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .25f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackInfo.attackEnergyCost = 0;
+                    data.attackInfo.powerAttackEnergyCost = 3f;
                     data.size.set(34, 34);
                     break;
                 case MEGAMAN:
@@ -141,6 +151,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .3f;
                     data.attackInfo.attackDamage = .2f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackInfo.attackEnergyCost = 1;
+                    data.attackInfo.powerAttackEnergyCost = 8f;
                     data.size.set(34, 34);
                     break;
             }
