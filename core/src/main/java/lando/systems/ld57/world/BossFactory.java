@@ -4,6 +4,7 @@ import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.components.AngrySunBehavior;
 import lando.systems.ld57.scene.scenes.components.BossBehavior;
 import lando.systems.ld57.scene.scenes.components.EnemyBelmontBehavior;
 import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
@@ -17,15 +18,15 @@ public class BossFactory {
         new Position(entity, x, y);
 
         var body = addBossPart(entity, Anims.Type.BOSS_BODY, 15, 95, 30);
-        new Health(body, 30);
+        new Health(body, 3);
         var bowser = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_BOWSER, 70, 127, 10);
-        new Health(bowser, 10);
+        new Health(bowser, 1);
         var wily = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_WILY, 45, 150, 10);
-        new Health(wily, 10);
+        new Health(wily, 1);
         var gannon = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_GANON, 10, 160, 10);
-        new Health(gannon, 10);
+        new Health(gannon, 1);
         var dracula = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_DRACULA, -25, 140, 10);
-        new Health(dracula, 10);
+        new Health(dracula, 1);
 
         new BossBehavior(entity, body, bowser, wily, gannon, dracula);
 
@@ -43,9 +44,10 @@ public class BossFactory {
         animator.origin.set(45, 1);
         animator.defaultScale.scl(scale);
 
+
         Collider.makeCirc(part, Collider.Mask.enemy, x * scale, y * scale, radius * scale);
         DebugRender.makeForShapes(part, DebugRender.DRAW_POSITION_AND_COLLIDER);
-
+        new AngrySunBehavior(part);
         return part;
     }
 

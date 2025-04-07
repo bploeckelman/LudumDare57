@@ -15,7 +15,7 @@ public class Health extends Component {
     public static float MAX_IMMUNITIY_TIME = .4f;
 
     private float maxHealth;
-    private float health;
+    public float health;
     private float immunityTime;
     Callbacks.NoArg onDeath;
 
