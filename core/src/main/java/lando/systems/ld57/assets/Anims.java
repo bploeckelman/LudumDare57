@@ -37,6 +37,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String HELMET = "enemies/meagman/helmet/";
         private static final String HOTHEAD_IDLE = "enemies/meagman/hothead-idle/";
         private static final String HOTHEAD_THROWING = "enemies/meagman/hothead-throwing/";
+        private static final String BOSS = "boss/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -109,6 +110,16 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , HELMET(Path.HELMET)
         , HOTHEAD_IDLE(Path.HOTHEAD_IDLE)
         , HOTHEAD_THROWING(Path.HOTHEAD_THROWING)
+        // boss -------------------------------------------------------
+        , BOSS_BODY(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_HEAD_BOWSER(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_NECK_HEAD_BOWSER(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_HEAD_DRACULA(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_NECK_HEAD_DRACULA(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_HEAD_WILY(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_NECK_HEAD_WILY(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_HEAD_GANON(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
+        , BOSS_NECK_HEAD_GANON(Path.BOSS, new AnimData(0.15f, Animation.PlayMode.LOOP))
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN)
         , MEGAMAN_POWERSHOT(Path.MEGAMAN)
