@@ -21,7 +21,7 @@ public class EntityFactory {
         var HEIGHT = 24f;
         var entity = scene.createEntity();
         new Position(entity, x,y);
-        new Health(entity, 1f);
+        new Health(entity, 2f);
 
         var scale = .5f;
         var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);

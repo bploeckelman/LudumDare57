@@ -1,9 +1,11 @@
 package lando.systems.ld57.audio;
 
 import aurelienribon.tweenengine.primitives.MutableFloat;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.Config;
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.assets.Sounds;
@@ -17,9 +19,12 @@ public class AudioManager {
     public MutableFloat musicVolume;
     public MutableFloat soundVolume;
 
+    private Preferences prefs = Main.game.assets.prefs;
+
     public AudioManager(Assets assets) {
-        musicVolume = new MutableFloat(DEFAULT_VOLUME);
-        soundVolume = new MutableFloat(DEFAULT_VOLUME);
+        musicVolume = new MutableFloat(prefs.getFloat("musicVolume", DEFAULT_VOLUME));
+        soundVolume = new MutableFloat(prefs.getFloat("soundVolume", DEFAULT_VOLUME));
+        prefs.flush();
     }
 
     public void update(float dt) {
@@ -31,9 +36,13 @@ public class AudioManager {
 
     public void setMusicVolume(float level) {
         musicVolume.setValue(level);
+        prefs.putFloat("musicVolume", level);
+        prefs.flush();
     }
     public void setSoundVolume(float level) {
         soundVolume.setValue(level);
+        prefs.putFloat("soundVolume", level);
+        prefs.flush();
     }
 
     public void playMusic(Musics.Type musicType) {
