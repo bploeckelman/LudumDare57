@@ -69,7 +69,8 @@ public class GameScreen extends BaseScreen {
             return;
         }
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(screenPos.x, screenPos.y, Util.randomColor()));
+
+//            particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(screenPos.x, screenPos.y, Util.randomColor()));
 //            particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(screenPos.x, screenPos.y));
 //            particleManager.spawn(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect.Params(screenPos.x, screenPos.y));
 //            particleManager.spawn(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect.Params(screenPos.x, screenPos.y));
@@ -131,10 +132,10 @@ public class GameScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if      (scene instanceof SceneIntro)       scene = new SceneMario(GameScreen.this);
-                else if (scene instanceof SceneMario)       scene = new SceneMegaman(GameScreen.this);
-                else if (scene instanceof SceneMegaman)     scene = new SceneZelda(GameScreen.this);
+                else if (scene instanceof SceneMario)       scene = new SceneZelda(GameScreen.this);
                 else if (scene instanceof SceneZelda)       scene = new SceneCastlevania(GameScreen.this);
-                else if (scene instanceof SceneCastlevania) scene = new SceneBoss(GameScreen.this);
+                else if (scene instanceof SceneCastlevania) scene = new SceneMegaman(GameScreen.this);
+                else if (scene instanceof SceneMegaman)     scene = new SceneBoss(GameScreen.this);
                 else if (scene instanceof SceneBoss)        scene = new SceneIntro(GameScreen.this);
 
                 if      (scene instanceof SceneIntro)       game.audioManager.playMusic(SceneIntro.music);

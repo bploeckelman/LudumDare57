@@ -142,7 +142,10 @@ public class Scene<ScreenType extends BaseScreen> {
                         case "castleBat": EnemyFactory.castleBat(this, x, y); break;
                         case "eagle":     EnemyFactory.eagle(this, x, y); break;
                         case "megaBat":   EnemyFactory.megaBat(this, x, y); break;
+                        case "monkey":    EnemyFactory.monkey(this, x, y); break;
+                        case "helmet":    EnemyFactory.helmet(this, x, y); break;
                         case "dragon":    BossFactory.createBoss(this, x, y); break;
+                        case "bowser":    BossFactory.createBoss(this, x, y); break;
                     }
                 }
             } else if ("unknown".equals(type)) {

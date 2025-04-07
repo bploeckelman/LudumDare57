@@ -17,6 +17,7 @@ public class Sounds extends AssetContainer<Sounds.Type, Sound[]> {
         BOARD_CLICK("board_click.ogg", "error-buzz.ogg"),
         JUMP("jump1.ogg"),
         FIREBALL("fireball1.ogg"),
+        PICKUP("capsule1.ogg"),
 
         LINKPAIN("linkPain1.ogg"),
         LINKATTACK("linkAttack1.ogg", "linkAttack2.ogg","linkAttack3.ogg"),

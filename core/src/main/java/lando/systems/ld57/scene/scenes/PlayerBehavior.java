@@ -348,7 +348,7 @@ public class PlayerBehavior extends Component {
                 break;
             case LINK:
                 attackEntity = linkAttack();
-                Main.game.audioManager.playSound(Sounds.Type.LINKATTACK);
+                Main.game.audioManager.playSound(Sounds.Type.LINKATTACK, .6f);
                 break;
             case MARIO:
 //                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);

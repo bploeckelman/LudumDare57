@@ -37,8 +37,8 @@ public class SceneMario extends Scene<GameScreen> {
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(playerPos);
 
-        EnemyFactory.bulletBill(this, 300f,  50f);
-        EnemyFactory.angrySun(this, 120f,  80f);
+        EnemyFactory.bulletBill(this, 2700f,  50f);
+        EnemyFactory.angrySun(this, 1200f,  80f);
 
     }
 }
