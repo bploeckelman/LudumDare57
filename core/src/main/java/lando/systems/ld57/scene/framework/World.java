@@ -224,6 +224,8 @@ public class World<ScreenType extends BaseScreen> {
             entity.detach(clazz);
         }
 
+        component.active = false;
+
         // remove by family if applicable
         // NOTE(brian): handling each family manually for now, there aren't many
         if (component instanceof RenderableComponent) {
