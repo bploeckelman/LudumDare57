@@ -109,6 +109,9 @@ public class PlayerBehavior extends Component {
             if (Math.abs(mover.velocity.x) > maxSpeed) {
                 mover.velocity.x = maxSpeed * (Math.signum(mover.velocity.x));
             }
+            if (mover.velocity.y < -300) {
+                mover.velocity.y = -300;
+            }
 
         }
 

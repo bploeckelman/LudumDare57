@@ -10,7 +10,8 @@ import java.util.Objects;
 
 public class ViewController extends Component {
 
-    public final Vector2 speed = new Vector2(500f, 2000f);
+    public final Vector2 cameraChaseZoneBounds = new Vector2(20, 20);
+    public final Vector2 speed = new Vector2(100f, 400f);
 
     public final Boundary boundary;
 
@@ -82,10 +83,34 @@ public class ViewController extends Component {
         // get half dimensions of the camera viewport, adjusted for the zoom factor
         var camHalfWidth  = viewer.width() / 2f;
         var camHalfHeight = viewer.height() / 2f;
+        var x = camera.position.x;
+        var y = camera.position.y;
+        var tarX = Float.MIN_VALUE;
+        var tarY = Float.MIN_VALUE;
 
         // follow target
-        var x = Calc.approach(camera.position.x, target.x(), dt * speed.x);
-        var y = Calc.approach(camera.position.y, target.y(), dt * speed.y);
+        var dx = target.x() - camera.position.x;
+        var dy = target.y() - camera.position.y;
+
+        if (dx < -cameraChaseZoneBounds.x) {
+            tarX = target.x() + cameraChaseZoneBounds.x;
+        } else if (dx > cameraChaseZoneBounds.x) {
+            tarX = target.x() - cameraChaseZoneBounds.x;
+        }
+
+        if (dy < -cameraChaseZoneBounds.y) {
+            tarY = target.y() + cameraChaseZoneBounds.y;
+        } else if (dy > cameraChaseZoneBounds.y) {
+            tarY = target.y() - cameraChaseZoneBounds.y;
+        }
+
+
+        if (tarX != Float.MIN_VALUE) {
+            x = Calc.approach(camera.position.x, tarX, dt * speed.x);
+        }
+        if (tarY != Float.MIN_VALUE) {
+            y = Calc.approach(camera.position.y, tarY, dt * speed.y);
+        }
 
         // contain within boundary
         var bounds = boundary.bounds;
