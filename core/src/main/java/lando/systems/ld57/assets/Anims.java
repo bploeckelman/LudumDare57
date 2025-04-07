@@ -73,7 +73,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_FALL(Path.LINK)
         , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , LINK_ATTACK(Path.LINK, new AnimData(.3f, Animation.PlayMode.NORMAL))
-        , LINK_POWERATTACK(Path.LINK)
+        , LINK_POWERATTACK(Path.LINK, new AnimData(.5f, Animation.PlayMode.NORMAL))
         // ----------------------------------------------------------
         , MARIO_IDLE(Path.MARIO)
         , MARIO_WALK(Path.MARIO)
@@ -125,6 +125,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEGAMAN_POWERSHOT(Path.MEGAMAN)
         , MARIO_FIREBALL(Path.MARIO)
         , BELMONT_AXE(Path.BELMONT)
+        , LINK_SWORD(Path.LINK)
         ;
 
         private final String path;
