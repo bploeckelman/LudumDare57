@@ -49,7 +49,7 @@ public class PlayerBehavior extends Component {
         var pos = entity.get(Position.class);
         mover.addCollidesWith(Collider.Mask.enemy);
 
-        // Deal with stomping
+        // Deal with on HIT
         if (character == Characters.Type.MARIO) {
             mover.setOnHit( (params) -> {
                 var hitEntity = params.hitCollider.entity;
@@ -57,6 +57,15 @@ public class PlayerBehavior extends Component {
                     Util.log("Mario Behavior", "Stomped enemy");
                     hitEntity.getIfActive(Health.class).setHealth(0);
                     mover.velocity.y = 200f;
+                }
+            });
+        } else {
+            mover.setOnHit( (params) -> {
+                if (params.hitCollider.mask == Collider.Mask.enemy) {
+                    var playerHealth = entity.scene.player.getIfActive(Health.class);
+                    if (playerHealth != null) {
+                        playerHealth.takeDamage(1f);
+                    }
                 }
             });
         }

@@ -6,6 +6,7 @@ import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.utils.Callbacks;
 import lando.systems.ld57.utils.Util;
 
@@ -53,6 +54,10 @@ public class Health extends Component {
         var emitter = entity.get(ParticleEmitter.class);
         var pos = entity.get(Position.class);
         var anim = entity.get(Animator.class);
+        var playerBehavior = entity.get(PlayerBehavior.class);
+        if (playerBehavior != null) {
+            playerBehavior.knockBack(1f);
+        }
         if (emitter != null) {
             entity.scene.screen.particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x() + anim.size.x / 2f, pos.y() + anim.size.x / 2f));
         }

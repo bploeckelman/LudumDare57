@@ -5,14 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.particles.ParticleManager;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.PlayerInput;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.Tilemap;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
@@ -91,6 +84,7 @@ public class Scene<ScreenType extends BaseScreen> {
         new PlayerInput(entity);
         new PlayerBehavior(entity, charType);
         new ParticleEmitter(entity);
+        new Health(entity, 500);
 
         var animType = charType.get().animByType.get(Characters.AnimType.IDLE);
         var animator = new Animator(entity, animType);

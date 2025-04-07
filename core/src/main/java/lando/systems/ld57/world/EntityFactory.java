@@ -81,8 +81,6 @@ public class EntityFactory {
                 // bounce back
                 mover.velocity.scl(-2f);
                 mover.velocity.y = MathUtils.clamp(mover.velocity.y, -speed * 2, speed * 2);
-                var playerBehavior = scene.player.get(PlayerBehavior.class);
-                playerBehavior.knockBack(1f);
             }
         });
         var timer = new Timer(entity);
@@ -123,11 +121,6 @@ public class EntityFactory {
         var mover = new Mover(entity, collider);
         mover.velocity.set(-SPEED, 0f);
         mover.setCollidesWith(Collider.Mask.player);
-        mover.setOnHit((params) -> {
-            if (pos.x() < 0) {
-                entity.scene.world.destroy(entity);
-            }
-        });
         var timer = new Timer(entity);
         timer.onEnd = () -> {
             var camera = entity.scene.screen.worldCamera;
@@ -206,7 +199,6 @@ public class EntityFactory {
             }
             else if (params.hitCollider.mask == Collider.Mask.player) {
                 animator.play(Anims.Type.KOOPA_REVIVE);
-
                 var hitDuration = 1.5f;
                 mover.velocity.set(0f, 0f);
                 var timer = entity.get(Timer.class);
