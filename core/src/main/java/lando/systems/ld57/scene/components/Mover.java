@@ -68,6 +68,13 @@ public class Mover extends Component {
         collidesWith.addAll(List.of(masks));
     }
 
+    public void removeCollidesWith(Collider.Mask mask) {
+        if (!collidesWith.contains(mask)) {
+            return;
+        }
+        collidesWith.remove(mask);
+    }
+
     public void removeCollidesWith(Collider.Mask... masks) {
         List.of(masks).forEach(collidesWith::remove);
     }

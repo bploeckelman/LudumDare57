@@ -23,8 +23,11 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String LINK = "character/link/";
         private static final String MARIO = "character/mario/";
         private static final String MEGAMAN = "character/megaman/";
-        private static final String GOOMBA = "enemies/goomba/";
-        private static final String KOOPA = "enemies/koopa/";
+        private static final String GOOMBA = "enemies/mario/goomba/";
+        private static final String KOOPA = "enemies/mario/koopa/";
+        private static final String ANGRY_SUN = "enemies/mario/angry-sun/";
+        private static final String BULLET_BILL = "enemies/mario/bullet-bill/";
+        private static final String SKELETON = "enemies/castlevania/skeleton/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -83,6 +86,10 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , KOOPA_WALK(Path.KOOPA)
         , KOOPA_REVIVE(Path.KOOPA)
         , KOOPA_SHELL_SPIN(Path.KOOPA)
+        , ANGRY_SUN(Path.ANGRY_SUN)
+        , BULLET_BILL(Path.BULLET_BILL)
+        , SKELETON_MOVE(Path.SKELETON)
+        , SKELETON_ATTACK(Path.SKELETON)
 
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN)

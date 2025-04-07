@@ -46,7 +46,20 @@ public class PlayerBehavior extends Component {
         var particleEmitter = entity.get(ParticleEmitter.class);
         var animator = entity.get(Animator.class);
         var mover = entity.get(Mover.class);
+        var pos = entity.get(Position.class);
+        mover.addCollidesWith(Collider.Mask.enemy);
 
+        // Deal with stomping
+        if (character == Characters.Type.MARIO) {
+            mover.setOnHit( (params) -> {
+                var hitEntity = params.hitCollider.entity;
+                if (params.hitCollider.mask == Collider.Mask.enemy && pos.y() >= hitEntity.get(Position.class).y() * .7f) {
+                    Util.log("Mario Behavior", "Stomped enemy");
+                    hitEntity.getIfActive(Health.class).setHealth(0);
+                    mover.velocity.y = 200f;
+                }
+            });
+        }
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 
@@ -93,7 +106,6 @@ public class PlayerBehavior extends Component {
 
             }
 
-            var pos = entity.get(Position.class);
             if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
                 nextCharacter();
                 particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
@@ -125,7 +137,6 @@ public class PlayerBehavior extends Component {
                     var animType = Characters.AnimType.IDLE;
                     if (Math.abs(mover.velocity.x) > 20) {
                         animType = Characters.AnimType.WALK;
-                        var pos = entity.get(Position.class);
                         particleEmitter.spawnParticle(ParticleEffect.Type.DIRT, new DirtEffect.Params(pos.x(), pos.y()));
                     }
                     animator.play(charData.animByType.get(animType));
@@ -223,11 +234,11 @@ public class PlayerBehavior extends Component {
         new FireParticle(powerAttackEntity);
         new Position(powerAttackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 13);
         var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
-        var mover = new Mover(powerAttackEntity, collider);
-        mover.velocity.x = 100 * charAnimator.facing;
-        mover.gravity = Mover.BASE_GRAVITY;
-        mover.addCollidesWith(Collider.Mask.enemy, Collider.Mask.solid);
-        mover.setOnHit((params -> {
+        var powerAttackEntityMover = new Mover(powerAttackEntity, collider);
+        powerAttackEntityMover.velocity.x = 100 * charAnimator.facing;
+        powerAttackEntityMover.gravity = Mover.BASE_GRAVITY;
+        powerAttackEntityMover.addCollidesWith(Collider.Mask.enemy, Collider.Mask.solid);
+        powerAttackEntityMover.setOnHit((params -> {
             if (params.hitCollider.mask == Collider.Mask.solid){
                 var move = powerAttackEntity.get(Mover.class);
                 if (params.direction == Direction.Relative.DOWN) {

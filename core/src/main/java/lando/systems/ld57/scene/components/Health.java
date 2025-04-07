@@ -3,7 +3,6 @@ package lando.systems.ld57.scene.components;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Callbacks;
-import lando.systems.ld57.utils.Direction;
 import lando.systems.ld57.utils.Util;
 
 public class Health extends Component {
@@ -37,5 +36,9 @@ public class Health extends Component {
     public void takeDamage(float amount) {
         Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 }

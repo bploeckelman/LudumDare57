@@ -16,6 +16,34 @@ import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
 
+    public static Entity bulletBill(Scene<? extends BaseScreen> scene, float x, float y) {
+        var WIDTH = 16f;
+        var HEIGHT = 24f;
+        var SPEED = 30f;
+        var entity = scene.createEntity();
+        var pos = new Position(entity, x, y);
+        new Health(entity, 2f);
+
+        var scale = 3f;
+        var animator =  new Animator(entity, Anims.Type.BULLET_BILL);
+        animator.origin.set(scale * WIDTH, 0);
+        animator.size.scl(scale); // X inverted to flip
+
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
+        var mover = new Mover(entity, collider);
+        mover.velocity.set(-SPEED, 0f);
+        mover.setCollidesWith(Collider.Mask.player);
+        mover.setOnHit((params) -> {
+            if (pos.x() < 0) {
+                entity.scene.world.destroy(entity);
+            }
+        });
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
+
     public static Entity koopa(Scene<? extends BaseScreen> scene, float x, float y) {
         var WIDTH = 16f;
         var HEIGHT = 24f;
@@ -24,7 +52,7 @@ public class EntityFactory {
         new Position(entity, x,y);
         new Health(entity, 2f);
 
-        var scale = .5f;
+        var scale = .75f;
         var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);
         animator.origin.set(scale * WIDTH, 0);
         animator.size.scl(scale); // X inverted to flip

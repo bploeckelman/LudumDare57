@@ -41,6 +41,9 @@ public class SceneMario extends Scene<GameScreen> {
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(playerPos);
+
+        EntityFactory.bulletBill(this, 300f,  50f);
+
     }
 
     private void makeMapObjects(Tilemap tilemap) {
