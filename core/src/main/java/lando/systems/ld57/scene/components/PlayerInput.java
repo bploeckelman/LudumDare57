@@ -137,8 +137,6 @@ public class PlayerInput extends Component {
         if (pressedActions.size() > code.size()) {
             pressedActions.remove(0);
         }
-
-
     }
 
     public boolean actionJustPressed(Action action) {

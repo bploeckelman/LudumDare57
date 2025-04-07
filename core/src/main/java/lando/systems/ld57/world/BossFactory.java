@@ -2,9 +2,16 @@ package lando.systems.ld57.world;
 
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.components.BossBehavior;
+import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 
 public class BossFactory {
@@ -40,5 +47,28 @@ public class BossFactory {
         DebugRender.makeForShapes(part, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return part;
+    }
+
+    public static Entity marioBoss(Scene<? extends BaseScreen> scene, float x, float y) {
+        var entity = scene.createEntity();
+        new Position(entity, x, y);
+        new EnemyMarioBehavior(entity);
+        new WaitToMove(entity);
+        new Health(entity, 4f);
+        var animator =  new Animator(entity, Anims.Type.MARIO_IDLE);
+        animator.origin.set(16, 1);
+        animator.facing = -1;
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -5, 0, 10, 28);
+
+        var mover = new Mover(entity, collider);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        // TODO mover on hit
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+
+        return entity;
     }
 }

@@ -7,6 +7,7 @@ import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.screens.GameScreen;
+import lando.systems.ld57.world.EnemyFactory;
 import lando.systems.ld57.world.EntityFactory;
 
 public class SceneMario extends Scene<GameScreen> {
@@ -36,8 +37,8 @@ public class SceneMario extends Scene<GameScreen> {
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(playerPos);
 
-        EntityFactory.bulletBill(this, 300f,  50f);
-        EntityFactory.angrySun(this, 120f,  80f);
+        EnemyFactory.bulletBill(this, 300f,  50f);
+        EnemyFactory.angrySun(this, 120f,  80f);
 
     }
 }
