@@ -8,16 +8,7 @@ import lando.systems.ld57.particles.effects.BulletExplosionEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.FireParticle;
-import lando.systems.ld57.scene.components.Health;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.PlayerInput;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.Timer;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Direction;
@@ -328,6 +319,72 @@ public class PlayerBehavior extends Component {
 
         // lookup a attack animation / collider data for character
         var charData = Characters.Type.BELMONT.get();
+        var attackAnim = charData.animByType.get(Characters.AnimType.ATTACK).get();
+        var attackDuration = attackAnim.getAnimationDuration();
+        var attackColliderRects = charData.attackColliderRects;
+        if (attackColliderRects.isEmpty()) {
+            entity.scene.destroy(attackEntity);
+            return null;
+        }
+
+        // create the attack collider, updating its rect on each attack animation frame
+        var colliderRect = attackColliderRects.get(0);
+        var collider = Collider.makeRect(attackEntity, Collider.Mask.player_projectile, colliderRect);
+        var meleeDamage = new MeleeDamage(attackEntity);
+        meleeDamage.setOnHit((params -> {
+            var collidedEntity = params.hitCollider.entity;
+            var health = collidedEntity.get(Health.class);
+            if (health != null) {
+                health.takeDamage(character.get().attackInfo.attackDamage);
+            }
+        }));
+
+        new Timer(attackEntity, attackDuration,
+            () -> {
+                // 'follow' the player's position in case they're moving
+                position.set(
+                    playerPos.x() + 5 * playerAnim.facing,
+                    playerPos.y() + 20);
+
+                // update the collider rect based on the animation frame
+                // so that the attack collider matches the location of
+                // the weapon in the attack animation for each frame
+                var frameIndex = attackAnim.getKeyFrameIndex(playerAnim.stateTime);
+                if (frameIndex < attackColliderRects.size()) {
+                    var currentRect = attackColliderRects.get(frameIndex);
+                    var rectShape = collider.shape(Collider.RectShape.class);
+                    if (rectShape != null) {
+                        // mirror the attack collider rect for this frame
+                        // if the player is facing to the left instead of right
+                        // since the rect values were written for right facing
+                        currentRectFacing.set(currentRect);
+                        if (playerAnim.facing == -1) {
+                            currentRectFacing.x = -(currentRectFacing.x + currentRectFacing.width);
+                        }
+                        rectShape.rect.set(currentRectFacing);
+                    }
+                }
+            },
+            () -> entity.scene.destroy(attackEntity)
+        );
+
+
+        return attackEntity;
+    }
+
+    public Entity linkAttack() {
+        var playerPos = entity.get(Position.class);
+        var playerAnim = entity.get(Animator.class);
+
+        var scene = entity.scene;
+        var attackEntity = scene.createEntity();
+
+        var position = new Position(attackEntity,
+            playerPos.x() + 5 * playerAnim.facing,
+            playerPos.y() + 20);
+
+        // lookup a attack animation / collider data for character
+        var charData = Characters.Type.LINK.get();
         var attackAnim = charData.animByType.get(Characters.AnimType.ATTACK).get();
         var attackDuration = attackAnim.getAnimationDuration();
         var attackColliderRects = charData.attackColliderRects;

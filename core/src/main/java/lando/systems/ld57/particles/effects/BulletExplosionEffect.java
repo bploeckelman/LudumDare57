@@ -34,9 +34,9 @@ public class BulletExplosionEffect extends ParticleEffect {
 
         for (int i = 0; i < amount; i++) {
             var angle = MathUtils.random(0f, 360f);
-            var speed = MathUtils.random(50f, 100f);
+            var speed = MathUtils.random(10f, 100f);
             var endRotation = MathUtils.random(angle - 360f, angle + 360f);
-            var startSize = MathUtils.random(5f, 10f);
+            var startSize = MathUtils.random(2f, 4f);
             var ttl = .25f;
 
             layer.add(Particle.initializer(pool.obtain())

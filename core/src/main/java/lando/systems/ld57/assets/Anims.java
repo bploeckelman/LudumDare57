@@ -62,7 +62,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_JUMP(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , LINK_FALL(Path.LINK)
         , LINK_HURT(Path.LINK, new AnimData(0.1f, Animation.PlayMode.NORMAL))
-        , LINK_ATTACK(Path.LINK)
+        , LINK_ATTACK(Path.LINK, new AnimData(.3f, Animation.PlayMode.NORMAL))
         , LINK_POWERATTACK(Path.LINK)
         // ----------------------------------------------------------
         , MARIO_IDLE(Path.MARIO)
