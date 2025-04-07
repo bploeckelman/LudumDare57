@@ -88,9 +88,9 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , KOOPA_SHELL_SPIN(Path.KOOPA)
         , ANGRY_SUN(Path.ANGRY_SUN)
         , BULLET_BILL(Path.BULLET_BILL)
-        , SKELETON_MOVE(Path.SKELETON)
-        , SKELETON_ATTACK(Path.SKELETON)
-
+        , SKELETON_MOVE(Path.SKELETON, new AnimData(0.33f, Animation.PlayMode.LOOP))
+        , SKELETON_ATTACK(Path.SKELETON, new AnimData(0.4f, Animation.PlayMode.NORMAL))
+        , SKELETON_BONE(Path.SKELETON, new AnimData(0.1f, Animation.PlayMode.LOOP))
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN)
         , MEGAMAN_POWERSHOT(Path.MEGAMAN)

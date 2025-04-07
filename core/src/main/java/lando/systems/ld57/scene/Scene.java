@@ -55,6 +55,10 @@ public class Scene<ScreenType extends BaseScreen> {
         return world.create(this);
     }
 
+    public void destroy(Entity entity) {
+        world.destroy(entity);
+    }
+
     public void update(float dt) {
         world.update(dt);
     }
@@ -131,9 +135,10 @@ public class Scene<ScreenType extends BaseScreen> {
                 var character = props.get("character", String.class);
                 if (character != null) {
                     switch (character) {
-                        case "player": player = spawnPlayer(getSceneCharType(), x, y); break;
-                        case "goomba": EntityFactory.goomba(this, x, y); break;
-                        case "koopa":  EntityFactory.koopa(this, x, y);  break;
+                        case "player":   player = spawnPlayer(getSceneCharType(), x, y); break;
+                        case "goomba":   EntityFactory.goomba(this, x, y); break;
+                        case "koopa":    EntityFactory.koopa(this, x, y);  break;
+                        case "skeleton": EntityFactory.skeleton(this, x, y);  break;
                     }
                 }
             } else if ("unknown".equals(type)) {

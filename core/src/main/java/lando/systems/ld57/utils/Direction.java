@@ -29,6 +29,14 @@ public class Direction {
             }
             return dir;
         }
+
+        public boolean isHorizontal() {
+            return this == LEFT || this == RIGHT;
+        }
+
+        public boolean isVertical() {
+            return this == UP || this == DOWN;
+        }
     }
 
     public enum Movement { FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN }

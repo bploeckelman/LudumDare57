@@ -1,15 +1,22 @@
 package lando.systems.ld57.scene.scenes;
 
-import com.badlogic.gdx.Gdx;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
-import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.particles.effects.BulletExplosionEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.SparkEffect;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.FireParticle;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Timer;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Direction;
@@ -158,6 +165,26 @@ public class PlayerBehavior extends Component {
         // TODO(brian): handle hurt and attack animations
     }
 
+    public void knockBack(float strength) {
+        var pos = entity.get(Position.class);
+        var mover = entity.get(Mover.class);
+        var animator = entity.get(Animator.class);
+        var emitter = entity.get(ParticleEmitter.class);
+
+        mover.velocity.x = 300f * strength * -animator.facing ;
+        mover.velocity.y = 250f * strength;
+        emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
+
+        // disable automatic facing control so the player doesn't turn around
+        // TODO(brian): this doesn't really work as a timer, need some sort of 'landed' callback
+//        animator.autoFacing = false;
+//        var timer = entity.scene.createEntity();
+//        new Timer(timer, 0.6f, () -> {
+//            animator.autoFacing = true;
+//            timer.selfDestruct();
+//        });
+    }
+
     public void nextCharacter() {
         if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
         else if (character == Characters.Type.BELMONT) character = Characters.Type.LINK;
@@ -283,16 +310,15 @@ public class PlayerBehavior extends Component {
         var mover = new Mover(attackEntity, collider);
         mover.velocity.x = 100 * charAnimator.facing;
         mover.addCollidesWith(Collider.Mask.enemy);
-        mover.setOnHit((params -> {
-                var collidedEntity = params.hitCollider.entity;
-                var health = collidedEntity.get(Health.class);
-                if (health != null) {
-                    health.takeDamage(character.get().attackInfo.attackDamage);
-                }
-                destroyBulletParticle(attackEntity);
+        mover.setOnHit(params -> {
+            var collidedEntity = params.hitCollider.entity;
+            var health = collidedEntity.get(Health.class);
+            if (health != null) {
+                health.takeDamage(character.get().attackInfo.attackDamage);
+            }
+            destroyBulletParticle(attackEntity);
             attackEntity.scene.world.destroy(attackEntity);
-            })
-        );
+        });
 
         var animator = new Animator(attackEntity, Anims.Type.MEGAMAN_SHOT);
         animator.size.set(size, size);

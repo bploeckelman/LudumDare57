@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.math.Calc;
@@ -19,6 +18,7 @@ public class Animator extends RenderableComponent {
     public TextureRegion keyframe;
     public float stateTime;
     public int facing;
+    public boolean autoFacing;
     public Color fillColor;
     public Color outlineColor;
     public float outlineThickness = 1f;
@@ -38,6 +38,7 @@ public class Animator extends RenderableComponent {
         this.size.set(keyframe.getRegionWidth(), keyframe.getRegionHeight());
         this.stateTime = 0;
         this.facing = 1;
+        this.autoFacing = true;
         this.outlineColor = new Color(Color.BLACK);
         this.fillColor = new Color(Color.CLEAR);
     }

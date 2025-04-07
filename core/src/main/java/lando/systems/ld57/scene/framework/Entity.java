@@ -167,6 +167,14 @@ public class Entity {
     }
 
     /**
+        * Detach and destroy this entity and all components attached to it.
+        * This is a convenience method for {@link World#destroy(Entity)}.
+        */
+    public void selfDestruct() {
+        scene.world.destroy(this);
+    }
+
+    /**
      * Detach and destroy all components attached to this entity if any,
      * do nothing otherwise.
      */
