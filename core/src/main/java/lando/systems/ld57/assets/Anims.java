@@ -85,7 +85,8 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , KOOPA_SHELL_SPIN(Path.KOOPA)
 
         // projectiles ------------------------------------------------
-        , MEGAMAN_SHOT(Path.MEGAMAN, new AnimData(.1f, Animation.PlayMode.LOOP))
+        , MEGAMAN_SHOT(Path.MEGAMAN)
+        , MEGAMAN_POWERSHOT(Path.MEGAMAN)
         , MARIO_FIREBALL(Path.MARIO)
         ;
 

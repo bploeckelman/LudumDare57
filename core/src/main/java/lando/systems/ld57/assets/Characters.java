@@ -88,8 +88,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
 
             switch(type) {
                 case OLDMAN:
-                    data.attackInfo.attackCooldown = .1f;
-                    data.attackInfo.powerAttackCooldown = .2f;
+                    data.attackInfo.attackCooldown = .5f;
+                    data.attackInfo.powerAttackCooldown = .7f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
                     break;
@@ -100,7 +100,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackDamage = 2f;
                     break;
                 case LINK:
-                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.attackCooldown = .5f;
                     data.attackInfo.powerAttackCooldown = .1f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
@@ -112,9 +112,9 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackDamage = 2f;
                     break;
                 case MEGAMAN:
-                    data.attackInfo.attackCooldown = .1f;
-                    data.attackInfo.powerAttackCooldown = .2f;
-                    data.attackInfo.attackDamage = 1f;
+                    data.attackInfo.attackCooldown = .15f;
+                    data.attackInfo.powerAttackCooldown = .3f;
+                    data.attackInfo.attackDamage = .2f;
                     data.attackInfo.powerAttackDamage = 2f;
                     break;
             }

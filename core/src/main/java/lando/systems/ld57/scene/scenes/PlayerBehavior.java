@@ -70,7 +70,7 @@ public class PlayerBehavior extends Component {
                 playerState = State.ATTACK;
                 animator.play(character.get().animByType.get(Characters.AnimType.ATTACK));
                 attackCoolDown = character.get().attackInfo.attackCooldown;
-                // spawn attack
+                spawnAttack();
             }
 
             if (playerInput.actionJustPressed(PlayerInput.Action.POWER_ATTACK) && attackCoolDown <= 0) {
@@ -164,6 +164,30 @@ public class PlayerBehavior extends Component {
         else                                           character = Characters.Type.OLDMAN;
     }
 
+    private void spawnAttack() {
+        Util.log("Launch Attack Entity");
+        Entity attackEntity  = null;
+        switch (character) {
+            case OLDMAN:
+                break;
+            case BELMONT:
+                break;
+            case LINK:
+                break;
+            case MARIO:
+                break;
+            case MEGAMAN:
+                attackEntity = megamanAttack();
+                break;
+        }
+
+
+        if (attackEntity != null) {
+            DebugRender.makeForShapes(attackEntity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+        }
+
+    }
+
     private void spawnPowerAttack() {
         Util.log("Launch Power Attack");
         Entity powerAttackEntity  = null;
@@ -237,6 +261,44 @@ public class PlayerBehavior extends Component {
         return powerAttackEntity;
     }
 
+    public Entity megamanAttack() {
+        float size = 8f;
+        var scene = entity.scene;
+        var charAnimator = entity.get(Animator.class);
+        var charPos = entity.get(Position.class);
+
+        var attackEntity = scene.createEntity();
+        new Position(attackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 13);
+        var collider = Collider.makeRect(attackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
+        var mover = new Mover(attackEntity, collider);
+        mover.velocity.x = 100 * charAnimator.facing;
+        mover.addCollidesWith(Collider.Mask.enemy);
+        mover.setOnHit((params -> {
+                var collidedEntity = params.hitCollider.entity;
+                var health = collidedEntity.get(Health.class);
+                if (health != null) {
+                    health.takeDamage(character.get().attackInfo.attackDamage);
+                }
+                destroyBulletParticle(attackEntity);
+            attackEntity.scene.world.destroy(attackEntity);
+            })
+        );
+
+        var animator = new Animator(attackEntity, Anims.Type.MEGAMAN_SHOT);
+        animator.size.set(size, size);
+        animator.origin.set(size/2f, size/2f);
+        animator.outlineColor.a = 0;
+
+        var timer = new Timer(attackEntity, 4, () -> {
+            destroyBulletParticle(attackEntity);
+            attackEntity.destroy(Timer.class);
+            attackEntity.scene.world.destroy(attackEntity);
+            // TODO particle effect
+        });
+
+        return attackEntity;
+    }
+
     public Entity megamanPowerAttack() {
         float size = 12f;
         var scene = entity.scene;
@@ -260,9 +322,10 @@ public class PlayerBehavior extends Component {
             })
         );
 
-        var animator = new Animator(powerAttackEntity, Anims.Type.GOOMBA_WALK);
+        var animator = new Animator(powerAttackEntity, Anims.Type.MEGAMAN_POWERSHOT);
         animator.size.set(size, size);
         animator.origin.set(size/2f, size/2f);
+        animator.outlineColor.a = 0;
 
         var timer = new Timer(powerAttackEntity, 1, () -> {
             destroyBulletParticle(powerAttackEntity);
