@@ -22,7 +22,7 @@ public class TitleScreen extends BaseScreen {
 
     public TitleScreen() {
         this.logo = assets.atlas.findRegion("libgdx");
-        game.audioManager.playMusic(Musics.Type.MEGAMAN3);
+        game.audioManager.playMusic(Musics.Type.SHOW);
         initializeUI();
     }
 

@@ -19,6 +19,7 @@ public class Musics extends AssetContainer<Musics.Type, Music> {
         MEGAMAN2("mm2.ogg"),
         MEGAMAN3("mm3.ogg"),
         CASTLEVANIA("castlevania.ogg"),
+        SHOW("marioshow.ogg"),
         ;
 
         private final String path;
