@@ -1,6 +1,8 @@
 package lando.systems.ld57.scene.components;
 
 import com.badlogic.gdx.math.MathUtils;
+import lando.systems.ld57.Main;
+import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.particles.effects.BloodEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ShapeEffect;
@@ -59,6 +61,9 @@ public class Health extends Component {
         if (playerBehavior != null) {
             //Player got damaged
             playerBehavior.knockBack(1f);
+        }
+        else {
+            Main.game.audioManager.playSound(Sounds.Type.DAMAGE);
         }
         if (emitter != null) {
             entity.scene.screen.particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x() + anim.size.x / 2f, pos.y() + anim.size.x / 2f));
