@@ -2,6 +2,7 @@ package lando.systems.ld57.audio;
 
 import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.Musics;
@@ -49,8 +50,9 @@ public class AudioManager {
     }
 
     public void playSound(Sounds.Type soundType, float pan) {
-        var sound = soundType.get();
+        var sounds = soundType.get();
         var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue();
+        var sound = sounds[MathUtils.random(sounds.length-1)];
         sound.play(soundType.volume * volume, 1f, pan);
     }
 
