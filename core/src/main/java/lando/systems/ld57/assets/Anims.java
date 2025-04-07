@@ -54,8 +54,8 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , BELMONT_JUMP(Path.BELMONT)
         , BELMONT_FALL(Path.BELMONT)
         , BELMONT_HURT(Path.BELMONT)
-        , BELMONT_ATTACK(Path.BELMONT)
-        , BELMONT_POWERATTACK(Path.BELMONT)
+        , BELMONT_ATTACK(Path.BELMONT, new AnimData(0.1f, Animation.PlayMode.NORMAL))
+        , BELMONT_POWERATTACK(Path.BELMONT, new AnimData(0.3f, Animation.PlayMode.NORMAL))
         // ----------------------------------------------------------
         , LINK_IDLE(Path.LINK)
         , LINK_WALK(Path.LINK)

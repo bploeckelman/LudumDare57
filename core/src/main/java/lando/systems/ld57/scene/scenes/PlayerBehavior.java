@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
+import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
@@ -173,6 +174,9 @@ public class PlayerBehavior extends Component {
 
         mover.velocity.x = 300f * strength * -animator.facing ;
         mover.velocity.y = 250f * strength;
+
+        animator.play(character.get().animByType.get(Characters.AnimType.HURT));
+
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
 
         // disable automatic facing control so the player doesn't turn around
@@ -208,6 +212,7 @@ public class PlayerBehavior extends Component {
             case OLDMAN:
                 break;
             case BELMONT:
+                attackEntity = belmontAttack();
                 break;
             case LINK:
                 break;
@@ -296,6 +301,65 @@ public class PlayerBehavior extends Component {
         });
 
         return powerAttackEntity;
+    }
+
+    private final Rectangle currentRectFacing = new Rectangle();
+    public Entity belmontAttack() {
+        var playerPos = entity.get(Position.class);
+        var playerAnim = entity.get(Animator.class);
+
+        var scene = entity.scene;
+        var attackEntity = scene.createEntity();
+
+        var position = new Position(attackEntity,
+            playerPos.x() + 5 * playerAnim.facing,
+            playerPos.y() + 20);
+
+        // lookup a attack animation / collider data for character
+        var charData = Characters.Type.BELMONT.get();
+        var attackAnim = charData.animByType.get(Characters.AnimType.ATTACK).get();
+        var attackDuration = attackAnim.getAnimationDuration();
+        var attackColliderRects = charData.attackColliderRects;
+        if (attackColliderRects.isEmpty()) {
+            entity.scene.destroy(attackEntity);
+            return null;
+        }
+
+        // create the attack collider, updating its rect on each attack animation frame
+        var colliderRect = attackColliderRects.get(0);
+        var collider = Collider.makeRect(attackEntity, Collider.Mask.player_projectile, colliderRect);
+        new Timer(attackEntity, attackDuration,
+            () -> {
+                // 'follow' the player's position in case they're moving
+                position.set(
+                    playerPos.x() + 5 * playerAnim.facing,
+                    playerPos.y() + 20);
+
+                // update the collider rect based on the animation frame
+                // so that the attack collider matches the location of
+                // the weapon in the attack animation for each frame
+                var frameIndex = attackAnim.getKeyFrameIndex(playerAnim.stateTime);
+                if (frameIndex < attackColliderRects.size()) {
+                    var currentRect = attackColliderRects.get(frameIndex);
+                    var rectShape = collider.shape(Collider.RectShape.class);
+                    if (rectShape != null) {
+                        // mirror the attack collider rect for this frame
+                        // if the player is facing to the left instead of right
+                        // since the rect values were written for right facing
+                        currentRectFacing.set(currentRect);
+                        if (playerAnim.facing == -1) {
+                            currentRectFacing.x = -(currentRectFacing.x + currentRectFacing.width);
+                        }
+                        rectShape.rect.set(currentRectFacing);
+                    }
+                }
+            },
+            () -> entity.scene.destroy(attackEntity)
+        );
+
+        DebugRender.makeForShapes(attackEntity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return attackEntity;
     }
 
     public Entity megamanAttack() {

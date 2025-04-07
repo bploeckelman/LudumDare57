@@ -17,11 +17,11 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
     public enum AnimType { ATTACK, FALL, HURT, IDLE, JUMP, WALK, POWERATTACK }
 
     public enum Type implements AssetEnum<Data> {
-          OLDMAN  (new Vector2(16, 1), new Rectangle(-5, 0, 10, 28), Color.WHITE)
-        , BELMONT (new Vector2(16, 1), new Rectangle(-5, 0, 10, 28), Color.ORANGE)
-        , LINK    (new Vector2(16, 1), new Rectangle(-5, 0, 10, 32), Color.GREEN)
-        , MARIO   (new Vector2(16, 1), new Rectangle(-5, 0, 10, 28), Color.RED)
-        , MEGAMAN (new Vector2(16, 1), new Rectangle(-5, 0, 10, 16), Color.BLUE)
+          OLDMAN  (new Vector2(16, 1),  new Rectangle(-5, 0, 10, 28), Color.WHITE)
+        , BELMONT (new Vector2(25, 3), new Rectangle(-5, 0, 10, 28), Color.ORANGE)
+        , LINK    (new Vector2(16, 1),  new Rectangle(-5, 0, 10, 32), Color.GREEN)
+        , MARIO   (new Vector2(16, 1),  new Rectangle(-5, 0, 10, 28), Color.RED)
+        , MEGAMAN (new Vector2(16, 1),  new Rectangle(-5, 0, 10, 16), Color.BLUE)
         ;
 
         private final Data data;
@@ -52,7 +52,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         public final Color primaryColor;
 
         public Map<AnimType, Anims.Type> animByType = new HashMap<>();
-        public List<Rectangle> attackColliderOffsets;
+        public List<Rectangle> attackColliderRects;
         public AttackInfo attackInfo;
 
         public Data(
@@ -62,7 +62,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         ) {
             this.origin = origin;
             this.colliderOffset = colliderOffset;
-            this.attackColliderOffsets = List.of();
+            this.attackColliderRects = List.of();
             this.primaryColor = primaryColor;
             this.attackInfo = new AttackInfo();
         }
@@ -94,10 +94,15 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackDamage = 2f;
                     break;
                 case BELMONT:
-                    data.attackInfo.attackCooldown = .1f;
+                    data.attackInfo.attackCooldown = .6f;
                     data.attackInfo.powerAttackCooldown = .25f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.attackColliderRects = List.of(
+                          new Rectangle(-28, -23, 8, 29)
+                        , new Rectangle(-28, -15, 15, 20)
+                        , new Rectangle(0, -8, 48, 8)
+                    );
                     break;
                 case LINK:
                     data.attackInfo.attackCooldown = .5f;

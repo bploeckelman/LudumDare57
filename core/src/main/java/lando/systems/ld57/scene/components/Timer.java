@@ -9,11 +9,13 @@ public class Timer extends Component {
     private float duration;
 
     public Callbacks.NoArg onEnd;
+    public Callbacks.NoArg onUpdate;
 
     public Timer(Entity entity) {
         super(entity);
         this.duration = 0;
         this.onEnd = null;
+        this.onUpdate = null;
     }
 
     public Timer(Entity entity, float duration) {
@@ -21,8 +23,13 @@ public class Timer extends Component {
     }
 
     public Timer(Entity entity, float duration, Callbacks.NoArg onEnd) {
+        this(entity, duration, null, onEnd);
+    }
+
+    public Timer(Entity entity, float duration, Callbacks.NoArg onUpdate, Callbacks.NoArg onEnd) {
         super(entity);
         this.onEnd = onEnd;
+        this.onUpdate = onUpdate;
         start(duration);
     }
 
@@ -32,6 +39,10 @@ public class Timer extends Component {
 
     @Override
     public void update(float dt) {
+        if (onUpdate != null) {
+            onUpdate.run();
+        }
+
         if (duration > 0) {
             duration -= dt;
             if (duration <= 0 && onEnd != null) {
