@@ -90,7 +90,8 @@ public class Collider extends Component {
         if (ClassReflection.isInstance(shapeClass, shape)) {
             return (T) shape;
         }
-        throw new GdxRuntimeException("Collider shape is not the specified type: " + shapeClass);
+        return null;
+//        throw new GdxRuntimeException("Collider shape is not the specified type: " + shapeClass);
     }
 
     public boolean check(Mask mask) {

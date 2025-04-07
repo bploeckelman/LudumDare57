@@ -26,6 +26,7 @@ import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.scene.components.Viewer;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
@@ -206,6 +207,7 @@ public class EntityFactory {
             }
         });
 
+        new GoombaBehavior(entity);
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
