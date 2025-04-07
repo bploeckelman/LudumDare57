@@ -7,7 +7,21 @@ import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Icons;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Boundary;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.Image;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.Patch;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Tilemap;
+import lando.systems.ld57.scene.components.Timer;
+import lando.systems.ld57.scene.components.ViewController;
+import lando.systems.ld57.scene.components.Viewer;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.BaseScreen;
@@ -128,14 +142,19 @@ public class EntityFactory {
                 }
             }
             else if (params.hitCollider.mask == Collider.Mask.player) {
-                animator.play(Anims.Type.GOOMBA_DEATH);
-
                 var hitDuration = 0.5f;
                 var timer = entity.get(Timer.class);
                 if (timer == null) {
+                    final float origSizeX = animator.size.x;
+                    final float origSizeY = animator.size.y;
+
+                    animator.play(Anims.Type.GOOMBA_DEATH);
+                    animator.size.set(animator.size.x, animator.size.y * 0.33f);
+
                     // no active timer, create and attach one
                     new Timer(entity, hitDuration, () -> {
                         animator.play(Anims.Type.GOOMBA_WALK);
+                        animator.size.set(origSizeX, origSizeY);
                         entity.destroy(Timer.class);
                     });
                 } else {

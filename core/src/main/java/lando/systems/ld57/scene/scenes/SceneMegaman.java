@@ -12,7 +12,7 @@ import lando.systems.ld57.world.EntityFactory;
 public class SceneMegaman extends Scene<GameScreen> {
 
     private static final String TAG = SceneMegaman.class.getSimpleName();
-    public static Musics.Type music = Musics.Type.MEGAMAN2;
+    public static final Musics.Type music = Musics.Type.MEGAMAN2;
 
     public SceneMegaman(GameScreen screen) {
         super(screen);

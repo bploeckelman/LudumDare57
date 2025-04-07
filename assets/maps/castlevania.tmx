@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="45" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="2">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="45" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="9">
  <tileset firstgid="1" source="tilesets/castlevania1.tsx"/>
  <imagelayer id="5" name="background" visible="0" tintcolor="#050505" repeatx="1">
   <image source="backgrounds/white.png" width="256" height="256"/>
@@ -35,7 +35,24 @@
 </data>
  </layer>
  <objectgroup id="2" name="objects">
-  <object id="1" template="templates/object-spawn.tx" name="spawn" x="448" y="80"/>
+  <object id="5" template="templates/object-spawn.tx" x="448" y="112">
+   <properties>
+    <property name="character" value="player"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="6" template="templates/object-spawn.tx" x="124" y="140">
+   <properties>
+    <property name="character" value="goomba"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="7" template="templates/object-spawn.tx" x="256" y="140">
+   <properties>
+    <property name="character" value="koopa"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="1" name="front" width="45" height="11">
   <data encoding="csv">

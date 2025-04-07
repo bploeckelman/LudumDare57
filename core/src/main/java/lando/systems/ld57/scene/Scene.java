@@ -3,8 +3,7 @@ package lando.systems.ld57.scene;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Characters;
-import lando.systems.ld57.assets.Musics;
-import lando.systems.ld57.assets.Sounds;
+import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
 import lando.systems.ld57.scene.components.DebugRender;
@@ -12,14 +11,20 @@ import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.PlayerInput;
 import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
+import lando.systems.ld57.scene.scenes.SceneCastlevania;
+import lando.systems.ld57.scene.scenes.SceneMario;
+import lando.systems.ld57.scene.scenes.SceneMegaman;
+import lando.systems.ld57.scene.scenes.SceneZelda;
 import lando.systems.ld57.screens.BaseScreen;
+import lando.systems.ld57.utils.Util;
+import lando.systems.ld57.world.EntityFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+import text.formic.Stringf;
 
 /**
  * An arrangement of {@link Entity} instances from an associated {@link World},
@@ -28,8 +33,12 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
  */
 public class Scene<ScreenType extends BaseScreen> {
 
+    private static final String TAG = Scene.class.getSimpleName();
+
     public final ScreenType screen;
     public final World<ScreenType> world;
+
+    public Entity player;
 
     public Scene(ScreenType screen) {
         this.screen = screen;
@@ -92,5 +101,52 @@ public class Scene<ScreenType extends BaseScreen> {
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return entity;
+    }
+
+    protected void makeMapObjects(Tilemap tilemap) {
+        var objectLayerName = "objects";
+
+        var layer = tilemap.map.getLayers().get(objectLayerName);
+        var objects = layer.getObjects();
+
+        for (var object : objects) {
+            Util.log(TAG, object, obj -> Stringf.format(
+                "parsing map object: %s[name='%s', pos=(%.1f, %.1f)]...",
+                obj.getClass().getSimpleName(),
+                object.getName(),
+                object.getProperties().get("x", Float.class),
+                object.getProperties().get("y", Float.class)));
+
+            // NOTE: 'name' field doesn't get set in the tmx <object> when
+            //  creating when creating an object from a template,
+            //  so don't count on it for parsing
+            var name = object.getName();
+            var props = object.getProperties();
+            var type = props.get("type", "unknown", String.class);
+            var x = props.get("x", Float.class);
+            var y = props.get("y", Float.class);
+
+            if ("spawn".equals(type)) {
+                var character = props.get("character", String.class);
+                if (character != null) {
+                    switch (character) {
+                        case "player": player = spawnPlayer(getSceneCharType(), x, y); break;
+                        case "goomba": EntityFactory.goomba(this, x, y); break;
+                        case "koopa":  EntityFactory.koopa(this, x, y);  break;
+                    }
+                }
+            } else if ("unknown".equals(type)) {
+                Util.log(TAG, "map object: unknown type ", obj -> Stringf.format(
+                    "name='%s', type='%s', x=%.1f, y=%.1f", name, type, x, y));
+            }
+        }
+    }
+
+    private Characters.Type getSceneCharType() {
+        if      (this instanceof SceneCastlevania) return Characters.Type.BELMONT;
+        else if (this instanceof SceneMario)       return Characters.Type.MARIO;
+        else if (this instanceof SceneMegaman)     return Characters.Type.MEGAMAN;
+        else if (this instanceof SceneZelda)       return Characters.Type.LINK;
+        return Characters.Type.OLDMAN;
     }
 }

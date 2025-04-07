@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <object name="spawn">
+  <properties>
+   <property name="character" value="player"/>
+   <property name="type" value="spawn"/>
+  </properties>
   <point/>
  </object>
 </template>

@@ -35,7 +35,8 @@ public class ScenePlatformer extends Scene<GameScreen> {
         EntityFactory.goomba(this, (float) width / 2,  height * 0.2f);
     }
 
-    private void makeMapObjects(Tilemap tilemap) {
+    @Override
+    protected void makeMapObjects(Tilemap tilemap) {
         var objectLayerName = "objects";
 
         var layer = tilemap.map.getLayers().get(objectLayerName);

@@ -35,7 +35,12 @@
 </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="3" template="../templates/object-spawn.tx" name="spawn" x="120" y="120"/>
+  <object id="3" template="../templates/object-spawn.tx" name="spawn" x="120" y="144">
+   <properties>
+    <property name="character" value="player"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="1" name="front" width="15" height="10">
   <data encoding="csv">

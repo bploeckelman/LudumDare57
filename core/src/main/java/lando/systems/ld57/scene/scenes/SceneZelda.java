@@ -1,24 +1,18 @@
 package lando.systems.ld57.scene.scenes;
 
-import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
-import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.GameScreen;
-import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.EntityFactory;
-import text.formic.Stringf;
 
 public class SceneZelda extends Scene<GameScreen> {
 
     private static final String TAG = SceneZelda.class.getSimpleName();
-    public static Musics.Type music = Musics.Type.ZELDA;
-
-    private Entity player;
+    public static final Musics.Type music = Musics.Type.ZELDA;
 
     public SceneZelda(GameScreen screen) {
         super(screen);
@@ -40,30 +34,5 @@ public class SceneZelda extends Scene<GameScreen> {
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(playerPos);
-    }
-
-    private void makeMapObjects(Tilemap tilemap) {
-        var objectLayerName = "objects";
-
-        var layer = tilemap.map.getLayers().get(objectLayerName);
-        var objects = layer.getObjects();
-
-        for (var object : objects) {
-            Util.log(TAG, object, obj -> Stringf.format(
-                "parsing map object: %s[name='%s', pos=(%.1f, %.1f)]...",
-                obj.getClass().getSimpleName(),
-                object.getName(),
-                object.getProperties().get("x", Float.class),
-                object.getProperties().get("y", Float.class)));
-
-            var name = object.getName();
-            var props = object.getProperties();
-            var x = props.get("x", Float.class);
-            var y = props.get("y", Float.class);
-
-            if (name.equals("spawn")) {
-                player = spawnPlayer(Characters.Type.LINK, x, y);
-            }
-        }
     }
 }
