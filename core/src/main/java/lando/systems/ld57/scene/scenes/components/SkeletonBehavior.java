@@ -35,6 +35,7 @@ public class SkeletonBehavior extends EnemyBehavior {
         var mover = entity.get(Mover.class);
         var collider = entity.get(Collider.class);
         var animator = entity.get(Animator.class);
+        if (mover == null || animator == null) return;
 
         facePlayer(animator);
         turnAroundAtEdge(mover, collider);

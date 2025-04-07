@@ -87,10 +87,10 @@ public class PlayerInput extends Component {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             pressedThisFrame.put(Action.JUMP, true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.J) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             pressedThisFrame.put(Action.ATTACK, true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.K) || Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             pressedThisFrame.put(Action.POWER_ATTACK, true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {

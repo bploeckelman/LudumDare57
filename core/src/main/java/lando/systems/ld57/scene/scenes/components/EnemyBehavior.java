@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.particles.effects.BulletExplosionEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
 import lando.systems.ld57.scene.components.Health;
@@ -13,6 +14,7 @@ import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.framework.ComponentFamily;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Time;
+import lando.systems.ld57.utils.Util;
 
 public abstract class EnemyBehavior extends ComponentFamily {
 
@@ -33,7 +35,13 @@ public abstract class EnemyBehavior extends ComponentFamily {
     }
 
     public void die() {
-
+        Util.log(entity.toString(), "is dead");
+        var emitter = entity.get(ParticleEmitter.class);
+        var pos = entity.get(Position.class);
+        if (emitter != null) {
+            entity.scene.screen.particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(pos.x(), pos.y(), Util.randomColor()));
+        }
+        entity.scene.world.destroy(entity);
     }
 
     public void hurt(float damageAmount) {
@@ -54,14 +62,22 @@ public abstract class EnemyBehavior extends ComponentFamily {
     public void update(float delta) {
         super.update(delta);
         accum += delta;
+        var health = entity.get(Health.class);
+
+        if (health != null) {
+            if (health.gethealth() <= 0) {
+                die();
+                return;
+            }
+        }
+
 
         invincibilityTime -= delta;
         invincibilityTime = Math.max(0, invincibilityTime);
 
-        var health = entity.get(Health.class);
+
         var anim = entity.get(Animator.class);
         if (health != null && anim != null) {
-            // TODO(brian): this doesn't work
             if (invincibilityTime > 0) {
                 anim.fillColor.set(1f, 1f, 1f, .8f * MathUtils.sin(accum * 30));
             } else {

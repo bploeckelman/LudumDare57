@@ -5,6 +5,7 @@ import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.components.BossBehavior;
+import lando.systems.ld57.scene.scenes.components.EnemyBelmontBehavior;
 import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Direction;
@@ -70,6 +71,34 @@ public class BossFactory {
                 hitEntity.getIfActive(Health.class).takeDamage(1f);
                 mover.velocity.y = 300;
             }
+            if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                mover.velocity.y = 0;
+            }
+        }));
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+
+        return entity;
+    }
+
+    public static Entity belmontBoss(Scene<? extends BaseScreen> scene, float x, float y) {
+        var entity = scene.createEntity();
+        new Position(entity, x, y);
+        new EnemyBelmontBehavior(entity);
+        new WaitToMove(entity);
+        new ParticleEmitter(entity);
+        new Health(entity, 4f);
+        var animator =  new Animator(entity, Anims.Type.BELMONT_IDLE);
+        animator.origin.set(16, 1);
+        animator.facing = -1;
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -5, 0, 10, 28);
+
+        var mover = new Mover(entity, collider);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        mover.setOnHit((params -> {
             if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
                 mover.velocity.y = 0;
             }

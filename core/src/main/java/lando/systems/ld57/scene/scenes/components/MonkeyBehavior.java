@@ -27,6 +27,7 @@ public class MonkeyBehavior extends EnemyBehavior {
         var mover = entity.get(Mover.class);
         var collider = entity.get(Collider.class);
         var animator = entity.get(Animator.class);
+        if (mover == null || animator == null) return;
         if (state == STATE.WALK) {
             mover.velocity.x = 30f;
             turnAroundAtEdge(mover, collider);

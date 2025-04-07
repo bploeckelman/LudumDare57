@@ -2,11 +2,12 @@ package lando.systems.ld57.scene.scenes.components;
 
 import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.assets.Anims;
+import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Direction;
 
-public class EnemyMarioBehavior extends EnemyBehavior {
+public class EnemyMarioBehavior extends MiniBossBehavior {
     public static final float MOVEMENT_SPEED = 40f;
 
 
@@ -16,7 +17,7 @@ public class EnemyMarioBehavior extends EnemyBehavior {
     float accum;
 
     public EnemyMarioBehavior(Entity entity) {
-        super(entity);
+        super(entity, Characters.Type.MARIO.get());
     }
 
     @Override
@@ -33,6 +34,11 @@ public class EnemyMarioBehavior extends EnemyBehavior {
             // NO-OP until we start to move
             return;
         }
+
+        if (bossAnimator == null || bossMover == null) {
+            return;
+        }
+
         lastDirectionChangeTime -= delta;
         lastJumpTime -= delta;
         lastFireballTime -= delta;
@@ -60,6 +66,8 @@ public class EnemyMarioBehavior extends EnemyBehavior {
         }
 
         if (lastFireballTime <= 0) {
+            beginPowerAttack();
+
             var size = 12f;
             lastFireballTime = MathUtils.random(3f, 6f);
             var fireball = entity.scene.createEntity();

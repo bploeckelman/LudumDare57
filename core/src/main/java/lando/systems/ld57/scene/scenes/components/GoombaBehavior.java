@@ -15,6 +15,7 @@ public class GoombaBehavior extends EnemyBehavior {
         super.update(dt);
         var mover = entity.get(Mover.class);
         var collider = entity.get(Collider.class);
+        if (mover == null) return;
 
         turnAroundAtEdge(mover, collider);
     }

@@ -72,4 +72,13 @@ public class Health extends Component {
         this.health = health;
         // TODO(brian): check for death
     }
+
+    public float gethealth() {
+        return health;
+    }
+
+    public float getHealthPercent() {
+        return health / maxHealth;
+    }
+
 }
