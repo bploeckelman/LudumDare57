@@ -16,6 +16,18 @@ public class Sounds extends AssetContainer<Sounds.Type, Sound[]> {
     public enum Type implements AssetEnum<Sound[]> {
         BOARD_CLICK("board_click.ogg", "error-buzz.ogg"),
         JUMP("jump1.ogg"),
+        FIREBALL("fireball1.ogg"),
+        SWIPE1("swipe1.ogg"),
+        SWIPE2("swipe2.ogg"),
+        LINKPAIN1("linkPain1.ogg"),
+        LINKATTACK1("linkAttack1.ogg"),
+        LINKATTACK2("linkAttack2.ogg"),
+        LINKATTACK3("linkAttack3.ogg"),
+        PUNCHHIT1("punch_hit1.ogg"),
+        PUNCH1("punch1.ogg"),
+        TVSHOW("tvshow1.ogg"),
+        STEELYDAN1("steelydan1.ogg"),
+        BITCOIN1("bitcoin1.ogg"),
 
         ;
 

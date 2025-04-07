@@ -56,8 +56,8 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , OLDMAN_JUMP(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , OLDMAN_FALL(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , OLDMAN_HURT(Path.OLDMAN, new AnimData(0.1f, Animation.PlayMode.NORMAL))
-        , OLDMAN_ATTACK(Path.OLDMAN)
-        , OLDMAN_POWERATTACK(Path.OLDMAN)
+        , OLDMAN_ATTACK(Path.OLDMAN, new AnimData(0.03f, Animation.PlayMode.NORMAL))
+        , OLDMAN_POWERATTACK(Path.OLDMAN, new AnimData(0.06f, Animation.PlayMode.NORMAL))
         // ----------------------------------------------------------
         , BELMONT_IDLE(Path.BELMONT)
         , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))

@@ -57,7 +57,7 @@ public class AudioManager {
     }
 
     public long playSound(Sounds.Type soundType) {
-        return playSound(soundType, 0f, 1f);
+        return playSound(soundType, 1f, 0f);
     }
 
     public long playSound(Sounds.Type soundType, float dynamicVolume, float pan) {

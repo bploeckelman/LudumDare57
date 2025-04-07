@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.scenes;
 
 import com.badlogic.gdx.math.Rectangle;
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
@@ -225,6 +226,7 @@ public class PlayerBehavior extends Component {
         switch (character) {
             case OLDMAN:
                 attackEntity = oldManAttack();
+                Main.game.audioManager.playSound(Sounds.Type.SWIPE1);
                 break;
             case BELMONT:
                 attackEntity = belmontAttack();
@@ -233,6 +235,7 @@ public class PlayerBehavior extends Component {
                 attackEntity = linkAttack();
                 break;
             case MARIO:
+                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
                 break;
             case MEGAMAN:
                 attackEntity = megamanAttack();
@@ -252,6 +255,7 @@ public class PlayerBehavior extends Component {
         switch (character) {
             case OLDMAN:
                 powerAttackEntity = oldManPowerAttack();
+                Main.game.audioManager.playSound(Sounds.Type.SWIPE2, .8f);
                 break;
             case BELMONT:
                 powerAttackEntity = belmontPowerAttack();
@@ -261,6 +265,7 @@ public class PlayerBehavior extends Component {
                 break;
             case MARIO:
                 powerAttackEntity = marioPowerAttack();
+                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
                 break;
             case MEGAMAN:
                 powerAttackEntity = megamanPowerAttack();
