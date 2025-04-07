@@ -9,13 +9,15 @@ import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.controllers.mapping.MappedController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static lando.systems.ld57.assets.MyControllerMapping.*;
 
 public class PlayerInput extends Component {
-    public enum Action {JUMP, ATTACK, POWER_ATTACK, PREVIOUS_CHAR, NEXT_CHAR, WALK}
+    public enum Action {JUMP, ATTACK, POWER_ATTACK, PREVIOUS_CHAR, NEXT_CHAR, WALK, UP, DOWN, LEFT, RIGHT}
 
     public static float CONTROLLER_DEADZONE = 0.1f;
 
@@ -24,6 +26,11 @@ public class PlayerInput extends Component {
     private final Map<Action, Boolean> pressedThisFrame;
     private final Map<Action, Boolean> pressedLastFrame;
     private float moveX;
+
+    private float lastNewKeyTime;
+    private static List<Action> code = List.of(Action.UP, Action.UP, Action.DOWN, Action.DOWN, Action.LEFT, Action.RIGHT, Action.LEFT, Action.RIGHT, Action.ATTACK, Action.POWER_ATTACK);
+    private List<Action> pressedActions;
+    private Action lastPressedAction;
 
 
     public PlayerInput(Entity entity) {
@@ -34,10 +41,15 @@ public class PlayerInput extends Component {
         }
         this.pressedThisFrame = new HashMap<>();
         this.pressedLastFrame = new HashMap<>();
+        this.pressedActions = new ArrayList<>();
     }
 
     @Override
     public void update(float dt) {
+        if (codeInput()){
+            // hopefully this was picked up, we can clear
+            pressedActions.clear();
+        }
         // store into last Frame for next Frame
         for (Action action : Action.values()) {
             pressedLastFrame.put(action, pressedThisFrame.get(action));
@@ -61,6 +73,13 @@ public class PlayerInput extends Component {
             }
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            pressedThisFrame.put(Action.UP, true);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            pressedThisFrame.put(Action.DOWN, true);
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             pressedThisFrame.put(Action.JUMP, true);
         }
@@ -78,9 +97,11 @@ public class PlayerInput extends Component {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
             moveX += -1;
+            pressedThisFrame.put(Action.LEFT, true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)){
             moveX += 1;
+            pressedThisFrame.put(Action.RIGHT, true);
         }
 
         if (Controllers.getCurrent() != null) {
@@ -100,6 +121,23 @@ public class PlayerInput extends Component {
             moveX += mappedController.getConfiguredAxisValue(D_PAD_AXIS);
         }
 
+        lastNewKeyTime += dt;
+        boolean keydown = false;
+        for (Action a : Action.values()) {
+            if (actionJustPressed(a) ){
+                lastNewKeyTime = 0;
+                pressedActions.add(a);
+            }
+        }
+
+
+        if (lastNewKeyTime > 5f) {
+            pressedActions.clear();
+        }
+        if (pressedActions.size() > code.size()) {
+            pressedActions.remove(0);
+        }
+
 
     }
 
@@ -113,5 +151,18 @@ public class PlayerInput extends Component {
 
     public float getWalkAmount() {
         return moveX;
+    }
+
+    public boolean codeInput() {
+        boolean codeTrue = true;
+        if (pressedActions.size() != code.size()) {
+            return false;
+        }
+        for (int i = 0; i < pressedActions.size(); i++) {
+            if (pressedActions.get(i) != code.get(i)) {
+                codeTrue = false;
+            }
+        }
+        return codeTrue;
     }
 }

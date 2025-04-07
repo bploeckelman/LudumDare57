@@ -54,6 +54,7 @@ public class PlayerBehavior extends Component {
         var energy = entity.get(Energy.class);
         mover.addCollidesWith(Collider.Mask.enemy);
 
+
         // Deal with on HIT
         if (character == Characters.Type.MARIO) {
             mover.setOnHit( (params) -> {
@@ -87,6 +88,9 @@ public class PlayerBehavior extends Component {
 
         var playerInput = entity.get(PlayerInput.class);
         if (playerInput != null) {
+            if (playerInput.codeInput()){
+                Util.log("CODE", "CODE INPUT");
+            }
             mover.velocity.x += playerInput.getWalkAmount() * MOVE_SPEED * dt;
 
             wasGrounded = isGrounded;
