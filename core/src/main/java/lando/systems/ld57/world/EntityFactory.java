@@ -19,6 +19,7 @@ public class EntityFactory {
     public static Entity koopa(Scene<? extends BaseScreen> scene, float x, float y) {
         var WIDTH = 16f;
         var HEIGHT = 24f;
+        var SPEED = 30f;
         var entity = scene.createEntity();
         new Position(entity, x,y);
         new Health(entity, 2f);
@@ -30,7 +31,8 @@ public class EntityFactory {
 
         var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
         var mover = new Mover(entity, collider);
-        mover.velocity.setToRandomDirection().scl(30f);
+        var randomDirection = MathUtils.randomBoolean() ? 1 : -1;
+        mover.velocity.set(SPEED * randomDirection, 0f);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.addCollidesWith(Collider.Mask.player);
 
@@ -46,24 +48,19 @@ public class EntityFactory {
             else if (params.hitCollider.mask == Collider.Mask.player) {
                 animator.play(Anims.Type.KOOPA_REVIVE);
 
-                var hitDuration = 0.5f;
+                var hitDuration = 1.5f;
+                mover.velocity.set(0f, 0f);
                 var timer = entity.get(Timer.class);
                 if (timer == null) {
                     // no active timer, create and attach one
                     new Timer(entity, hitDuration, () -> {
                         animator.play(Anims.Type.KOOPA_WALK);
+                        mover.velocity.set(SPEED * randomDirection, 0f);
                         entity.destroy(Timer.class);
                     });
                 } else {
                     // timer was still in progress, reset it
                     timer.start(hitDuration);
-                }
-
-                switch (params.direction) {
-                    case LEFT:
-                    case RIGHT:
-                        mover.invertX();
-                        break;
                 }
             }
         });
@@ -73,19 +70,23 @@ public class EntityFactory {
     }
 
     public static Entity goomba(Scene<? extends BaseScreen> scene, float x, float y) {
+        var WIDTH = 14f;
+        var HEIGHT = 14f;
+        var SPEED = 15f;
         var entity = scene.createEntity();
         new Position(entity, x,y);
         new Health(entity, 2f);
 
         var scale = 1f;
         var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);
-        animator.origin.set(scale, 0);
+        animator.origin.set(scale * WIDTH / 2f, 0);
         animator.size.scl(scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -0.5f * scale, 0, 14, 14);
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -0.5f * scale * WIDTH, 0, WIDTH, HEIGHT);
 
         var mover = new Mover(entity, collider);
-        mover.velocity.setToRandomDirection().scl(MathUtils.random(50, 150));
+        var randomDirection = MathUtils.randomBoolean() ? 1 : -1;
+        mover.velocity.set(randomDirection * SPEED, 0f);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.addCollidesWith(Collider.Mask.player);
 
@@ -112,13 +113,6 @@ public class EntityFactory {
                 } else {
                     // timer was still in progress, reset it
                     timer.start(hitDuration);
-                }
-
-                switch (params.direction) {
-                    case LEFT:
-                    case RIGHT:
-                        mover.invertX();
-                        break;
                 }
             }
         });
