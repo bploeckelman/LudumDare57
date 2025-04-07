@@ -5,7 +5,6 @@ import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
-import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EntityFactory;

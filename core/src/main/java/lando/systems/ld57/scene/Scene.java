@@ -19,10 +19,6 @@ import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
-import lando.systems.ld57.scene.scenes.SceneCastlevania;
-import lando.systems.ld57.scene.scenes.SceneMario;
-import lando.systems.ld57.scene.scenes.SceneMegaman;
-import lando.systems.ld57.scene.scenes.SceneZelda;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.BossFactory;
@@ -122,27 +118,24 @@ public class Scene<ScreenType extends BaseScreen> {
         var objects = layer.getObjects();
 
         for (var object : objects) {
-            Util.log(TAG, object, obj -> Stringf.format(
-                "parsing map object: %s[name='%s', pos=(%.1f, %.1f)]...",
-                obj.getClass().getSimpleName(),
-                object.getName(),
-                object.getProperties().get("x", Float.class),
-                object.getProperties().get("y", Float.class)));
-
             // NOTE: 'name' field doesn't get set in the tmx <object> when
             //  creating when creating an object from a template,
             //  so don't count on it for parsing
-            var name = object.getName();
+            var name = (object.getName() != null) ? object.getName() : "unnamed";
             var props = object.getProperties();
             var type = props.get("type", "unknown", String.class);
             var x = props.get("x", Float.class);
             var y = props.get("y", Float.class);
 
+            Util.log(TAG, object, obj -> Stringf.format(
+                "parsing map object: %s[name='%s', pos=(%.1f, %.1f)]...",
+                obj.getClass().getSimpleName(), name, x, y));
+
             if ("spawn".equals(type)) {
                 var character = props.get("character", String.class);
                 if (character != null) {
                     switch (character) {
-                        case "player":    player = spawnPlayer(getSceneCharType(), x, y); break;
+                        case "player":    player = spawnPlayer(Characters.Type.OLDMAN, x, y); break;
                         case "goomba":    EntityFactory.goomba(this, x, y); break;
                         case "koopa":     EntityFactory.koopa(this, x, y);  break;
                         case "skeleton":  EntityFactory.skeleton(this, x, y);  break;
@@ -166,11 +159,12 @@ public class Scene<ScreenType extends BaseScreen> {
         public static final Vector2 NES_SCALED_4_3 = new Vector2(292, 224);
     }
 
-    private Characters.Type getSceneCharType() {
-        if      (this instanceof SceneCastlevania) return Characters.Type.BELMONT;
-        else if (this instanceof SceneMario)       return Characters.Type.MARIO;
-        else if (this instanceof SceneMegaman)     return Characters.Type.MEGAMAN;
-        else if (this instanceof SceneZelda)       return Characters.Type.LINK;
-        return Characters.Type.OLDMAN;
-    }
+    // NOTE: this might not work in gwt - need to double check that the scenes are in reflection cache maybe?
+//    private Characters.Type getSceneCharType() {
+//        if      (this instanceof SceneCastlevania) return Characters.Type.BELMONT;
+//        else if (this instanceof SceneMario)       return Characters.Type.MARIO;
+//        else if (this instanceof SceneMegaman)     return Characters.Type.MEGAMAN;
+//        else if (this instanceof SceneZelda)       return Characters.Type.LINK;
+//        return Characters.Type.OLDMAN;
+//    }
 }
