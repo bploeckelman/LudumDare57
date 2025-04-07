@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.components;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector4;
 import lando.systems.ld57.math.Calc;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 public class ViewController extends Component {
 
-    public final Vector2 cameraChaseZoneBounds = new Vector2(20, 20);
+    public final Vector4 cameraChaseZoneBounds = new Vector4(20, 20, 20, 50);
     public final Vector2 speed = new Vector2(100f, 400f);
 
     public final Boundary boundary;
@@ -98,8 +99,8 @@ public class ViewController extends Component {
             tarX = target.x() - cameraChaseZoneBounds.x;
         }
 
-        if (dy < -cameraChaseZoneBounds.y) {
-            tarY = target.y() + cameraChaseZoneBounds.y;
+        if (dy < -cameraChaseZoneBounds.w) {
+            tarY = target.y() + cameraChaseZoneBounds.w;
         } else if (dy > cameraChaseZoneBounds.y) {
             tarY = target.y() - cameraChaseZoneBounds.y;
         }

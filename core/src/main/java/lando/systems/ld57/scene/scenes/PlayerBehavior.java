@@ -56,6 +56,8 @@ public class PlayerBehavior extends Component {
         jumpCoolDown = Math.max(0, jumpCoolDown - dt);
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 
+        if (pos.y() <  -40) resetToSafePosition();
+
         if (playerState == State.ATTACK && animator.stateTime >= animator.animation.getAnimationDuration()) {
             playerState = State.NORMAL;
         }
@@ -224,8 +226,12 @@ public class PlayerBehavior extends Component {
 
     public void resetToSafePosition() {
         var pos = entity.get(Position.class);
+        var mover = entity.get(Mover.class);
         if (pos != null) {
             pos.set(lastSafePos);
+        }
+        if (mover != null) {
+            mover.velocity.x = 0;
         }
     }
 
