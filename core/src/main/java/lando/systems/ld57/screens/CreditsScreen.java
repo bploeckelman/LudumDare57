@@ -52,39 +52,47 @@ public class CreditsScreen extends BaseScreen {
     public CreditsScreen() {
         super();
 
-        var font = Fonts.Type.ROUNDABOUT.getDefault();
-        var typingFont = new Font(font);
+        var extraLargeFont = Fonts.Type.ROUNDABOUT.getVariant("extra-large");
+        var extraLargeTypingFont = new Font(extraLargeFont);
         var largeFont = Fonts.Type.ROUNDABOUT.getVariant("large");
         var largeTypingFont = new Font(largeFont);
+        var font = Fonts.Type.ROUNDABOUT.getVariant("medium");
+        var typingFont = new Font(font);
+        var smallFont = Fonts.Type.ROUNDABOUT.getVariant("small");
+        var smallTypingFont = new Font(smallFont);
 
         font.setColor(Color.WHITE);
 
-        titleLabel = new TypingLabel(title, largeTypingFont);
-        titleLabel.setPosition(0f, Config.window_height - 20f);
+        titleLabel = new TypingLabel(title, extraLargeTypingFont);
+        titleLabel.setPosition(0f, Config.window_height - 90f);
         titleLabel.setWidth(Config.window_width);
+        titleLabel.setAlignment(Align.center);
         titleLabel.setScale(3f);
 
-        themeLabel = new TypingLabel(theme, typingFont);
+        themeLabel = new TypingLabel(theme, largeTypingFont);
         themeLabel.setWidth(Config.window_width);
-        themeLabel.setPosition(0f, Config.window_height - 80f);
+        themeLabel.setPosition(0f, Config.window_height - 180f);
+        themeLabel.setAlignment(Align.center);
 
         leftCreditLabel = new TypingLabel(developers.toLowerCase() + "\n\n" + emotionalSupport.toLowerCase() + "\n\n", typingFont);
         leftCreditLabel.setWidth(Config.window_width / 2f - 150f);
-        leftCreditLabel.setPosition(75f, Config.window_height / 2f + 135f);
+        leftCreditLabel.setPosition(75f, Config.window_height / 2f - 40f);
 
         background = Main.game.assets.titleScreen;
 
         rightCreditLabel = new TypingLabel(artists.toLowerCase() + "\n" + music.toLowerCase() + "\n" + libgdx.toLowerCase(), typingFont);
-        rightCreditLabel.setPosition(Config.window_width / 2 + 75f, Config.window_height / 2f + 135f);
+        rightCreditLabel.setPosition(Config.window_width / 2 + 75f, Config.window_height / 2f);
         rightCreditLabel.setWidth(Config.window_width / 2f - 150f);
 
         thanksLabel = new TypingLabel(thanks, typingFont);
         thanksLabel.setWidth(Config.window_width);
         thanksLabel.setPosition(0f, 105f);
+        thanksLabel.setAlignment(Align.center);
 
-        disclaimerLabel = new TypingLabel(disclaimer, typingFont);
+        disclaimerLabel = new TypingLabel(disclaimer, smallTypingFont);
         disclaimerLabel.setPosition(0f, 75f);
         disclaimerLabel.setWidth(Config.window_width);
+        disclaimerLabel.setAlignment(Align.center);
 
         var bounds = new Rectangle((windowCamera.viewportWidth /3), 10, (windowCamera.viewportWidth /3), 50);
         afterCreditsButton = new Button(bounds, "Done", Patches.Type.PLAIN.get(), Patches.Type.PLAIN_DIM.get(), font);

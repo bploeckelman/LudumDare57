@@ -65,7 +65,8 @@ public class Fonts extends AssetContainer<Fonts.Type, Fonts.FontVariantMap> {
             new Variant("tiny", 8),
             new Variant("small", 16),
             new Variant("medium", 32),
-            new Variant("large", 64)
+            new Variant("large", 64),
+            new Variant("extra-large", 128)
         ), VTREGULAR ("fonts/VT323-Regular.ttf"),
            DOGICA ("fonts/dogica.ttf"),
            DOGICABOLD("fonts/dogicabold.ttf")
