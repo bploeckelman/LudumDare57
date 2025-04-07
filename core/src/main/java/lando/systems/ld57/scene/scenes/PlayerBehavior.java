@@ -217,6 +217,7 @@ public class PlayerBehavior extends Component {
                 attackEntity = belmontAttack();
                 break;
             case LINK:
+                attackEntity = linkAttack();
                 break;
             case MARIO:
                 break;
@@ -396,6 +397,15 @@ public class PlayerBehavior extends Component {
         // create the attack collider, updating its rect on each attack animation frame
         var colliderRect = attackColliderRects.get(0);
         var collider = Collider.makeRect(attackEntity, Collider.Mask.player_projectile, colliderRect);
+
+        var meleeDamage = new MeleeDamage(attackEntity);
+        meleeDamage.setOnHit((params -> {
+            var collidedEntity = params.hitCollider.entity;
+            var health = collidedEntity.get(Health.class);
+            if (health != null) {
+                health.takeDamage(character.get().attackInfo.attackDamage);
+            }
+        }));
         new Timer(attackEntity, attackDuration,
             () -> {
                 // 'follow' the player's position in case they're moving

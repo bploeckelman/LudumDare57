@@ -114,6 +114,10 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
                     data.size.set(34, 34);
+                    data.attackColliderRects = List.of(
+                        new Rectangle(-18, 0, 8, 15)
+                        , new Rectangle(0, -8, 15, 18)
+                    );
                     break;
                 case MARIO:
                     data.attackInfo.attackCooldown = .1f;
