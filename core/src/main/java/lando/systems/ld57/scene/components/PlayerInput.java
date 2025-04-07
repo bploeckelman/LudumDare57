@@ -42,6 +42,9 @@ public class PlayerInput extends Component {
         this.pressedThisFrame = new HashMap<>();
         this.pressedLastFrame = new HashMap<>();
         this.pressedActions = new ArrayList<>();
+        for (Action action : Action.values()) {
+            pressedThisFrame.put(action, false);
+        }
     }
 
     @Override
