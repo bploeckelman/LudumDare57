@@ -24,6 +24,10 @@ public class Sounds extends AssetContainer<Sounds.Type, Sound[]> {
         PUNCHHIT("punch_hit1.ogg"),
         PUNCH("punch1.ogg"),
 
+        MEGABUSTER("megabuster1.ogg"),
+        BIGBUSTER("bigbuster1.ogg"),
+        MEGADAMAGE("megadamage1.ogg"),
+
         SWIPE1("swipe1.ogg"),
         SWIPE2("swipe2.ogg"),
         GRUNT("grunt1.ogg", "grunt2.ogg", "grunt3.ogg", "grunt4.ogg", "grunt5.ogg", "grunt6.ogg"

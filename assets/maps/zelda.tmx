@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="2">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="3">
  <tileset firstgid="1" source="tilesets/zelda.tsx"/>
  <imagelayer id="5" name="background" offsetx="0" offsety="-48" repeatx="1">
   <image source="backgrounds/zelda-sky.png" width="256" height="256"/>
@@ -76,6 +76,12 @@
   <object id="1" template="templates/object-spawn.tx" name="spawn" x="32" y="160">
    <properties>
     <property name="character" value="player"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="2" template="templates/object-spawn.tx" name="goomba" x="107" y="136">
+   <properties>
+    <property name="character" value="goomba"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>

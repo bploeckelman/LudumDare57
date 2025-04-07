@@ -186,23 +186,6 @@ public class PlayerBehavior extends Component {
             case HURT:
                 Util.log("PlayerBehavior", "Player State is HURT so playing HURT animation");
                 animator.play(charData.animByType.get(Characters.AnimType.HURT));
-//                switch (character) {
-//                    case BELMONT:
-//                        Main.game.audioManager.playSound(Sounds.Type.PUNCHHIT, .7f);
-//                        break;
-//                    case LINK:
-//                        Main.game.audioManager.playSound(Sounds.Type.LINKPAIN);
-//                        break;
-//                    case MARIO:
-//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
-//                        break;
-//                    case MEGAMAN:
-//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
-//                        break;
-//                    default:
-//                        Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
-//                        break;
-//                }
 
                 break;
         }
@@ -236,7 +219,7 @@ public class PlayerBehavior extends Component {
                 Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
                 break;
             case MEGAMAN:
-                Main.game.audioManager.playSound(Sounds.Type.GRUNT, .7f);
+                Main.game.audioManager.playSound(Sounds.Type.MEGADAMAGE, 1f);
                 break;
             case OLDMAN:
                 Main.game.audioManager.playSound(Sounds.Type.GRUNT, .5f);
@@ -308,6 +291,7 @@ public class PlayerBehavior extends Component {
 //                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
                 break;
             case MEGAMAN:
+                Main.game.audioManager.playSound(Sounds.Type.MEGABUSTER);
                 attackEntity = megamanAttack();
                 break;
         }
@@ -339,6 +323,7 @@ public class PlayerBehavior extends Component {
                 Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
                 break;
             case MEGAMAN:
+                Main.game.audioManager.playSound(Sounds.Type.BIGBUSTER);
                 powerAttackEntity = megamanPowerAttack();
                 break;
         }

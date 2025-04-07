@@ -1,7 +1,10 @@
 package lando.systems.ld57.scene.scenes.components;
 
 import com.badlogic.gdx.math.Vector2;
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
+import lando.systems.ld57.assets.Characters;
+import lando.systems.ld57.assets.Sounds;
 import lando.systems.ld57.particles.effects.BloodSplatEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
@@ -105,6 +108,7 @@ public class SkeletonBehavior extends EnemyBehavior {
                 var playerBehavior = player.get(PlayerBehavior.class);
                 if (playerBehavior != null) {
                     playerBehavior.knockBack(1f);
+
                 }
 
                 var playerHealth = player.get(Health.class);
