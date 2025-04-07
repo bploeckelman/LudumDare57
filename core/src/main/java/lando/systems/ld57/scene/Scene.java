@@ -140,6 +140,7 @@ public class Scene<ScreenType extends BaseScreen> {
                         case "koopa":    EntityFactory.koopa(this, x, y);  break;
                         case "skeleton": EntityFactory.skeleton(this, x, y);  break;
                         case "castleBat": EntityFactory.castleBat(this, x, y); break;
+                        case "eagle": EntityFactory.eagle(this, x, y); break;
                     }
                 }
             } else if ("unknown".equals(type)) {

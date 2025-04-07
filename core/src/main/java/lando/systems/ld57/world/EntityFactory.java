@@ -31,12 +31,21 @@ import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
 
+    public static Entity eagle(Scene<? extends BaseScreen> scene, float x, float y) {
+        var width = 28f;
+        var height = 28f;
+        var scale = 1f;
+        var speed = 20f;
+        var animType = Anims.Type.EAGLE;
+        var eagle = flyingChasingEnemy(scene, x, y, width, height, scale, speed, animType);
+        var animator = eagle.get(Animator.class);
+        animator.origin.set(scale * width * .5f, 0f);
+        return eagle;
+    }
     public static Entity castleBat(Scene<? extends BaseScreen> scene, float x, float y) {
-        var bat = flyingChasingEnemy(scene, x, y, 14f, 14f, 1f, 20f, Anims.Type.BAT);
+        var bat = flyingChasingEnemy(scene, x, y, 14f, 14f, 1f, 10f, Anims.Type.BAT);
         var animator = bat.get(Animator.class);
         animator.origin.set(1f * 14f * .5f, 0f);
-//        var collider = bat.get(Collider.class);
-//        collider = Collider.makeRect(bat, collider.mask, -7, -7, 14, 14);
         return bat;
     }
 

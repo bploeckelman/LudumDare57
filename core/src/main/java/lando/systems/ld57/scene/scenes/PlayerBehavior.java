@@ -176,7 +176,6 @@ public class PlayerBehavior extends Component {
 
         animator.stateTime = 0;
         playerState = State.HURT;
-        emitter.spawnParticle(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x(), pos.y()));
         Util.log("PlayerBehavior", "Player State to HURT");
 
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
