@@ -32,6 +32,8 @@ public class SceneIntro extends Scene<GameScreen> {
 
         EntityFactory.energyCapsule(this, 30, 20);
 
+        EntityFactory.marioBoss(this, 50, 70);
+
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());
     }

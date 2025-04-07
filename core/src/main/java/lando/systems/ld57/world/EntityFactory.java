@@ -9,6 +9,7 @@ import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
+import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
 import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
 import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
 import lando.systems.ld57.screens.BaseScreen;
@@ -289,6 +290,29 @@ public class EntityFactory {
         new GoombaBehavior(entity);
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
+
+    public static Entity marioBoss(Scene<? extends BaseScreen> scene, float x, float y) {
+        var entity = scene.createEntity();
+        new Position(entity, x, y);
+        new EnemyMarioBehavior(entity);
+        new WaitToMove(entity);
+        new Health(entity, 4f);
+        var animator =  new Animator(entity, Anims.Type.MARIO_IDLE);
+        animator.origin.set(16, 1);
+        animator.facing = -1;
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -5, 0, 10, 28);
+
+        var mover = new Mover(entity, collider);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+
+        // TODO mover on hit
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
 
         return entity;
     }
