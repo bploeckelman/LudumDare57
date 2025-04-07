@@ -41,13 +41,13 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="6" template="templates/object-spawn.tx" name="eagle" x="124" y="194">
+  <object id="6" template="templates/object-spawn.tx" name="eagle" x="48" y="172">
    <properties>
     <property name="character" value="eagle"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="7" template="templates/object-spawn.tx" name="castleBat" x="160" y="224">
+  <object id="7" template="templates/object-spawn.tx" name="castleBat" x="136" y="172">
    <properties>
     <property name="character" value="castleBat"/>
     <property name="type" value="spawn"/>
