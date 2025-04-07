@@ -31,7 +31,7 @@ public class SceneIntro extends Scene<GameScreen> {
 
         makeMapObjects(tilemap);
 
-        BossFactory.createBoss(this, 120, 98);
+        BossFactory.createBoss(this, 120, 98, true);
         EntityFactory.energyCapsule(this, 30, 20);
 
         viewer = EntityFactory.cam(this, boundary);

@@ -20,6 +20,7 @@ import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.particles.effects.*;
 import lando.systems.ld57.scene.Scene;
+import lando.systems.ld57.scene.scenes.SceneBoss;
 import lando.systems.ld57.scene.scenes.SceneCastlevania;
 import lando.systems.ld57.scene.scenes.SceneIntro;
 import lando.systems.ld57.scene.scenes.SceneMario;
@@ -133,15 +134,15 @@ public class GameScreen extends BaseScreen {
                 else if (scene instanceof SceneMario)       scene = new SceneMegaman(GameScreen.this);
                 else if (scene instanceof SceneMegaman)     scene = new SceneZelda(GameScreen.this);
                 else if (scene instanceof SceneZelda)       scene = new SceneCastlevania(GameScreen.this);
-                else if (scene instanceof SceneCastlevania) scene = new SceneIntro(GameScreen.this);
+                else if (scene instanceof SceneCastlevania) scene = new SceneBoss(GameScreen.this);
+                else if (scene instanceof SceneBoss)        scene = new SceneIntro(GameScreen.this);
 
                 if      (scene instanceof SceneIntro)       game.audioManager.playMusic(SceneIntro.music);
                 else if (scene instanceof SceneMario)       game.audioManager.playMusic(SceneMario.music);
                 else if (scene instanceof SceneMegaman)     game.audioManager.playMusic(SceneMegaman.music);
                 else if (scene instanceof SceneZelda)       game.audioManager.playMusic(SceneZelda.music);
                 else if (scene instanceof SceneCastlevania) game.audioManager.playMusic(SceneCastlevania.music);
-
-
+                else if (scene instanceof SceneBoss)        game.audioManager.playMusic(SceneBoss.music);
             }
         });
         configTable.add(switchSceneButton).pad(10f).expandX().top();

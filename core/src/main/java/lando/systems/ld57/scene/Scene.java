@@ -5,7 +5,16 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.particles.ParticleManager;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Energy;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.PlayerInput;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
@@ -16,6 +25,7 @@ import lando.systems.ld57.scene.scenes.SceneMegaman;
 import lando.systems.ld57.scene.scenes.SceneZelda;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
+import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EntityFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import text.formic.Stringf;
@@ -132,13 +142,14 @@ public class Scene<ScreenType extends BaseScreen> {
                 var character = props.get("character", String.class);
                 if (character != null) {
                     switch (character) {
-                        case "player":   player = spawnPlayer(getSceneCharType(), x, y); break;
-                        case "goomba":   EntityFactory.goomba(this, x, y); break;
-                        case "koopa":    EntityFactory.koopa(this, x, y);  break;
-                        case "skeleton": EntityFactory.skeleton(this, x, y);  break;
+                        case "player":    player = spawnPlayer(getSceneCharType(), x, y); break;
+                        case "goomba":    EntityFactory.goomba(this, x, y); break;
+                        case "koopa":     EntityFactory.koopa(this, x, y);  break;
+                        case "skeleton":  EntityFactory.skeleton(this, x, y);  break;
                         case "castleBat": EntityFactory.castleBat(this, x, y); break;
-                        case "eagle": EntityFactory.eagle(this, x, y); break;
-                        case "megaBat": EntityFactory.megaBat(this, x, y); break;
+                        case "eagle":     EntityFactory.eagle(this, x, y); break;
+                        case "megaBat":   EntityFactory.megaBat(this, x, y); break;
+                        case "dragon":    BossFactory.createBoss(this, x, y); break;
                     }
                 }
             } else if ("unknown".equals(type)) {

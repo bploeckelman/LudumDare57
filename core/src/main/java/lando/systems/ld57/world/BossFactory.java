@@ -8,28 +8,34 @@ import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.BaseScreen;
 
 public class BossFactory {
+
     public static Entity createBoss(Scene<? extends BaseScreen> scene, float x, float y) {
+        return createBoss(scene, x, y, false);
+    }
+
+    public static Entity createBoss(Scene<? extends BaseScreen> scene, float x, float y, boolean shrink) {
         var entity = scene.createEntity();
         new Position(entity, x, y);
         new Health(entity, 3000f);
 
-        addBossPart(entity, Anims.Type.BOSS_BODY, 15, 95, 30);
-        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_BOWSER, 70, 127, 10);
-        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_WILY, 45, 150, 10);
-        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_GANON, 10, 160, 10);
-        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_DRACULA, -25, 140, 10);
-
-
+        addBossPart(entity, Anims.Type.BOSS_BODY, 15, 95, 30, shrink);
+        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_BOWSER, 70, 127, 10, shrink);
+        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_WILY, 45, 150, 10, shrink);
+        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_GANON, 10, 160, 10, shrink);
+        addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_DRACULA, -25, 140, 10, shrink);
 
         return entity;
     }
 
-    private static void addBossPart(Entity entity, Anims.Type type, float x, float y, float radius) {
+    private static void addBossPart(Entity entity, Anims.Type type, float x, float y, float radius, boolean shrink) {
         var part = entity.scene.createEntity();
         var pos = entity.get(Position.class);
         new Position(part, pos.x(), pos.y());
 
-        var scale = 0.2f;
+        var scale = 1f;
+        if (shrink) {
+            scale = 0.2f;
+        }
 
         var animator = new Animator(part, type);
         animator.origin.set(45, 1);

@@ -16,6 +16,10 @@ public abstract class EnemyBehavior extends Component {
     public void attack() {}
     public void die() {}
 
+    public void hurt() {
+
+    }
+
     /**
      * Turns the entity around if it is near an edge.
      */

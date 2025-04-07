@@ -34,6 +34,8 @@ public class PlayerBehavior extends Component {
     private State playerState;
     public Vector2 lastSafePos;
 
+    private final Rectangle currentRectFacing = new Rectangle();
+
     public Characters.Type character;
 
     public PlayerBehavior(Entity entity, Characters.Type character) {
@@ -382,10 +384,6 @@ public class PlayerBehavior extends Component {
 
         return powerAttackEntity;
     }
-
-    private final Rectangle currentRectFacing = new Rectangle();
-
-
 
     public Entity oldManAttack() {
         var playerPos = entity.get(Position.class);
