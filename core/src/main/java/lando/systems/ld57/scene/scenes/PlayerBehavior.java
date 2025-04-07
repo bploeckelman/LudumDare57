@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PlayerBehavior extends Component {
 
-    public enum State {NORMAL, ATTACK}
+    public enum State {NORMAL, ATTACK, HURT}
 
     public static float COYOTE_TIME = 0.2f;
     public static float MAX_SPEED = 100f;
@@ -35,7 +35,7 @@ public class PlayerBehavior extends Component {
     private float lastOnGround;
     private State playerState;
 
-    private Characters.Type character;
+    public Characters.Type character;
 
     public PlayerBehavior(Entity entity, Characters.Type character) {
         super(entity);
@@ -66,6 +66,10 @@ public class PlayerBehavior extends Component {
         attackCoolDown = Math.max(0, attackCoolDown - dt);
 
         if (playerState == State.ATTACK && animator.stateTime >= animator.animation.getAnimationDuration()) {
+            playerState = State.NORMAL;
+        }
+        if (playerState == State.HURT && animator.stateTime >= animator.animation.getAnimationDuration()) {
+            Util.log("PlayerBehavior", "Hurt animation is finished, duration " + animator.animation.getAnimationDuration() + " stateTime " + animator.stateTime);
             playerState = State.NORMAL;
         }
 
@@ -155,6 +159,10 @@ public class PlayerBehavior extends Component {
             case ATTACK:
 //                animator.play(charData.animByType.get(Characters.AnimType.ATTACK));
                 break;
+            case HURT:
+                Util.log("PlayerBehavior", "Player State is HURT so playing HURT animation");
+                animator.play(charData.animByType.get(Characters.AnimType.HURT));
+                break;
         }
 
         // TODO(brian): handle hurt and attack animations
@@ -169,7 +177,9 @@ public class PlayerBehavior extends Component {
         mover.velocity.x = 300f * strength * -animator.facing ;
         mover.velocity.y = 250f * strength;
 
-        animator.play(character.get().animByType.get(Characters.AnimType.HURT));
+        animator.stateTime = 0;
+        playerState = State.HURT;
+        Util.log("PlayerBehavior", "Player State to HURT");
 
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
 

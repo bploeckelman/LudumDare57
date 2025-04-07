@@ -28,6 +28,15 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String ANGRY_SUN = "enemies/mario/angry-sun/";
         private static final String BULLET_BILL = "enemies/mario/bullet-bill/";
         private static final String SKELETON = "enemies/castlevania/skeleton/";
+        private static final String CASTLE_BAT = "enemies/castlevania/bat/";
+        private static final String EAGLE = "enemies/castlevania/eagle/";
+        private static final String MONKEY = "enemies/castlevania/monkey/";
+        private static final String MEDUSA = "enemies/castlevania/medusa/";
+        private static final String MEGA_BAT_CLOSED = "enemies/meagman/bat-closed/";
+        private static final String MEGA_BAT_FLYING = "enemies/meagman/bat-flying/";
+        private static final String HELMET = "enemies/meagman/helmet/";
+        private static final String HOTHEAD_IDLE = "enemies/meagman/hothead-idle/";
+        private static final String HOTHEAD_THROWING = "enemies/meagman/hothead-throwing/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -53,7 +62,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , BELMONT_WALK(Path.BELMONT, new AnimData(0.15f, Animation.PlayMode.LOOP))
         , BELMONT_JUMP(Path.BELMONT)
         , BELMONT_FALL(Path.BELMONT)
-        , BELMONT_HURT(Path.BELMONT)
+        , BELMONT_HURT(Path.BELMONT, new AnimData(.5f, Animation.PlayMode.NORMAL))
         , BELMONT_ATTACK(Path.BELMONT, new AnimData(0.1f, Animation.PlayMode.NORMAL))
         , BELMONT_POWERATTACK(Path.BELMONT, new AnimData(0.3f, Animation.PlayMode.NORMAL))
         // ----------------------------------------------------------
@@ -91,6 +100,15 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , SKELETON_MOVE(Path.SKELETON, new AnimData(0.33f, Animation.PlayMode.LOOP))
         , SKELETON_ATTACK(Path.SKELETON, new AnimData(0.4f, Animation.PlayMode.NORMAL))
         , SKELETON_BONE(Path.SKELETON, new AnimData(0.1f, Animation.PlayMode.LOOP))
+        , BAT(Path.CASTLE_BAT)
+        , EAGLE(Path.EAGLE)
+        , MONKEY(Path.MONKEY)
+        , MEDUSA(Path.MEDUSA)
+        , BAT_CLOSED(Path.MEGA_BAT_CLOSED)
+        , BAT_FLYING(Path.MEGA_BAT_FLYING)
+        , HELMET(Path.HELMET)
+        , HOTHEAD_IDLE(Path.HOTHEAD_IDLE)
+        , HOTHEAD_THROWING(Path.HOTHEAD_THROWING)
         // projectiles ------------------------------------------------
         , MEGAMAN_SHOT(Path.MEGAMAN)
         , MEGAMAN_POWERSHOT(Path.MEGAMAN)

@@ -3,10 +3,7 @@ package lando.systems.ld57.world;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Fonts;
-import lando.systems.ld57.assets.Icons;
-import lando.systems.ld57.assets.Patches;
+import lando.systems.ld57.assets.*;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Boundary;
@@ -25,6 +22,7 @@ import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.scene.components.Viewer;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
 import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
 import lando.systems.ld57.screens.BaseScreen;
@@ -32,6 +30,57 @@ import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
+
+    public static Entity castleBat(Scene<? extends BaseScreen> scene, float x, float y) {
+        var bat = flyingChasingEnemy(scene, x, y, 14f, 14f, 1f, 20f, Anims.Type.BAT);
+        var animator = bat.get(Animator.class);
+        animator.origin.set(1f * 14f * .5f, 0f);
+//        var collider = bat.get(Collider.class);
+//        collider = Collider.makeRect(bat, collider.mask, -7, -7, 14, 14);
+        return bat;
+    }
+
+    private static Entity flyingChasingEnemy(Scene<? extends BaseScreen> scene, float x, float y, float width, float height, float scale, float speed, Anims.Type animType) {
+        var entity = scene.createEntity();
+        var pos = new Position(entity, x, y);
+        new Health(entity, 2f);
+
+        var animator = new Animator(entity, animType);
+        animator.origin.set(scale * width, 0);
+        animator.size.scl(scale);
+
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy, -.5f * scale * width, 0, width * scale, height * scale);
+
+        var mover = new Mover(entity, collider);
+        mover.velocity.set(-speed, 0f);
+        mover.setCollidesWith(Collider.Mask.player);
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask == Collider.Mask.player) {
+                // bounce back
+                mover.velocity.scl(-2f);
+                mover.velocity.y = MathUtils.clamp(mover.velocity.y, -speed * 2, speed * 2);
+                var playerBehavior = scene.player.get(PlayerBehavior.class);
+                playerBehavior.knockBack(1f);
+            }
+        });
+        var timer = new Timer(entity);
+        timer.onEnd = () -> {
+            var playerPos = entity.scene.player.get(Position.class);
+            var playerAnim = entity.scene.player.get(Animator.class);
+            var direction = new Vector2(playerPos.x(), playerPos.y() + playerAnim.size.y / 2f).sub(pos.x(), pos.y()).nor();
+            if (direction == Vector2.Zero) {
+                mover.velocity.setToRandomDirection().scl(speed);
+            } else {
+                mover.velocity.set(direction).scl(speed);
+            }
+            timer.start(2f);
+        };
+        timer.start(2f);
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
+
+        return entity;
+    }
 
     public static Entity angrySun(Scene<? extends BaseScreen> scene, float x, float y) {
         var WIDTH = 16f;
@@ -63,7 +112,7 @@ public class EntityFactory {
             if (direction.x == 0) {
                 direction = MathUtils.randomBoolean() ? new Vector2(1, 0) : new Vector2(-1, 0);
             }
-            entity.get(Mover.class).velocity.set(direction).scl(SPEED);
+            mover.velocity.set(direction).scl(SPEED);
             timer.start(2f);
         };
         timer.start(2f);

@@ -47,9 +47,9 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="7" template="templates/object-spawn.tx" name="koopa" x="160" y="144">
+  <object id="7" template="templates/object-spawn.tx" name="castleBat" x="160" y="144">
    <properties>
-    <property name="character" value="koopa"/>
+    <property name="character" value="castleBat"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>
