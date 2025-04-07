@@ -273,11 +273,11 @@ public class PlayerBehavior extends Component {
     }
 
     public void prevCharacter() {
-        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
-        else if (character == Characters.Type.BELMONT) character = Characters.Type.MEGAMAN;
+        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.MEGAMAN;
+        else if (character == Characters.Type.BELMONT) character = Characters.Type.OLDMAN;
         else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
-        else                                           character = Characters.Type.OLDMAN;
+        else                                           character = Characters.Type.BELMONT;
 
         var anim = entity.get(Animator.class);
         if (anim != null) {
