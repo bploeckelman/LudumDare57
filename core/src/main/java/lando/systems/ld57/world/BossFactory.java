@@ -2,17 +2,12 @@ package lando.systems.ld57.world;
 
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Health;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.WaitToMove;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.components.BossBehavior;
 import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
 import lando.systems.ld57.screens.BaseScreen;
+import lando.systems.ld57.utils.Direction;
 
 public class BossFactory {
 
@@ -58,6 +53,7 @@ public class BossFactory {
         new Position(entity, x, y);
         new EnemyMarioBehavior(entity);
         new WaitToMove(entity);
+        new ParticleEmitter(entity);
         new Health(entity, 4f);
         var animator =  new Animator(entity, Anims.Type.MARIO_IDLE);
         animator.origin.set(16, 1);
@@ -65,10 +61,19 @@ public class BossFactory {
         var collider = Collider.makeRect(entity, Collider.Mask.enemy, -5, 0, 10, 28);
 
         var mover = new Mover(entity, collider);
-        mover.gravity = Mover.BASE_GRAVITY;
+        mover.gravity = Mover.BASE_GRAVITY * .9f;
         mover.addCollidesWith(Collider.Mask.player);
 
-        // TODO mover on hit
+        mover.setOnHit((params -> {
+            var hitEntity = params.hitCollider.entity;
+            if (params.hitCollider.mask == Collider.Mask.player && params.direction == Direction.Relative.DOWN) {
+                hitEntity.getIfActive(Health.class).takeDamage(1f);
+                mover.velocity.y = 300;
+            }
+            if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                mover.velocity.y = 0;
+            }
+        }));
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 

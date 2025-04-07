@@ -1,10 +1,9 @@
 package lando.systems.ld57.scene.scenes.components;
 
 import com.badlogic.gdx.math.Vector2;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.particles.effects.BulletExplosionEffect;
+import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 
@@ -26,6 +25,11 @@ public abstract class EnemyBehavior extends Component {
 
     public void hurt() {
 
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
     }
 
     /**
@@ -83,5 +87,15 @@ public abstract class EnemyBehavior extends Component {
             animator.facing = (dx > 0) ? 1 : -1;
             animator.autoFacing = false;
         }
+    }
+
+
+    protected void destroyBulletParticle(Entity bulletEntity) {
+        var particleEmitter = entity.get(ParticleEmitter.class);
+        var bulletPos = bulletEntity.get(Position.class);
+        particleEmitter.spawnParticle(
+            ParticleEffect.Type.BULLET_EXPLOSION,
+            new BulletExplosionEffect.Params(bulletPos.x(), bulletPos.y(), bulletEntity.get(Animator.class).keyframe)
+        );
     }
 }
