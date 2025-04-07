@@ -108,14 +108,16 @@ public class PlayerBehavior extends Component {
 
             }
 
-            if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
-                nextCharacter();
-                particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
-            }
+            if (playerState == State.NORMAL) {
+                if (playerInput.actionJustPressed(PlayerInput.Action.NEXT_CHAR)) {
+                    nextCharacter();
+                    particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
+                }
 
-            if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
-                prevCharacter();
-                particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
+                if (playerInput.actionJustPressed(PlayerInput.Action.PREVIOUS_CHAR)) {
+                    prevCharacter();
+                    particleEmitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
+                }
             }
 
             // Cap Velocity
