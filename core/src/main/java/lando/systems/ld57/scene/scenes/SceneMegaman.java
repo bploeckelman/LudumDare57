@@ -1,10 +1,10 @@
 package lando.systems.ld57.scene.scenes;
 
-import com.badlogic.gdx.math.Rectangle;
-import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.world.EntityFactory;
@@ -24,28 +24,15 @@ public class SceneMegaman extends Scene<GameScreen> {
         camera.setToOrtho(false, width, height);
         camera.update();
 
-        var margin = 5f;
-        var thickness = 2f;
+        var map = EntityFactory.map(this, "maps/megaman.tmx", "middle");
+        var boundary = map.get(Boundary.class);
+        var tilemap = map.get(Tilemap.class);
 
-        // NOTE(brian): this is a clunky way to setup an enclosed region
-        //  of colliders, but it works well enough for testing purposes
-        EntityFactory.boundary(this, margin + thickness, margin, thickness, height - 2 * margin);
-        EntityFactory.boundary(this, width - margin - thickness * 2f, margin, thickness, height - 2 * margin);
-        EntityFactory.boundary(this, margin + thickness, margin, width - 2 * margin - 2 * thickness, thickness);
-        EntityFactory.boundary(this, margin + thickness, height - margin - thickness, width - 2 * margin - 2 * thickness, thickness);
+        makeMapObjects(tilemap);
 
-        var boundsEntity = createEntity();
-        var boundary = new Boundary(boundsEntity, new Rectangle(
-            margin + thickness,
-            margin + thickness,
-            width   - 2 * (margin + thickness),
-            height - 2 * (margin + thickness)));
-
-        var x = camera.viewportWidth / 2f;
-        var y = camera.viewportHeight / 2f;
-        spawnPlayer(Characters.Type.MEGAMAN, x, y);
+        var playerPos = player.get(Position.class);
 
         var cam = EntityFactory.cam(this, boundary);
-        cam.get(ViewController.class).target(boundary.center());
+        cam.get(ViewController.class).target(playerPos);
     }
 }

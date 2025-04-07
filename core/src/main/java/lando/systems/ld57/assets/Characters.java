@@ -21,7 +21,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         , BELMONT (new Vector2(16, 1), new Rectangle(-5, 0, 10, 28), Color.ORANGE)
         , LINK    (new Vector2(16, 1), new Rectangle(-5, 0, 10, 32), Color.GREEN)
         , MARIO   (new Vector2(16, 1), new Rectangle(-5, 0, 10, 28), Color.RED)
-        , MEGAMAN (new Vector2(16, 1), new Rectangle(-5, 0, 10, 20), Color.BLUE)
+        , MEGAMAN (new Vector2(16, 1), new Rectangle(-5, 0, 10, 16), Color.BLUE)
         ;
 
         private final Data data;
