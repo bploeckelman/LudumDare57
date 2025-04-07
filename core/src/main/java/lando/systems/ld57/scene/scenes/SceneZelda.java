@@ -1,6 +1,5 @@
 package lando.systems.ld57.scene.scenes;
 
-import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
