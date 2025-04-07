@@ -56,6 +56,7 @@ public class Health extends Component {
         var anim = entity.get(Animator.class);
         var playerBehavior = entity.get(PlayerBehavior.class);
         if (playerBehavior != null) {
+            //Player got damaged
             playerBehavior.knockBack(1f);
         }
         if (emitter != null) {
