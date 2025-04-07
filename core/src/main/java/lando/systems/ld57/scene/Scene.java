@@ -33,6 +33,7 @@ public class Scene<ScreenType extends BaseScreen> {
     public final World<ScreenType> world;
 
     public Entity player;
+    public Entity viewer;
 
     public Scene(ScreenType screen) {
         this.screen = screen;

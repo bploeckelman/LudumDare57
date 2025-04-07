@@ -33,8 +33,8 @@ public class SceneMario extends Scene<GameScreen> {
 
         var playerPos = player.get(Position.class);
 
-        var cam = EntityFactory.cam(this, boundary);
-        cam.get(ViewController.class).target(playerPos);
+        viewer = EntityFactory.cam(this, boundary);
+        viewer.get(ViewController.class).target(playerPos);
 
         EntityFactory.bulletBill(this, 300f,  50f);
         EntityFactory.angrySun(this, 120f,  80f);

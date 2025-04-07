@@ -5,21 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.assets.*;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Boundary;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Health;
-import lando.systems.ld57.scene.components.Image;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.Patch;
-import lando.systems.ld57.scene.components.PlayerInput;
-import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.components.Tilemap;
-import lando.systems.ld57.scene.components.Timer;
-import lando.systems.ld57.scene.components.ViewController;
-import lando.systems.ld57.scene.components.Viewer;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
@@ -72,7 +58,6 @@ public class EntityFactory {
         animator.size.scl(scale);
 
         var collider = Collider.makeRect(entity, Collider.Mask.enemy, -.5f * scale * width, 0, width * scale, height * scale);
-
         var mover = new Mover(entity, collider);
         mover.velocity.set(-speed, 0f);
         mover.setCollidesWith(Collider.Mask.player);
@@ -96,6 +81,8 @@ public class EntityFactory {
             timer.start(2f);
         };
         timer.start(2f);
+
+        new WaitToMove(entity);
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 

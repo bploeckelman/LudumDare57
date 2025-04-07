@@ -32,7 +32,7 @@ public class SceneIntro extends Scene<GameScreen> {
 
         BossFactory.createBoss(this, 120, 98);
 
-        var cam = EntityFactory.cam(this, boundary);
-        cam.get(ViewController.class).target(boundary.center());
+        viewer = EntityFactory.cam(this, boundary);
+        viewer.get(ViewController.class).target(boundary.center());
     }
 }

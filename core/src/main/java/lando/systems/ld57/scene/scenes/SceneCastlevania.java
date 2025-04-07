@@ -32,7 +32,7 @@ public class SceneCastlevania extends Scene<GameScreen> {
 
         var playerPos = player.get(Position.class);
 
-        var cam = EntityFactory.cam(this, boundary);
-        cam.get(ViewController.class).target(playerPos);
+        viewer = EntityFactory.cam(this, boundary);
+        viewer.get(ViewController.class).target(playerPos);
     }
 }
