@@ -53,7 +53,7 @@ public class PlayerBehavior extends Component {
         if (character == Characters.Type.MARIO) {
             mover.setOnHit( (params) -> {
                 var hitEntity = params.hitCollider.entity;
-                if (params.hitCollider.mask == Collider.Mask.enemy && pos.y() >= hitEntity.get(Position.class).y() * .7f) {
+                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
                     Util.log("Mario Behavior", "Stomped enemy");
                     hitEntity.getIfActive(Health.class).setHealth(0);
                     mover.velocity.y = 200f;
