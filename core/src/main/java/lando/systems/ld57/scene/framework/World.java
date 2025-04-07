@@ -7,6 +7,7 @@ import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.PlayerInput;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
+import lando.systems.ld57.scene.scenes.components.EnemyBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 import text.formic.Stringf;
@@ -182,6 +183,11 @@ public class World<ScreenType extends BaseScreen> {
             var components = getFamily(RenderableComponent.class);
             components.add(renderable);
         }
+        if (component instanceof EnemyBehavior) {
+            var enemyBehavior = (EnemyBehavior) component;
+            var components = getFamily(EnemyBehavior.class);
+            components.add(enemyBehavior);
+        }
 
         // add by type
         var components = getComponents(clazz);
@@ -224,6 +230,11 @@ public class World<ScreenType extends BaseScreen> {
             var renderable = (RenderableComponent) component;
             var components = getFamily(RenderableComponent.class);
             components.removeValue(renderable, true);
+        }
+        if (component instanceof EnemyBehavior) {
+            var enemyBehavior = (EnemyBehavior) component;
+            var components = getFamily(EnemyBehavior.class);
+            components.removeValue(enemyBehavior, true);
         }
 
         // remove by type

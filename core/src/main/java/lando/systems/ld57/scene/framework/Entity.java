@@ -3,6 +3,7 @@ package lando.systems.ld57.scene.framework;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import lando.systems.ld57.scene.Scene;
+import lando.systems.ld57.scene.scenes.components.EnemyBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 import text.formic.Stringf;
@@ -82,6 +83,14 @@ public class Entity {
      */
     @SuppressWarnings("unchecked")
     public <C extends Component> C get(Class<C> clazz) {
+        // HACK: handle family base class lookup
+        if (clazz == EnemyBehavior.class) {
+            for (var component : componentsByClass.values()) {
+                if (component instanceof EnemyBehavior) {
+                    return (C) component;
+                }
+            }
+        }
         return (C) componentsByClass.get(clazz);
     }
 

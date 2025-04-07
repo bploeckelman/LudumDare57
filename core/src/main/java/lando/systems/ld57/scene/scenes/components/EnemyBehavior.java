@@ -10,11 +10,11 @@ import lando.systems.ld57.scene.components.Health;
 import lando.systems.ld57.scene.components.Mover;
 import lando.systems.ld57.scene.components.ParticleEmitter;
 import lando.systems.ld57.scene.components.Position;
-import lando.systems.ld57.scene.framework.Component;
+import lando.systems.ld57.scene.framework.ComponentFamily;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Time;
 
-public abstract class EnemyBehavior extends Component {
+public abstract class EnemyBehavior extends ComponentFamily {
 
     private static float INVINCIBILITY_TIME = 0.5f;
     static Vector2 tempVec1 = new Vector2();
