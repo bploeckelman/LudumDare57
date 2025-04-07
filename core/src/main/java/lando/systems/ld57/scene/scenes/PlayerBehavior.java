@@ -4,10 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
-import lando.systems.ld57.particles.effects.BulletExplosionEffect;
-import lando.systems.ld57.particles.effects.DirtEffect;
-import lando.systems.ld57.particles.effects.ParticleEffect;
-import lando.systems.ld57.particles.effects.SparkEffect;
+import lando.systems.ld57.particles.effects.*;
 import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
@@ -179,6 +176,7 @@ public class PlayerBehavior extends Component {
 
         animator.stateTime = 0;
         playerState = State.HURT;
+        emitter.spawnParticle(ParticleEffect.Type.BLOOD, new BloodEffect.Params(pos.x(), pos.y()));
         Util.log("PlayerBehavior", "Player State to HURT");
 
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
