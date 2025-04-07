@@ -30,7 +30,7 @@ public class SceneIntro extends Scene<GameScreen> {
 
         makeMapObjects(tilemap);
 
-        BossFactory.createBoss(this, 100, 100);
+        BossFactory.createBoss(this, 120, 98);
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(boundary.center());
