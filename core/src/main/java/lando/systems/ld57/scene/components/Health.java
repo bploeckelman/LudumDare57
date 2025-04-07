@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.components;
 
+import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Callbacks;
@@ -9,6 +10,7 @@ public class Health extends Component {
 
     private float maxHealth;
     private float health;
+    private float immunityTime;
     Callbacks.NoArg onDeath;
 
     public Health(Entity entity, float maxHealth) {
@@ -23,19 +25,23 @@ public class Health extends Component {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.onDeath = onDeath;
+        this.immunityTime = 0;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        immunityTime = MathUtils.clamp(immunityTime-delta, 0f, 1f);
         if (health <= 0) {
             onDeath.run();
         }
     }
 
     public void takeDamage(float amount) {
+        if (immunityTime > 0) return;
         Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
+        immunityTime = .3f;
     }
 
     public void setHealth(float health) {
