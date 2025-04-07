@@ -124,6 +124,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEGAMAN_SHOT(Path.MEGAMAN)
         , MEGAMAN_POWERSHOT(Path.MEGAMAN)
         , MARIO_FIREBALL(Path.MARIO)
+        , BELMONT_AXE(Path.BELMONT)
         ;
 
         private final String path;

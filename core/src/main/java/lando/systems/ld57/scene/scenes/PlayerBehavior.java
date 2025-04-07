@@ -254,6 +254,7 @@ public class PlayerBehavior extends Component {
                 powerAttackEntity = oldManPowerAttack();
                 break;
             case BELMONT:
+                powerAttackEntity = belmontPowerAttack();
                 break;
             case LINK:
                 break;
@@ -521,6 +522,53 @@ public class PlayerBehavior extends Component {
 
         return attackEntity;
     }
+
+    public Entity belmontPowerAttack() {
+        float size = 12f;
+        var scene = entity.scene;
+        var charAnimator = entity.get(Animator.class);
+        var charPos = entity.get(Position.class);
+
+        var powerAttackEntity = scene.createEntity();
+        new Position(powerAttackEntity, charPos.x() + 15 * charAnimator.facing, charPos.y() + 23);
+        var collider = Collider.makeRect(powerAttackEntity, Collider.Mask.player_projectile, -size/2f, -size/2f, size, size);
+        var powerAttackEntityMover = new Mover(powerAttackEntity, collider);
+        powerAttackEntityMover.velocity.x = 100 * charAnimator.facing;
+        powerAttackEntityMover.velocity.y = 220;
+        powerAttackEntityMover.gravity = Mover.BASE_GRAVITY;
+        powerAttackEntityMover.addCollidesWith(Collider.Mask.enemy, Collider.Mask.solid);
+        powerAttackEntityMover.setOnHit((params -> {
+                if (params.hitCollider.mask == Collider.Mask.solid){
+                    destroyBulletParticle(powerAttackEntity);
+                    powerAttackEntity.scene.world.destroy(powerAttackEntity);
+
+                } else {
+                    var collidedEntity = params.hitCollider.entity;
+                    var health = collidedEntity.get(Health.class);
+                    if (health != null) {
+                        health.takeDamage(character.get().attackInfo.powerAttackDamage);
+                    }
+                    destroyBulletParticle(powerAttackEntity);
+                    powerAttackEntity.scene.world.destroy(powerAttackEntity);
+                }
+            })
+        );
+
+        var animator = new Animator(powerAttackEntity, Anims.Type.BELMONT_AXE);
+        animator.size.set(size, size);
+        animator.origin.set(size/2f, size/2f);
+        animator.outlineColor.a = 0;
+
+        var timer = new Timer(powerAttackEntity, 1, () -> {
+            destroyBulletParticle(powerAttackEntity);
+            powerAttackEntity.destroy(Timer.class);
+            powerAttackEntity.scene.world.destroy(powerAttackEntity);
+            // TODO particle effect
+        });
+
+        return powerAttackEntity;
+    }
+
 
     public Entity linkAttack() {
         var playerPos = entity.get(Position.class);
