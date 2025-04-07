@@ -74,10 +74,18 @@ public class BossBehavior extends EnemyBehavior {
             var thisPos = entity.get(Position.class);
             var playerPos = player.get(Position.class);
             // left
+            var oldFacing = facing;
             if (facing < 0) {
                 facing = (playerPos.x() > thisPos.x() + widthOffset) ? 1 : -1;
             } else {
                 facing = (playerPos.x() < thisPos.x() - widthOffset) ? -1 : 1;
+            }
+
+            if (facing != oldFacing) {
+                for (var entity: parts) {
+                    var collider = entity.get(Collider.class).shape(Collider.CircShape.class).circ;
+                    collider.x = -collider.x;
+                }
             }
         }
     }
