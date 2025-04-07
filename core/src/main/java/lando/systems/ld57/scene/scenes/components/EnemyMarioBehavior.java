@@ -13,6 +13,7 @@ public class EnemyMarioBehavior extends EnemyBehavior {
     float lastJumpTime;
     float lastFireballTime;
     float lastDirectionChangeTime;
+    float accum;
 
     public EnemyMarioBehavior(Entity entity) {
         super(entity);
@@ -35,6 +36,10 @@ public class EnemyMarioBehavior extends EnemyBehavior {
         lastDirectionChangeTime -= delta;
         lastJumpTime -= delta;
         lastFireballTime -= delta;
+        accum += delta;
+
+        bossAnimator.outlineColor.set(1f, 0, 0, MathUtils.sin(accum * 20f));
+
 
         if (lastDirectionChangeTime < 0) {
             lastDirectionChangeTime = MathUtils.random(1f, 2f);

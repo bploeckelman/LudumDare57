@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes.components;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.particles.effects.BulletExplosionEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
@@ -11,6 +12,9 @@ public abstract class EnemyBehavior extends Component {
 
     static Vector2 tempVec1 = new Vector2();
     static Vector2 tempVec2 = new Vector2();
+
+    private float accum;
+
     public EnemyBehavior(Entity entity) {
         super(entity);
     }
@@ -30,6 +34,17 @@ public abstract class EnemyBehavior extends Component {
     @Override
     public void update(float delta) {
         super.update(delta);
+        accum += delta;
+        var health = entity.get(Health.class);
+        var anim = entity.get(Animator.class);
+        if (health != null && anim != null) {
+            if (health.getImmunityTime() > 0) {
+                anim.fillColor.set(1f, 1f, 1f, .8f * MathUtils.sin(accum * 30));
+            } else {
+                anim.fillColor.set(1f, 1f, 1f, .0f);
+            }
+
+        }
     }
 
     /**

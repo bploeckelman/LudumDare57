@@ -61,6 +61,7 @@ public class BossBehavior extends EnemyBehavior {
 
     @Override
     public void update(float dt) {
+        super.update(dt);
         facePlayer();
         move(dt);
 

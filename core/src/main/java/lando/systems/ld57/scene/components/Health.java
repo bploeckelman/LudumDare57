@@ -11,6 +11,7 @@ import lando.systems.ld57.utils.Callbacks;
 import lando.systems.ld57.utils.Util;
 
 public class Health extends Component {
+    public static float MAX_IMMUNITIY_TIME = .4f;
 
     private float maxHealth;
     private float health;
@@ -50,7 +51,7 @@ public class Health extends Component {
         if (immunityTime > 0) return;
         Util.log(entity.toString(), "Damage " + amount + " Health: " + health);
         health -= amount;
-        immunityTime = .3f;
+        immunityTime = MAX_IMMUNITIY_TIME;
         var emitter = entity.get(ParticleEmitter.class);
         var pos = entity.get(Position.class);
         var anim = entity.get(Animator.class);
@@ -66,5 +67,13 @@ public class Health extends Component {
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    public float getImmunityTime() {
+        return immunityTime;
+    }
+
+    public float getImmunityPercent() {
+        return immunityTime / MAX_IMMUNITIY_TIME;
     }
 }

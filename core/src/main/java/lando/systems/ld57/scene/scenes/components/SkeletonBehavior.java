@@ -35,6 +35,7 @@ public class SkeletonBehavior extends EnemyBehavior {
 
     @Override
     public void update(float dt) {
+        super.update(dt);
         var mover = entity.get(Mover.class);
         var collider = entity.get(Collider.class);
         var animator = entity.get(Animator.class);
