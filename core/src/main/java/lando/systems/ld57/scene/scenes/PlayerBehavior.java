@@ -270,6 +270,7 @@ public class PlayerBehavior extends Component {
                 break;
             case BELMONT:
                 attackEntity = belmontAttack();
+                Main.game.audioManager.playSound(Sounds.Type.WHIP);
                 break;
             case LINK:
                 attackEntity = linkAttack();
@@ -301,6 +302,7 @@ public class PlayerBehavior extends Component {
                 break;
             case BELMONT:
                 powerAttackEntity = belmontPowerAttack();
+                Main.game.audioManager.playSound(Sounds.Type.AXE);
                 break;
             case LINK:
                 powerAttackEntity = linkPowerAttack();
