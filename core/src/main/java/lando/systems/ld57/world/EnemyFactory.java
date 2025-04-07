@@ -14,7 +14,13 @@ import lando.systems.ld57.scene.components.Position;
 import lando.systems.ld57.scene.components.Timer;
 import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.scene.scenes.components.AngrySunBehavior;
+import lando.systems.ld57.scene.scenes.components.BulletBillBehavior;
+import lando.systems.ld57.scene.scenes.components.CastleBatBehavior;
+import lando.systems.ld57.scene.scenes.components.EagleBehavior;
 import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
+import lando.systems.ld57.scene.scenes.components.KoopaBehavior;
+import lando.systems.ld57.scene.scenes.components.MegaBatBehavior;
 import lando.systems.ld57.scene.scenes.components.MonkeyBehavior;
 import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
 import lando.systems.ld57.screens.BaseScreen;
@@ -25,6 +31,7 @@ public class EnemyFactory {
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
+        new WaitToMove(entity);
 
         var animator = new Animator(entity, animType);
         animator.origin.set(scale * width, 0);
@@ -55,8 +62,6 @@ public class EnemyFactory {
         };
         timer.start(2f);
 
-        new WaitToMove(entity);
-
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return entity;
@@ -70,6 +75,7 @@ public class EnemyFactory {
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
+        new AngrySunBehavior(entity);
 
         var scale = 2f;
         var animator = new Animator(entity, Anims.Type.ANGRY_SUN);
@@ -106,6 +112,7 @@ public class EnemyFactory {
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
+        new BulletBillBehavior(entity);
 
         var scale = 3f;
         var animator =  new Animator(entity, Anims.Type.BULLET_BILL);
@@ -135,6 +142,7 @@ public class EnemyFactory {
         new Position(entity, x,y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
+        new KoopaBehavior(entity);
 
         var scale = .75f;
         var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);
@@ -188,6 +196,7 @@ public class EnemyFactory {
         new Position(entity, x,y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
+        new GoombaBehavior(entity);
 
         var scale = 1f;
         var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);
@@ -233,8 +242,6 @@ public class EnemyFactory {
                 }
             }
         });
-
-        new GoombaBehavior(entity);
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
@@ -292,11 +299,14 @@ public class EnemyFactory {
         var height = 20f;
         var scale = 1f;
         var speed = 20f;
-        var animType = Anims.Type.BAT_FLYING;
-        var megaBat = flyingChasingEnemy(scene, x, y, width, height, scale, speed, animType);
-        var animator = megaBat.get(Animator.class);
+
+        var entity = flyingChasingEnemy(scene, x, y, width, height, scale, speed, Anims.Type.BAT_FLYING);
+        new MegaBatBehavior(entity);
+
+        var animator = entity.get(Animator.class);
         animator.origin.set(scale * width * .5f, 0f);
-        return megaBat;
+
+        return entity;
     }
 
     public static Entity eagle(Scene<? extends BaseScreen> scene, float x, float y) {
@@ -304,39 +314,52 @@ public class EnemyFactory {
         var height = 28f;
         var scale = 1f;
         var speed = 20f;
-        var animType = Anims.Type.EAGLE;
-        var eagle = flyingChasingEnemy(scene, x, y, width, height, scale, speed, animType);
-        var animator = eagle.get(Animator.class);
+
+        var entity = flyingChasingEnemy(scene, x, y, width, height, scale, speed, Anims.Type.EAGLE);
+        new EagleBehavior(entity);
+
+        var animator = entity.get(Animator.class);
         animator.origin.set(scale * width * .5f, 0f);
-        return eagle;
+
+        return entity;
     }
 
     public static Entity castleBat(Scene<? extends BaseScreen> scene, float x, float y) {
-        var bat = flyingChasingEnemy(scene, x, y, 14f, 14f, 1f, 10f, Anims.Type.BAT);
-        var animator = bat.get(Animator.class);
-        animator.origin.set(1f * 14f * .5f, 0f);
-        return bat;
+        var width = 14f;
+        var height = 14f;
+        var scale = 1f;
+        var speed = 10f;
+
+        var entity = flyingChasingEnemy(scene, x, y, width, height, scale, speed, Anims.Type.BAT);
+        new CastleBatBehavior(entity);
+
+        var animator = entity.get(Animator.class);
+        animator.origin.set(width / 2f, 0);
+
+        return entity;
     }
 
     public static Entity monkey(Scene<? extends BaseScreen> scene, float x, float y) {
-        var WIDTH = 16f;
-        var HEIGHT = 24f;
-        var SPEED = 30f;
+        var width = 16f;
+        var height = 24f;
+        var scale = .75f;
+        var speed = 30f;
+
         var entity = scene.createEntity();
         new Position(entity, x,y);
         new Health(entity, 2f);
         new ParticleEmitter(entity);
         new MonkeyBehavior(entity);
 
-        var scale = .75f;
         var animator =  new Animator(entity, Anims.Type.MONKEY_WALK);
-        animator.origin.set(scale * WIDTH, 0);
+        animator.origin.set(scale * width / 2f, 0);
         animator.size.scl(scale);
 
-        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * WIDTH, 0, WIDTH * scale, HEIGHT * scale);
-        var mover = new Mover(entity, collider);
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * scale * width, 0, width * scale, height * scale);
+
         var randomDirection = MathUtils.randomBoolean() ? 1 : -1;
-        mover.velocity.set(SPEED * randomDirection, 0f);
+        var mover = new Mover(entity, collider);
+        mover.velocity.set(speed * randomDirection, 0f);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.addCollidesWith(Collider.Mask.player);
 

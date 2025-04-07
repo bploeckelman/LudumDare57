@@ -1,6 +1,5 @@
 package lando.systems.ld57.scene.scenes.components;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
@@ -15,8 +14,13 @@ public abstract class EnemyBehavior extends Component {
         super(entity);
     }
 
-    public void attack() {}
-    public void die() {}
+    public void attack() {
+
+    }
+
+    public void die() {
+
+    }
 
     public void hurt() {
 
