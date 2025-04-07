@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
+import com.badlogic.gdx.Gdx;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Sounds;
@@ -85,7 +86,10 @@ public class PlayerBehavior extends Component {
                 && jumpCoolDown <= 0) {
                 mover.velocity.y = JUMP_SPEED;
                 jumpCoolDown = .2f;
-                entity.scene.screen.game.audioManager.playSound(Sounds.Type.BOARD_CLICK);
+
+                var pos = entity.get(Position.class);
+                entity.scene.screen.game.audioManager.playSound(Sounds.Type.JUMP, 0.6f, 0f);
+//                entity.scene.screen.game.audioManager.playSound(Sounds.Type.JUMP, 1f);
 
             }
 

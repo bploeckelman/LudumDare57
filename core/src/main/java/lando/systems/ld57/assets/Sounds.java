@@ -14,7 +14,9 @@ public class Sounds extends AssetContainer<Sounds.Type, Sound[]> {
     private static final String folder = "audio/sounds/";
 
     public enum Type implements AssetEnum<Sound[]> {
-          BOARD_CLICK("board_click.ogg", "error-buzz.ogg")
+          BOARD_CLICK("board_click.ogg", "error-buzz.ogg"),
+        JUMP("jump1.ogg"),
+
         ;
 
         private final Array<String> path;

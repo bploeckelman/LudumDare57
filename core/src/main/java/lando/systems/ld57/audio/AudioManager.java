@@ -55,14 +55,21 @@ public class AudioManager {
     }
 
     public void playSound(Sounds.Type soundType) {
-        playSound(soundType, 0f);
+        playSound(soundType, 0f, 1f);
     }
 
-    public void playSound(Sounds.Type soundType, float pan) {
+    public void playSound(Sounds.Type soundType, float dynamicVolume, float pan) {
         var sounds = soundType.get();
-        var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue();
+        var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue() * dynamicVolume;
         var sound = sounds[MathUtils.random(sounds.length-1)];
         sound.play(soundType.volume * volume, 1f, pan);
+    }
+
+    public void playSound(Sounds.Type soundType, float dynamicVolume) {
+        var sounds = soundType.get();
+        var volume = Config.Flag.MUTE.isEnabled() ? 0f : soundVolume.floatValue() * dynamicVolume;
+        var sound = sounds[MathUtils.random(sounds.length-1)];
+        sound.play(soundType.volume * volume, 1f, 0f);
     }
 
     private void stopCurrentMusic() {
