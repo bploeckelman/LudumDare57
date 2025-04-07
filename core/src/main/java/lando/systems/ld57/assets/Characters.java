@@ -54,6 +54,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
         public Map<AnimType, Anims.Type> animByType = new HashMap<>();
         public List<Rectangle> attackColliderRects;
         public AttackInfo attackInfo;
+        public Vector2 size;
 
         public Data(
             Vector2 origin,
@@ -65,6 +66,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
             this.attackColliderRects = List.of();
             this.primaryColor = primaryColor;
             this.attackInfo = new AttackInfo();
+            this.size = new Vector2();
         }
     }
 
@@ -92,12 +94,14 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .7f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.size.set(34, 34);
                     break;
                 case BELMONT:
                     data.attackInfo.attackCooldown = .6f;
                     data.attackInfo.powerAttackCooldown = .25f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.size.set(78, 34);
                     data.attackColliderRects = List.of(
                           new Rectangle(-28, -23, 8, 29)
                         , new Rectangle(-28, -15, 15, 20)
@@ -109,18 +113,21 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .1f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.size.set(34, 34);
                     break;
                 case MARIO:
                     data.attackInfo.attackCooldown = .1f;
                     data.attackInfo.powerAttackCooldown = .25f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.size.set(34, 34);
                     break;
                 case MEGAMAN:
                     data.attackInfo.attackCooldown = .15f;
                     data.attackInfo.powerAttackCooldown = .3f;
                     data.attackInfo.attackDamage = .2f;
                     data.attackInfo.powerAttackDamage = 2f;
+                    data.size.set(34, 34);
                     break;
             }
         }

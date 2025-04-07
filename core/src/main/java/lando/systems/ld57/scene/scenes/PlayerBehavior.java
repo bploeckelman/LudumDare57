@@ -195,6 +195,12 @@ public class PlayerBehavior extends Component {
         else if (character == Characters.Type.LINK)    character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.MEGAMAN;
         else                                           character = Characters.Type.OLDMAN;
+
+        var anim = entity.get(Animator.class);
+        if (anim != null) {
+            anim.size.set(character.get().size);
+            anim.origin.set(character.get().origin);
+        }
     }
 
     public void prevCharacter() {
@@ -203,7 +209,12 @@ public class PlayerBehavior extends Component {
         else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
         else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
         else                                           character = Characters.Type.OLDMAN;
-    }
+
+        var anim = entity.get(Animator.class);
+        if (anim != null) {
+            anim.size.set(character.get().size);
+            anim.origin.set(character.get().origin);
+        }    }
 
     private void spawnAttack() {
         Util.log("Launch Attack Entity");
