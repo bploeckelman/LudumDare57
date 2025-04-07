@@ -32,11 +32,11 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String EAGLE = "enemies/castlevania/eagle/";
         private static final String MONKEY = "enemies/castlevania/monkey/";
         private static final String MEDUSA = "enemies/castlevania/medusa/";
-        private static final String MEGA_BAT_CLOSED = "enemies/meagman/bat-closed/";
-        private static final String MEGA_BAT_FLYING = "enemies/meagman/bat-flying/";
-        private static final String HELMET = "enemies/meagman/helmet/";
-        private static final String HOTHEAD_IDLE = "enemies/meagman/hothead-idle/";
-        private static final String HOTHEAD_THROWING = "enemies/meagman/hothead-throwing/";
+        private static final String MEGA_BAT_CLOSED = "enemies/megaman/bat-closed/";
+        private static final String MEGA_BAT_FLYING = "enemies/megaman/bat-flying/";
+        private static final String HELMET = "enemies/megaman/helmet/";
+        private static final String HOTHEAD_IDLE = "enemies/megaman/hothead_idle/";
+        private static final String HOTHEAD_THROWING = "enemies/megaman/hothead_throwing/";
         private static final String BOSS = "boss/";
     }
 

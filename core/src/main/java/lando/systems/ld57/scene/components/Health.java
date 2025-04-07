@@ -1,6 +1,8 @@
 package lando.systems.ld57.scene.components;
 
 import com.badlogic.gdx.math.MathUtils;
+import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Callbacks;
@@ -16,6 +18,11 @@ public class Health extends Component {
     public Health(Entity entity, float maxHealth) {
         this(entity, maxHealth, () -> {
             Util.log(entity.toString(), "is dead");
+            var emitter = entity.get(ParticleEmitter.class);
+            var pos = entity.get(Position.class);
+            if (emitter != null) {
+                entity.scene.screen.particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(pos.x(), pos.y(), Util.randomColor()));
+            }
             entity.scene.world.destroy(entity);
         });
     }

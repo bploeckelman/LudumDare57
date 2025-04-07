@@ -31,6 +31,18 @@ import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
 
+    public static Entity megaBat(Scene<? extends BaseScreen> scene, float x, float y) {
+        var width = 28f;
+        var height = 28f;
+        var scale = 1f;
+        var speed = 20f;
+        var animType = Anims.Type.BAT_FLYING;
+        var megaBat = flyingChasingEnemy(scene, x, y, width, height, scale, speed, animType);
+        var animator = megaBat.get(Animator.class);
+        animator.origin.set(scale * width * .5f, 0f);
+        return megaBat;
+    }
+
     public static Entity eagle(Scene<? extends BaseScreen> scene, float x, float y) {
         var width = 28f;
         var height = 28f;
@@ -53,6 +65,7 @@ public class EntityFactory {
         var entity = scene.createEntity();
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
+        new ParticleEmitter(entity);
 
         var animator = new Animator(entity, animType);
         animator.origin.set(scale * width, 0);
@@ -98,6 +111,7 @@ public class EntityFactory {
         var entity = scene.createEntity();
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
+        new ParticleEmitter(entity);
 
         var scale = 2f;
         var animator = new Animator(entity, Anims.Type.ANGRY_SUN);
@@ -138,6 +152,7 @@ public class EntityFactory {
         var entity = scene.createEntity();
         var pos = new Position(entity, x, y);
         new Health(entity, 2f);
+        new ParticleEmitter(entity);
 
         var scale = 3f;
         var animator =  new Animator(entity, Anims.Type.BULLET_BILL);
@@ -166,6 +181,7 @@ public class EntityFactory {
         var entity = scene.createEntity();
         new Position(entity, x,y);
         new Health(entity, 2f);
+        new ParticleEmitter(entity);
 
         var scale = .75f;
         var animator =  new Animator(entity, Anims.Type.KOOPA_WALK);
@@ -219,6 +235,7 @@ public class EntityFactory {
         var entity = scene.createEntity();
         new Position(entity, x,y);
         new Health(entity, 2f);
+        new ParticleEmitter(entity);
 
         var scale = 1f;
         var animator =  new Animator(entity, Anims.Type.GOOMBA_WALK);

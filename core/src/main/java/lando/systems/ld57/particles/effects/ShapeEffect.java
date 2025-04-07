@@ -36,9 +36,9 @@ public class ShapeEffect extends ParticleEffect {
         for (int i = 0; i < amount; i++) {
             var keyframe = Particles.Type.SHAPE.get().getKeyFrame(MathUtils.random(1f));
             var angle = MathUtils.random(0f, 360f);
-            var speed = MathUtils.random(10f, 20f);
+            var speed = MathUtils.random(80f, 100f);
             var endRotation = MathUtils.random(angle - 360f, angle + 360f);
-            var startSize = MathUtils.random(3f, 5f);
+            var startSize = MathUtils.random(10f, 20f);
             var ttl = .5f;
 
             layer.add(Particle.initializer(pool.obtain())
