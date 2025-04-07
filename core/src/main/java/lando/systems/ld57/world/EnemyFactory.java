@@ -46,6 +46,7 @@ public class EnemyFactory {
                 // bounce back
                 mover.velocity.scl(-2f);
                 mover.velocity.y = MathUtils.clamp(mover.velocity.y, -speed * 2, speed * 2);
+                damagePlayerOnHit(params.hitCollider.entity, 1f);
             }
         });
         var timer = new Timer(entity);
@@ -87,6 +88,12 @@ public class EnemyFactory {
         var mover = new Mover(entity, collider);
         mover.velocity.set(-SPEED, 0f);
         mover.setCollidesWith(Collider.Mask.player);
+
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask == Collider.Mask.player) {
+                damagePlayerOnHit(params.hitCollider.entity, 1f);
+            }
+        });
         var timer = new Timer(entity);
         timer.onEnd = () -> {
             var camera = entity.scene.screen.worldCamera;
@@ -124,6 +131,7 @@ public class EnemyFactory {
         mover.velocity.set(-SPEED, 0f);
         mover.setCollidesWith(Collider.Mask.player);
         mover.setOnHit((params) -> {
+            damagePlayerOnHit(params.hitCollider.entity, 1f);
             if (pos.x() < 0) {
                 entity.scene.world.destroy(entity);
             }
@@ -172,6 +180,7 @@ public class EnemyFactory {
                 var timer = entity.get(Timer.class);
                 if (timer == null) {
                     // no active timer, create and attach one
+                    damagePlayerOnHit(params.hitCollider.entity, 1f);
                     new Timer(entity, hitDuration, () -> {
                         animator.play(Anims.Type.KOOPA_WALK);
                         mover.velocity.set(SPEED * randomDirection, 0f);
@@ -224,6 +233,7 @@ public class EnemyFactory {
                 var hitDuration = 0.5f;
                 var timer = entity.get(Timer.class);
                 if (timer == null) {
+                    damagePlayerOnHit(params.hitCollider.entity, 1f);
                     final float origSizeX = animator.size.x;
                     final float origSizeY = animator.size.y;
 
@@ -362,9 +372,28 @@ public class EnemyFactory {
         mover.velocity.set(speed * randomDirection, 0f);
         mover.gravity = Mover.BASE_GRAVITY;
         mover.addCollidesWith(Collider.Mask.player);
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask == Collider.Mask.solid) {
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+            else if (params.hitCollider.mask == Collider.Mask.player) {
+                damagePlayerOnHit(params.hitCollider.entity, 1f);
+            }
+        });
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
         return entity;
+    }
+    private static void damagePlayerOnHit(Entity player, float damage) {
+        var playerHealth = player.getIfActive(Health.class);
+        if (playerHealth != null) {
+            playerHealth.takeDamage(damage);
+        }
     }
 }

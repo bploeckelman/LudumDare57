@@ -170,7 +170,6 @@ public class PlayerBehavior extends Component {
 //                animator.play(charData.animByType.get(Characters.AnimType.ATTACK));
                 break;
             case HURT:
-                Util.log("PlayerBehavior", "Player State is HURT so playing HURT animation");
                 animator.play(charData.animByType.get(Characters.AnimType.HURT));
 
                 break;
@@ -190,7 +189,6 @@ public class PlayerBehavior extends Component {
 
         animator.stateTime = 0;
         playerState = State.HURT;
-        Util.log("PlayerBehavior", "Player State to HURT");
 
         emitter.spawnParticle(ParticleEffect.Type.SPARK, new SparkEffect.Params(pos.x(), pos.y(), character.get().primaryColor));
 
@@ -830,12 +828,6 @@ public class PlayerBehavior extends Component {
             });
         } else {
             mover.setOnHit( (params) -> {
-                if (params.hitCollider.mask == Collider.Mask.enemy) {
-                    var playerHealth = entity.scene.player.getIfActive(Health.class);
-                    if (playerHealth != null) {
-                        playerHealth.takeDamage(1f);
-                    }
-                }
                 if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
                     mover.velocity.y = 0;
                 }
