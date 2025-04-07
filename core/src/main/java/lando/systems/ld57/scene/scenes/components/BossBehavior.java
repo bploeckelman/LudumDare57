@@ -6,13 +6,7 @@ import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.particles.effects.BloodSplatEffect;
 import lando.systems.ld57.particles.effects.DirtEffect;
 import lando.systems.ld57.particles.effects.ParticleEffect;
-import lando.systems.ld57.scene.components.Animator;
-import lando.systems.ld57.scene.components.Collider;
-import lando.systems.ld57.scene.components.DebugRender;
-import lando.systems.ld57.scene.components.Health;
-import lando.systems.ld57.scene.components.Mover;
-import lando.systems.ld57.scene.components.ParticleEmitter;
-import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.*;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.utils.Util;
@@ -38,9 +32,10 @@ public class BossBehavior extends EnemyBehavior {
     private boolean movingRight = false;
     private float speed = 20f;
     private float totalMovement = 0f;
-    private float moveRadius = 80f;
+    private final float moveRadius = 80f;
     private final Vector2 startPos;
-    private float widthOffset;
+    private final float widthOffset;
+    private int headCount;
 
     public BossBehavior(Entity entity, Entity body, Entity bowser, Entity gannon, Entity wily, Entity dracula) {
         super(entity);
@@ -55,14 +50,21 @@ public class BossBehavior extends EnemyBehavior {
         this.dracula = dracula;
 
         this.parts = new Entity[] { body, bowser, gannon, wily, dracula };
+        this.headCount = this.parts.length - 1;
 
         this.widthOffset = this.body.get(Animator.class).keyframe.getRegionWidth() / 4f;
+
+        new Timer(entity, 3000, ()-> {
+
+        });
     }
 
     @Override
     public void update(float dt) {
         facePlayer();
         move(dt);
+
+        speed = (5 - this.headCount) * 20;
     }
 
     private void facePlayer() {

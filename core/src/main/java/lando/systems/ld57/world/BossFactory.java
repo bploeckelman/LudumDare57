@@ -12,13 +12,17 @@ public class BossFactory {
     public static Entity createBoss(Scene<? extends BaseScreen> scene, float x, float y) {
         var entity = scene.createEntity();
         new Position(entity, x, y);
-        new Health(entity, 3000f);
 
         var body = addBossPart(entity, Anims.Type.BOSS_BODY, 15, 95, 30);
+        new Health(body, 30);
         var bowser = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_BOWSER, 70, 127, 10);
+        new Health(bowser, 10);
         var wily = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_WILY, 45, 150, 10);
+        new Health(wily, 10);
         var gannon = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_GANON, 10, 160, 10);
+        new Health(gannon, 10);
         var dracula = addBossPart(entity, Anims.Type.BOSS_NECK_HEAD_DRACULA, -25, 140, 10);
+        new Health(dracula, 10);
 
         new BossBehavior(entity, body, bowser, wily, gannon, dracula);
 
