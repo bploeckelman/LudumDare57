@@ -241,34 +241,8 @@ public class PlayerBehavior extends Component {
             anim.size.set(character.get().size);
             anim.origin.set(character.get().origin);
         }
-        // Deal with on HIT
-        var mover = entity.get(Mover.class);
-        if (character == Characters.Type.MARIO) {
-            mover.setOnHit( (params) -> {
-                var hitEntity = params.hitCollider.entity;
-                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
-                    Util.log("Mario Behavior", "Stomped enemy");
-                    hitEntity.getIfActive(Health.class).takeDamage(1);
-                    mover.velocity.y = 200f;
-                }
+        setOnHit();
 
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        } else {
-            mover.setOnHit( (params) -> {
-                if (params.hitCollider.mask == Collider.Mask.enemy) {
-                    var playerHealth = entity.scene.player.getIfActive(Health.class);
-                    if (playerHealth != null) {
-                        playerHealth.takeDamage(1f);
-                    }
-                }
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        }
     }
 
     public void prevCharacter() {
@@ -283,35 +257,7 @@ public class PlayerBehavior extends Component {
             anim.size.set(character.get().size);
             anim.origin.set(character.get().origin);
         }
-
-        var mover = entity.get(Mover.class);
-        // Deal with on HIT
-        if (character == Characters.Type.MARIO) {
-            mover.setOnHit( (params) -> {
-                var hitEntity = params.hitCollider.entity;
-                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
-                    Util.log("Mario Behavior", "Stomped enemy");
-                    hitEntity.getIfActive(Health.class).takeDamage(1);
-                    mover.velocity.y = 200f;
-                }
-
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        } else {
-            mover.setOnHit( (params) -> {
-                if (params.hitCollider.mask == Collider.Mask.enemy) {
-                    var playerHealth = entity.scene.player.getIfActive(Health.class);
-                    if (playerHealth != null) {
-                        playerHealth.takeDamage(1f);
-                    }
-                }
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        }
+        setOnHit();
     }
 
     private void spawnAttack() {
@@ -857,5 +803,35 @@ public class PlayerBehavior extends Component {
             ParticleEffect.Type.BULLET_EXPLOSION,
             new BulletExplosionEffect.Params(bulletPos.x(), bulletPos.y(), bulletEntity.get(Animator.class).keyframe)
         );
+    }
+
+    private void setOnHit() {
+        var mover = entity.get(Mover.class);
+        if (character == Characters.Type.MARIO) {
+            mover.setOnHit( (params) -> {
+                var hitEntity = params.hitCollider.entity;
+                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
+                    Util.log("Mario Behavior", "Stomped enemy");
+                    hitEntity.getIfActive(Health.class).takeDamage(1);
+                    mover.velocity.y = 200f;
+                }
+
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
+                }
+            });
+        } else {
+            mover.setOnHit( (params) -> {
+                if (params.hitCollider.mask == Collider.Mask.enemy) {
+                    var playerHealth = entity.scene.player.getIfActive(Health.class);
+                    if (playerHealth != null) {
+                        playerHealth.takeDamage(1f);
+                    }
+                }
+                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
+                    mover.velocity.y = 0;
+                }
+            });
+        }
     }
 }
