@@ -104,35 +104,6 @@ public class Scene<ScreenType extends BaseScreen> {
         mover.gravity = Mover.BASE_GRAVITY;
         mover.velocity.set(0, 0);
         mover.friction = .001f;
-
-        // Deal with on HIT
-        if (behavior.character == Characters.Type.MARIO) {
-            mover.setOnHit( (params) -> {
-                var hitEntity = params.hitCollider.entity;
-                if (params.hitCollider.mask == Collider.Mask.enemy && params.direction == Direction.Relative.DOWN) {
-                    Util.log("Mario Behavior", "Stomped enemy");
-                    hitEntity.getIfActive(Health.class).takeDamage(1);
-                    mover.velocity.y = 200f;
-                }
-
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        } else {
-            mover.setOnHit( (params) -> {
-                if (params.hitCollider.mask == Collider.Mask.enemy) {
-                    var playerHealth = entity.scene.player.getIfActive(Health.class);
-                    if (playerHealth != null) {
-                        playerHealth.takeDamage(1f);
-                    }
-                }
-                if (params.hitCollider.mask == Collider.Mask.solid && params.direction == Direction.Relative.UP) {
-                    mover.velocity.y = 0;
-                }
-            });
-        }
-
         new Energy(entity);
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
