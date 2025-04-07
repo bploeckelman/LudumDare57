@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene.scenes;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Characters;
@@ -25,13 +26,13 @@ public class PlayerBehavior extends Component {
     public static float JUMP_SPEED = 300f;
     public static float MOVE_SPEED = 800f;
 
-    private boolean wasOnGround = true;
     private float jumpCoolDown;
     private float attackCoolDown;
     private boolean wasGrounded;
     private boolean isGrounded;
     private float lastOnGround;
     private State playerState;
+    public Vector2 lastSafePos;
 
     public Characters.Type character;
 
@@ -39,6 +40,7 @@ public class PlayerBehavior extends Component {
         super(entity);
         this.character = character;
         playerState = State.NORMAL;
+        lastSafePos = new Vector2();
     }
 
     @Override
@@ -90,6 +92,10 @@ public class PlayerBehavior extends Component {
             lastOnGround += dt;
             if (isGrounded) {
                 lastOnGround = 0;
+            }
+
+            if (wasGrounded && isGrounded) {
+                lastSafePos.set(pos.x(), pos.y());
             }
 
             if (playerInput.actionPressed(PlayerInput.Action.ATTACK) && attackCoolDown <= 0) {
@@ -158,9 +164,6 @@ public class PlayerBehavior extends Component {
         switch (playerState) {
             case NORMAL:
                 if (mover.onGround()) {
-
-                    wasOnGround = true;
-
                     var animType = Characters.AnimType.IDLE;
                     if (Math.abs(mover.velocity.x) > 20) {
                         animType = Characters.AnimType.WALK;
@@ -168,7 +171,6 @@ public class PlayerBehavior extends Component {
                     }
                     animator.play(charData.animByType.get(animType));
                 } else {
-                    wasOnGround = false;
                     if (mover.velocity.y > 0) {
                         var anim = charData.animByType.get(Characters.AnimType.JUMP);
                         animator.play(anim);
@@ -213,6 +215,13 @@ public class PlayerBehavior extends Component {
 //            animator.autoFacing = true;
 //            timer.selfDestruct();
 //        });
+    }
+
+    public void resetToSafePosition() {
+        var pos = entity.get(Position.class);
+        if (pos != null) {
+            pos.set(lastSafePos);
+        }
     }
 
     public void nextCharacter() {
