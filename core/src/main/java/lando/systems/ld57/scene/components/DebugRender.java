@@ -86,7 +86,7 @@ public class DebugRender extends RenderableComponent {
 
         var color = Color.MAGENTA;
         var colorFill = color.cpy(); colorFill.a = 0.25f;
-        var lineWidth = 1.5f;
+        var lineWidth = 1.1f;
 
         // draw collider
         var collider = entity.get(Collider.class);
@@ -164,7 +164,7 @@ public class DebugRender extends RenderableComponent {
         }
 
         // draw position
-        var outer = 4f;
+        var outer = 1.5f;
         var inner = outer * (3f / 4f);
         shapes.filledCircle(position.value, outer, Color.CYAN);
         shapes.filledCircle(position.value, inner, Color.YELLOW);

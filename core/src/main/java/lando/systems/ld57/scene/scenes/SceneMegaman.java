@@ -18,10 +18,11 @@ public class SceneMegaman extends Scene<GameScreen> {
         super(screen);
 
         // configure the camera to emulate a low res display
-        var width = 240;
-        var height = 160;
+//        var resolution = Resolutions.NES_NATIVE;
+        var resolution = Resolutions.NES_NATIVE_4_3;
+//        var resolution = Resolutions.NES_SCALED_4_3;
         var camera = screen.worldCamera;
-        camera.setToOrtho(false, width, height);
+        camera.setToOrtho(false, resolution.x, resolution.y);
         camera.update();
 
         var map = EntityFactory.map(this, "maps/megaman.tmx", "middle");

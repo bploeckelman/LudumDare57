@@ -1,6 +1,7 @@
 package lando.systems.ld57.scene;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.particles.ParticleManager;
@@ -140,6 +141,13 @@ public class Scene<ScreenType extends BaseScreen> {
                     "name='%s', type='%s', x=%.1f, y=%.1f", name, type, x, y));
             }
         }
+    }
+
+    protected static class Resolutions {
+        public static final Vector2 NES_NATIVE = new Vector2(256, 240);
+        public static final Vector2 NES_NATIVE_4_3 = new Vector2(256 * 4f / 3f, 240);
+        public static final Vector2 NES_NATIVE_16_9 = new Vector2(256, 240 * 16f / 9f);
+        public static final Vector2 NES_SCALED_4_3 = new Vector2(292, 224);
     }
 
     private Characters.Type getSceneCharType() {
