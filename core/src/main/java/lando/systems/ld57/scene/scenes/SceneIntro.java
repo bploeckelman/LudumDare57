@@ -5,6 +5,7 @@ import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
 import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
+import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EntityFactory;
@@ -31,6 +32,7 @@ public class SceneIntro extends Scene<GameScreen> {
         makeMapObjects(tilemap);
 
         BossFactory.createBoss(this, 120, 98);
+        EntityFactory.energyCapsule(this, 30, 20);
 
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());

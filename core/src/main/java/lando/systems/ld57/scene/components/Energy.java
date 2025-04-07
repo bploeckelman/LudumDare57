@@ -3,6 +3,7 @@ package lando.systems.ld57.scene.components;
 import com.badlogic.gdx.math.MathUtils;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
+import lando.systems.ld57.utils.Util;
 
 public class Energy extends Component {
     public static final float MAX_ENERGY = 100f;
@@ -11,7 +12,7 @@ public class Energy extends Component {
 
     public Energy(Entity entity) {
         super(entity);
-        currentEnergy = MAX_ENERGY;
+        currentEnergy = MAX_ENERGY / 2f;
     }
 
     @Override
@@ -26,6 +27,7 @@ public class Energy extends Component {
 
     public void addEnergy(float amount) {
         currentEnergy = MathUtils.clamp(currentEnergy + amount, 0, MAX_ENERGY);
+        Util.log("Energy", "Added energy " + amount + " and new energy is " + currentEnergy);
     }
 
     public float getCurrentEnergy() {
