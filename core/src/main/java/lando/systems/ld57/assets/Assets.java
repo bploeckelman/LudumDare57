@@ -42,6 +42,7 @@ public class Assets implements Disposable {
     public final ShapeDrawer shapes;
     public final GlyphLayout layout;
     public final Array<Disposable> disposables;
+    public Texture titleScreen;
 
     public TextureAtlas atlas;
     public I18NBundle strings;
@@ -109,6 +110,7 @@ public class Assets implements Disposable {
             mgr.load("sprites/sprites.atlas", TextureAtlas.class);
             mgr.load("i18n/strings", I18NBundle.class);
             mgr.load("ui/uiskin.json", Skin.class);
+            mgr.load("images/title-background.png", Texture.class);
 
             // textures
             mgr.load("images/libgdx.png", Texture.class);
@@ -140,6 +142,7 @@ public class Assets implements Disposable {
         outlineShader = Util.loadShader("shaders/default.vert", "shaders/outline.frag");
         atlas = mgr.get("sprites/sprites.atlas");
         strings = mgr.get("i18n/strings");
+        titleScreen = mgr.get("images/title-background.png", Texture.class);
 
         for (var container : containers.values()) {
             container.init(this);

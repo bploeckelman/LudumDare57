@@ -34,7 +34,7 @@ public class SceneIntro extends Scene<GameScreen> {
 
         ItemFactory.energyCapsule(this, 30, 20);
         EnemyFactory.monkey(this, 30, 20);
-
+        EnemyFactory.helmet(this, 50, 20);
         BossFactory.marioBoss(this, 50, 70);
 
         viewer = EntityFactory.cam(this, boundary);

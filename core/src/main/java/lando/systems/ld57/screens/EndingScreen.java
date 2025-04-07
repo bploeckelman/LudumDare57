@@ -21,7 +21,7 @@ public class EndingScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         if (!transitioning && Gdx.input.justTouched()){
-             Main.game.setScreen(new TitleScreen());
+             Main.game.setScreen(new CreditsScreen());
         }
     }
 

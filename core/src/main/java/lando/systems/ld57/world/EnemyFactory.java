@@ -15,15 +15,7 @@ import lando.systems.ld57.scene.components.Timer;
 import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
-import lando.systems.ld57.scene.scenes.components.AngrySunBehavior;
-import lando.systems.ld57.scene.scenes.components.BulletBillBehavior;
-import lando.systems.ld57.scene.scenes.components.CastleBatBehavior;
-import lando.systems.ld57.scene.scenes.components.EagleBehavior;
-import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
-import lando.systems.ld57.scene.scenes.components.KoopaBehavior;
-import lando.systems.ld57.scene.scenes.components.MegaBatBehavior;
-import lando.systems.ld57.scene.scenes.components.MonkeyBehavior;
-import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
+import lando.systems.ld57.scene.scenes.components.*;
 import lando.systems.ld57.screens.BaseScreen;
 
 public class EnemyFactory {
@@ -140,6 +132,46 @@ public class EnemyFactory {
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
+        return entity;
+    }
+
+    public static Entity helmet(Scene<? extends BaseScreen> scene, float x, float y) {
+        var WIDTH = 16f;
+        var HEIGHT = 16f;
+        var SPEED = 20f;
+        var entity = scene.createEntity();
+        new Position(entity, x,y);
+        new Health(entity, 2f);
+        new ParticleEmitter(entity);
+
+        var animator =  new Animator(entity, Anims.Type.HELMET_WALK);
+        animator.origin.set(WIDTH / 2f, 0);
+        animator.size.set(WIDTH, HEIGHT);
+
+
+        var collider = Collider.makeRect(entity, Collider.Mask.enemy,  -.5f * WIDTH, 0, WIDTH, HEIGHT);
+        var mover = new Mover(entity, collider);
+        mover.velocity.set(-SPEED, 0f);
+        mover.gravity = Mover.BASE_GRAVITY;
+        mover.addCollidesWith(Collider.Mask.player);
+        mover.setOnHit((params) -> {
+            if (params.hitCollider.mask == Collider.Mask.player) {
+                damagePlayerOnHit(params.hitCollider.entity, 1f);
+            }
+
+            if (params.hitCollider.mask == Collider.Mask.solid) {
+                switch (params.direction) {
+                    case LEFT:
+                    case RIGHT:
+                        mover.invertX();
+                        break;
+                }
+            }
+        });
+        new HelmetBehavior(entity);
+
+
+        DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
         return entity;
     }
 

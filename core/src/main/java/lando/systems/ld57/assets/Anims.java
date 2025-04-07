@@ -109,7 +109,8 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , MEDUSA(Path.MEDUSA)
         , BAT_CLOSED(Path.MEGA_BAT_CLOSED)
         , BAT_FLYING(Path.MEGA_BAT_FLYING)
-        , HELMET(Path.HELMET)
+        , HELMET_IDLE(Path.HELMET, new AnimData(0.33f, Animation.PlayMode.LOOP))
+        , HELMET_WALK(Path.HELMET)
         , HOTHEAD_IDLE(Path.HOTHEAD_IDLE)
         , HOTHEAD_THROWING(Path.HOTHEAD_THROWING)
         // boss -------------------------------------------------------
