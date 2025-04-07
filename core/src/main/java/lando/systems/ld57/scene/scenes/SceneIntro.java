@@ -7,7 +7,9 @@ import lando.systems.ld57.scene.components.Tilemap;
 import lando.systems.ld57.scene.components.ViewController;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.world.BossFactory;
+import lando.systems.ld57.world.EnemyFactory;
 import lando.systems.ld57.world.EntityFactory;
+import lando.systems.ld57.world.ItemFactory;
 
 public class SceneIntro extends Scene<GameScreen> {
 
@@ -30,7 +32,10 @@ public class SceneIntro extends Scene<GameScreen> {
 
         makeMapObjects(tilemap);
 
-        EntityFactory.energyCapsule(this, 30, 20);
+        ItemFactory.energyCapsule(this, 30, 20);
+        EnemyFactory.monkey(this, 30, 20);
+
+        BossFactory.marioBoss(this, 50, 70);
 
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());

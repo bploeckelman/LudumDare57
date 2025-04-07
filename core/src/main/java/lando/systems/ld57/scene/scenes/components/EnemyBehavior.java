@@ -1,5 +1,7 @@
 package lando.systems.ld57.scene.scenes.components;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Collider;
 import lando.systems.ld57.scene.components.Mover;
@@ -36,6 +38,31 @@ public abstract class EnemyBehavior extends Component {
         var isSafe = collider.check(Collider.Mask.solid, xOffset, -1);
         if (!isSafe) {
             mover.invertX();
+        }
+    }
+
+    public static boolean jumpTowardPlayer(Mover mover, Animator animator) {
+        if (mover == null) {
+            return false;
+        }
+        Vector2 tempVec1 = new Vector2();
+        Vector2 tempVec2 = new Vector2();
+        var player = mover.entity.scene.player;
+        if (player != null) {
+            var thisPos = mover.entity.get(Position.class);
+            var playerPos = player.get(Position.class);
+            tempVec1.set(thisPos.x(), thisPos.y());
+            tempVec2.set(playerPos.x(), playerPos.y());
+            var distance = tempVec1.dst2(tempVec2);
+            if (distance < 1000f) {
+                mover.velocity.y = 130f;
+                mover.velocity.x = animator.facing * 100f;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

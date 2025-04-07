@@ -22,7 +22,7 @@ import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.screens.BaseScreen;
 import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.BossFactory;
-import lando.systems.ld57.world.EntityFactory;
+import lando.systems.ld57.world.EnemyFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import text.formic.Stringf;
 
@@ -136,12 +136,12 @@ public class Scene<ScreenType extends BaseScreen> {
                 if (character != null) {
                     switch (character) {
                         case "player":    player = spawnPlayer(Characters.Type.OLDMAN, x, y); break;
-                        case "goomba":    EntityFactory.goomba(this, x, y); break;
-                        case "koopa":     EntityFactory.koopa(this, x, y);  break;
-                        case "skeleton":  EntityFactory.skeleton(this, x, y);  break;
-                        case "castleBat": EntityFactory.castleBat(this, x, y); break;
-                        case "eagle":     EntityFactory.eagle(this, x, y); break;
-                        case "megaBat":   EntityFactory.megaBat(this, x, y); break;
+                        case "goomba":    EnemyFactory.goomba(this, x, y); break;
+                        case "koopa":     EnemyFactory.koopa(this, x, y);  break;
+                        case "skeleton":  EnemyFactory.skeleton(this, x, y);  break;
+                        case "castleBat": EnemyFactory.castleBat(this, x, y); break;
+                        case "eagle":     EnemyFactory.eagle(this, x, y); break;
+                        case "megaBat":   EnemyFactory.megaBat(this, x, y); break;
                         case "dragon":    BossFactory.createBoss(this, x, y); break;
                     }
                 }

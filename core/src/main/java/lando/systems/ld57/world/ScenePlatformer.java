@@ -32,7 +32,7 @@ public class ScenePlatformer extends Scene<GameScreen> {
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(boundary.center());
 
-        EntityFactory.goomba(this, (float) width / 2,  height * 0.2f);
+        EnemyFactory.goomba(this, (float) width / 2,  height * 0.2f);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ScenePlatformer extends Scene<GameScreen> {
             var y = props.get("y", Float.class);
 
             if (name.equals("spawn")) {
-                EntityFactory.hero(this, x, y, 1f);
+                ExamplesFactory.hero(this, x, y, 1f);
             }
         }
     }
