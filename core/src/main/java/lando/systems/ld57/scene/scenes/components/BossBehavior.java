@@ -120,6 +120,7 @@ public class BossBehavior extends EnemyBehavior {
                 eb.die();
             }
         }
+        entity.active = false;
         entity.selfDestruct();
     }
 

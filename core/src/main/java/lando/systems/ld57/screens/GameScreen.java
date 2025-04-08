@@ -103,7 +103,7 @@ public class GameScreen extends BaseScreen {
                 modalText="Megaman is mega-dead!\n\nSelect him with Q and E.";
             }
             else if (scene instanceof SceneBoss) {
-                Main.game.setScreen(new CreditsScreen());
+                modalText="You have defeated the Boss!";
             }
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 if (scene instanceof SceneIntro) {
