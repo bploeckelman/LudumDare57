@@ -20,7 +20,6 @@ import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.screens.BaseScreen;
-import lando.systems.ld57.utils.Direction;
 import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EnemyFactory;
@@ -146,6 +145,10 @@ public class Scene<ScreenType extends BaseScreen> {
                         case "helmet":    EnemyFactory.helmet(this, x, y); break;
                         case "dragon":    BossFactory.createBoss(this, x, y); break;
                         case "bowser":    BossFactory.createBoss(this, x, y); break;
+                        case "boss-mario":   BossFactory.marioBoss(this, x, y); break;
+                        case "boss-link":    BossFactory.linkBoss(this, x, y); break;
+                        case "boss-belmont": BossFactory.belmontBoss(this, x, y); break;
+                        case "boss-megaman": BossFactory.megamanBoss(this, x, y); break;
                     }
                 }
             } else if ("unknown".equals(type)) {

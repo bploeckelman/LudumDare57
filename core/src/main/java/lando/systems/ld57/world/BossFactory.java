@@ -2,7 +2,14 @@ package lando.systems.ld57.world;
 
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Animator;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.Mover;
+import lando.systems.ld57.scene.components.ParticleEmitter;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.scene.scenes.components.*;
 import lando.systems.ld57.screens.BaseScreen;
