@@ -183,7 +183,7 @@ public class GameScreen extends BaseScreen {
                 font.getData().setScale(2f);
                 var layout = Main.game.assets.layout;
                 layout.setText(font, modalText, Color.WHITE, modal.width - 30f, Align.center, true);
-                font.draw(batch, layout, modal.x + 15f, modal.y + modal.height / 2f);
+                font.draw(batch, layout, modal.x + 15f, modal.y + modal.height / 2f + layout.height/2f);
                 font.getData().setScale(1f);
             }
         }
