@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="150" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="21">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="150" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="24">
  <tileset firstgid="1" source="tilesets/zelda.tsx"/>
  <tileset firstgid="226" source="tilesets/mario.tsx"/>
  <imagelayer id="5" name="background" offsetx="0" offsety="-48" repeatx="1">
@@ -98,7 +98,7 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="5" template="templates/object-spawn.tx" name="goomba" x="1474" y="203">
+  <object id="5" template="templates/object-spawn.tx" name="goomba" x="1212" y="412">
    <properties>
     <property name="character" value="goomba"/>
     <property name="type" value="spawn"/>
@@ -116,7 +116,7 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="14" template="templates/object-spawn.tx" name="goomba" x="573" y="403">
+  <object id="14" template="templates/object-spawn.tx" name="goomba" x="604" y="396">
    <properties>
     <property name="character" value="goomba"/>
     <property name="type" value="spawn"/>
@@ -135,6 +135,24 @@
    </properties>
   </object>
   <object id="20" template="templates/object-spawn.tx" name="koopa" x="808" y="397.333">
+   <properties>
+    <property name="character" value="koopa"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="21" template="templates/object-spawn.tx" name="boss-link" x="2328" y="396">
+   <properties>
+    <property name="character" value="boss-link"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="22" template="templates/object-spawn.tx" name="goomba" x="1470" y="199">
+   <properties>
+    <property name="character" value="goomba"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="23" template="templates/object-spawn.tx" name="koopa" x="1696" y="416">
    <properties>
     <property name="character" value="koopa"/>
     <property name="type" value="spawn"/>
