@@ -173,7 +173,7 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(windowCamera.combined);
         batch.begin();
         {
-            playerHealthMeter.render(batch);
+//            playerHealthMeter.render(batch);
             // TODO(brian): player energy
             bossHealthMeter.render(batch);
 
