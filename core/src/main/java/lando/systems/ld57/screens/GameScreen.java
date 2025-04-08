@@ -175,7 +175,7 @@ public class GameScreen extends BaseScreen {
         {
 //            playerHealthMeter.render(batch);
             // TODO(brian): player energy
-            bossHealthMeter.render(batch);
+//            bossHealthMeter.render(batch);
 
             if (showModal) {
                 Patches.Type.PLAIN.get().draw(batch, modal.x, modal.y, modal.width, modal.height);

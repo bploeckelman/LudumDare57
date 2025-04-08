@@ -5,7 +5,7 @@ import text.formic.Stringf;
 
 public class Config {
 
-    public static final String window_title = "Ludum Dare 57";
+    public static final String window_title = "Captain N(ostalgia)";
     public static final String preferences_name = "lando-systems-ld57-prefs";
     public static final int window_width = 1280;
     public static final int window_height = 720;
@@ -21,7 +21,7 @@ public class Config {
      */
     public enum Flag {
         //@formatter:off
-          GLOBAL(true)
+          GLOBAL(false)
         , LOG(true)
         , UI(false)
         , RENDER(false)
