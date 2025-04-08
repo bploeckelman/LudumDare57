@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Patches;
+import lando.systems.ld57.screens.CreditsScreen;
 import lando.systems.ld57.screens.EndingScreen;
 import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.screens.IntroScreen;
@@ -67,7 +68,7 @@ public class TitleScreenUI extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.input.setInputProcessor(null);
                 Main.game.currentScreen.transitioning = true;
-                Main.game.setScreen(new EndingScreen());
+                Main.game.setScreen(new CreditsScreen());
             }
         });
 

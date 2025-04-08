@@ -36,12 +36,12 @@ public class CreditsScreen extends BaseScreen {
     private final String theme = "{GRADIENT=red;gray}Made for Ludum Dare 57: Depth{ENDGRADIENT}";
 
     private final String thanks = "{GRADIENT=red;gray}Thank you for playing our game!{ENDGRADIENT}";
-    private final String developers = "{COLOR=gray}Developed by:{COLOR=white}\n {GRADIENT=white;gray}Brian Ploeckelman{ENDGRADIENT}\n {GRADIENT=white;gray}Doug Graham{ENDGRADIENT}\n {GRADIENT=white;gray}Brian Rossman{ENDGRADIENT}\n {GRADIENT=white;gray}Jeffrey Hwang{ENDGRADIENT}";
-    private final String artists = "{COLOR=gray}Art by:{COLOR=white}\n {GRADIENT=white;gray}Matt Neumann{ENDGRADIENT}\n {GRADIENT=white;gray}Luke Bain{ENDGRADIENT}\n";
-    private final String emotionalSupport = "{COLOR=cyan}Emotional Support:{COLOR=white}\n Asuka, Osha, Cherry, \n Obi, Yoda, Nova, and Roxie";
+    private final String developers = "{COLOR=gray}Developed by:{COLOR=white}\n {GRADIENT=white;gray}Brian Ploeckelman (44){ENDGRADIENT}\n {GRADIENT=white;gray}Doug Graham (43){ENDGRADIENT}\n {GRADIENT=white;gray}Jeffrey Hwang (36){ENDGRADIENT}\n {GRADIENT=white;gray}Brian Rossman (48){ENDGRADIENT}\n {GRADIENT=white;gray}Patrick Harvey (34){ENDGRADIENT}\n {GRADIENT=white;gray}Clayton Mays (33){ENDGRADIENT}\n {GRADIENT=white;gray}Melissa Erman (22){ENDGRADIENT}";
+    private final String artists = "{COLOR=gray}Art by:{COLOR=white}\n {GRADIENT=white;gray}Matt Neumann (43){ENDGRADIENT}\n {GRADIENT=white;gray}Luke Bain (43){ENDGRADIENT}\n";
+    private final String emotionalSupport = "{COLOR=cyan}Emotional Support:{COLOR=white}\n Asuka(10), Osha(9), Cherry (8), \n Obi (6), Yoda (8), Nova (3), and Roxie (2)";
     private final String music = "{COLOR=gray}Music, Design and Narration:{COLOR=white}\n " +
-        "{GRADIENT=white;gray}Pete V{ENDGRADIENT}\n";
-    private final String libgdx = "Made with {COLOR=red}<3{COLOR=white}\nand {RAINBOW}LibGDX{ENDRAINBOW}";
+        "{GRADIENT=white;gray}Pete V (41){ENDGRADIENT}\n";
+    private final String libgdx = "Made with {COLOR=red}<3{COLOR=white}\nand {RAINBOW}LibGDX (15){ENDRAINBOW}";
     private final String disclaimer = "{GRADIENT=black;gray}Disclaimer:{ENDGRADIENT}  {GRADIENT=gold;yellow}{JUMP=.27} No donuts were creamed in the making of this game{ENDJUMP}{ENDGRADIENT}";
 
     private float accum = 0f;
