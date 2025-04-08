@@ -62,8 +62,13 @@ public class GameScreen extends BaseScreen {
         this.screenPos = new Vector3();
         initializeUI();
 
-        this.playerHealthMeter = new Meter(assets, scene.player, 10f, windowCamera.viewportHeight - 50f, windowCamera.viewportWidth - 20f, 20f);
-//        this.bossHealthMeter = new Meter(assets, scene.boss, windowCamera.viewportWidth - 10f, windowCamera.viewportHeight - 50f, 20f, 20f, windowCamera);
+        this.playerHealthMeter = new Meter(assets, scene.player,
+            10f, windowCamera.viewportHeight - 100f,
+            20f, windowCamera.viewportHeight - 20f);
+
+        this.bossHealthMeter = new Meter(assets, null,
+            40f, windowCamera.viewportHeight - 50f,
+            windowCamera.viewportWidth - 80f, 40f);
     }
 
     @Override
@@ -177,8 +182,7 @@ public class GameScreen extends BaseScreen {
             playerHealthMeter.render(batch);
             // TODO(brian): player energy
 
-            // TODO(brian): only show boss if they're active
-            if (bossHealthMeter != null) {
+            if (bossHealthMeter.entity != null) {
                 bossHealthMeter.render(batch);
             }
 

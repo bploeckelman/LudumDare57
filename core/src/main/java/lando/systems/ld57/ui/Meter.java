@@ -38,11 +38,15 @@ public class Meter {
     }
 
     public void setEntity(Entity entity) {
-        this.entity = entity;
-        this.health = entity.get(Health.class);
-        if (health == null) {
-            Util.log(TAG, "*** Entity missing health component for meter: " + entity);
+        if (entity != null) {
+            this.entity = entity;
+            this.health = entity.get(Health.class);
+            if (health == null) {
+                Util.log(TAG, "*** Entity missing health component for meter: " + entity);
+            }
         }
+        barColor.set(Color.GREEN);
+        percent = 1f;
     }
 
     public void update(float delta) {
@@ -50,8 +54,6 @@ public class Meter {
             percent = health.getHealthPercent();
         }
         innerBounds.width *= percent;
-//        Util.log(TAG, "Meter percent: " + percent);
-
         colorRamp(percent);
     }
 
@@ -69,16 +71,9 @@ public class Meter {
         // Ensure percent is in 0-1 range
         percent = Math.max(0, Math.min(1, percent));
 
-        if (percent < 0.5f) {
-            // Green to Yellow (0.0 - 0.5)
-            // Green stays at 1, red increases from 0 to 1
-            float red = percent * 2;
-            barColor.set(red, 1.0f, 0.0f, 1.0f);
-        } else {
-            // Yellow to Red (0.5 - 1.0)
-            // Red stays at 1, green decreases from 1 to 0
-            float green = 1.0f - (percent - 0.5f) * 2;
-            barColor.set(1.0f, green, 0.0f, 1.0f);
-        }
+        if      (percent < 0.25f) barColor.set(Color.RED);
+        else if (percent < 0.5f)  barColor.set(Color.ORANGE);
+        else if (percent < 0.75f) barColor.set(Color.YELLOW);
+        else if (percent < 1f)    barColor.set(Color.GREEN);
     }
 }

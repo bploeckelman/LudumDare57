@@ -98,7 +98,7 @@ public class Scene<ScreenType extends BaseScreen> {
 
         new Position(entity, x, y);
         new PlayerInput(entity);
-        var behavior = new PlayerBehavior(entity, charType);
+        new PlayerBehavior(entity, charType);
         new ParticleEmitter(entity);
         new Health(entity, 500);
 
@@ -164,6 +164,10 @@ public class Scene<ScreenType extends BaseScreen> {
                 Util.log(TAG, "map object: unknown type ", obj -> Stringf.format(
                     "name='%s', type='%s', x=%.1f, y=%.1f", name, type, x, y));
             }
+        }
+
+        if (player != null && screen instanceof GameScreen) {
+            ((GameScreen) screen).playerHealthMeter.setEntity(player);
         }
     }
 
