@@ -9,6 +9,9 @@ import lando.systems.ld57.scene.framework.Entity;
 
 
 public class MiniBossBehavior extends EnemyBehavior {
+
+    public static final float MOVEMENT_SPEED = 40f;
+
     public enum State {NORMAL, ATTACK, HURT}
 
     protected Characters.Data charData;
@@ -77,5 +80,21 @@ public class MiniBossBehavior extends EnemyBehavior {
         var animator = entity.get(Animator.class);
         animator.stateTime = 0;
         animator.play(charData.animByType.get(Characters.AnimType.POWERATTACK));
+    }
+
+    protected void facePlayer() {
+        var animator = entity.get(Animator.class);
+        var player = entity.scene.player;
+        var thisPos = entity.get(Position.class);
+        var mover = entity.get(Mover.class);
+
+        if (animator == null || player == null || thisPos == null || mover == null) return;
+
+        var playerPos = player.get(Position.class);
+        if (playerPos == null) return;
+
+        var dx = playerPos.x() - thisPos.x();
+        animator.facing = (dx > 0) ? 1 : -1;
+        mover.velocity.x = Math.signum(dx) * 40f;
     }
 }

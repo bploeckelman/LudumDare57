@@ -36,7 +36,7 @@ public class SceneIntro extends Scene<GameScreen> {
         EnemyFactory.monkey(this, 30, 20);
         EnemyFactory.helmet(this, 50, 20);
 
-        BossFactory.belmontBoss(this, 50, 70);
+        BossFactory.megamanBoss(this, 50, 70);
 
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());
