@@ -57,7 +57,7 @@ public class GameScreen extends BaseScreen {
     public boolean showModal = false;
 
     public GameScreen() {
-        this.scene = new SceneIntro(this);
+        this.scene = new SceneMario(this);
         this.stageDebugUI = new Stage();
         this.screenPos = new Vector3();
         initializeUI();
@@ -146,7 +146,7 @@ public class GameScreen extends BaseScreen {
         switchSceneButton.setText("Switch Scene (" + currentScene + ")");
 
         scene.update(dt);
-        stageDebugUI.act(dt);
+//        stageDebugUI.act(dt);
         particleManager.update(dt);
 
         playerHealthMeter.update(dt);
@@ -194,7 +194,7 @@ public class GameScreen extends BaseScreen {
         }
         batch.end();
 
-        stageDebugUI.draw();
+//        stageDebugUI.draw();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
@@ -17,6 +18,7 @@ public class SceneMario extends Scene<GameScreen> {
 
     public SceneMario(GameScreen screen) {
         super(screen);
+        Main.game.audioManager.playMusic(SceneMario.music);
         screen.music = music;
 
         // configure the camera to emulate a low res display

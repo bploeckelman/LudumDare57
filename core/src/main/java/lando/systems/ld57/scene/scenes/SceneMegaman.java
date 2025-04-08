@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
+import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
@@ -16,7 +17,7 @@ public class SceneMegaman extends Scene<GameScreen> {
 
     public SceneMegaman(GameScreen screen) {
         super(screen);
-
+        Main.game.audioManager.playMusic(SceneMegaman.music);
         // configure the camera to emulate a low res display
 //        var resolution = Resolutions.NES_NATIVE;
         var resolution = Resolutions.NES_NATIVE_4_3;
