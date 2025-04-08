@@ -63,7 +63,8 @@ public class Scene<ScreenType extends BaseScreen> {
     }
 
     public void update(float dt) {
-        if (boss.active) {
+
+        if (boss != null && boss.active) {
             world.update(dt);
         } else {
             // the scene is over
