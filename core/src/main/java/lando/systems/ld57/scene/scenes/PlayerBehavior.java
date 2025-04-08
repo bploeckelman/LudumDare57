@@ -351,7 +351,7 @@ public class PlayerBehavior extends Component {
                 Main.game.audioManager.playSound(Sounds.Type.LINKATTACK, .6f);
                 break;
             case MARIO:
-//                Main.game.audioManager.playSound(Sounds.Type.FIREBALL);
+                Main.game.audioManager.playSound(Sounds.Type.THUD, .5f);
                 break;
             case MEGAMAN:
                 Main.game.audioManager.playSound(Sounds.Type.MEGABUSTER);
