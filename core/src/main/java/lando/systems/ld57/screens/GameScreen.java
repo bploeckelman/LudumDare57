@@ -91,20 +91,16 @@ public class GameScreen extends BaseScreen {
                 modalText="You defeated Intro! Now you can switch to him.";
             }
             else if (scene instanceof SceneMario) {
-                game.addCharacter(Characters.Type.MARIO);
-                modalText="You defeated Mario! Now you can switch to him.\n\nPush Q and E to select other Characters";
+                modalText="It's a-you, Mario! \n\nYou can now change characters with Q and E!";
             }
             else if (scene instanceof SceneZelda) {
-                game.addCharacter(Characters.Type.LINK);
-                modalText="You defeated Link! Now you can switch to him.";
+                modalText="Well excuuuse me, Link! \n\nLink is now available Q and E.";
             }
             else if (scene instanceof SceneCastlevania) {
-                game.addCharacter(Characters.Type.BELMONT);
-                modalText="You defeated Belmont! Now you can switch to him.";
+                modalText="Belmont Stake-d! \n\nHe is now available via Q and E.";
             }
             else if (scene instanceof SceneMegaman) {
-                game.addCharacter(Characters.Type.MEGAMAN);
-                modalText="You defeated Megaman! Now you can switch to him.";
+                modalText="Megaman is mega-dead!\n\nSelect him with Q and E.";
             }
             else if (scene instanceof SceneBoss) {
                 Main.game.setScreen(new CreditsScreen());

@@ -1,0 +1,51 @@
+- ** [HTML6/WebGL](https://lando.systems/games/ld55-LINKHERE) **
+- ** [Desktop/Java](https://lando.systems/games/ld55-LINKHERE) **
+- ** [Source](https://github.com/bploeckelman/LudumDare55) **
+# Board to Death: Monarchs and Monsters ️#
+
+Long live the King - or not!
+
+An evil wizard and his army of monsters are trying to storm your castle, and it's up to you to save the kingdom by summoning your team of warriors in this turn-based combat simulation.
+
+Choose from a familiar set of warriors - pawns, knights, rooks, bishops, and queens - give them the orders: march or fight!
+
+You have a limited number of moves you can spend in each round though, so you'll want to be strategic about which piece goes where.
+Do you want the pawn who is cheap to summon but limited in range and strength, or the rook who can move but also costs more to spawn?
+
+If your pieces get to the wizard's side of the field first, you win - but if any of the monsters make it through your gates, it's the end of the line for the monarch.
+
+
+
+# Controls:
+---
+
+* Summon fighters via turn-based combat
+* Choose from a familiar set of fighters: pawns, knights, rooks, bishops, and queens
+* Spend your limited number of action points each round
+
+
+# About the Team:
+---
+
+[LandoSystems](https://lando.systems) is a group of jammers from Madison, Wisconsin that varies in size from 2 to 12 people. This is the team's 30th Ludum Dare game!! :tada:
+
+# Team Members:
+---
+
+Code:
+- Doug Graham [dsgraham](https://twitter.com/dsgraham) :elephant: [dsgraham on mastodon](https://mastodon.gamedev.place/@dsgraham)
+- Brian Ploeckelman [PalpatinesSmile](https://twitter.com/PalpatinesSmile) :elephant: [brian on mastodon](https://mastodon.gamedev.place/@brian)
+- Jeffrey Hwang :elephant: [jeffreyhwang on mastodon](https://mastodon.gamedev.place/@jeffreyhwang)
+- Brian Rossman
+
+Art:
+- Matt Neumann
+
+Music, Writing, Assorted Coolness:
+- Pete V
+- Luke Bain
+
+
+### Attribution:
+---
+- [kenney.nl](https://kenney.nl/) - misc ui elements and icons
