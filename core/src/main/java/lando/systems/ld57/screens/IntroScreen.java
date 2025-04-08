@@ -28,17 +28,25 @@ public class IntroScreen extends BaseScreen {
     long currentSoundId;
     String page1 =
         "{COLOR=white}" +
-//            "Life comes in all shapes and sizes.\n\n" +
-            "From the smallest of creatures, to those slightly larger (though " +
-            "still quite small by any reasonable measure), " +
-            "life is a constant struggle to survive.\n\n" +
-            "For many of these diminutive animals, the best defense is a good offense. "+
-            "And destruction is the main tool in their toolbox. \n\n" +
-            "Let us see what kind of tricks these {GRADIENT=black;gray}tiny " +
-            "creatures{ENDGRADIENT} have " +
-            "up" +
-            " their sleeves as they set out on their {GRADIENT=red;yellow}tiny " +
-            "rampage{ENDGRADIENT}.";
+//            "--------------------------------------------------" +
+            "Life comes at ya fast, ya know? \n\n" +
+
+            "When you're a kid, no one wants anything from ya " +
+            "except to sit down and be quiet \n\n" +
+
+            "Nothing but junk food and video games, all day every day\n\n" +
+
+            "Sure, the games made you wanna pull your hair out, " +
+            "what with the punishing difficulty level and near total lack " +
+            "of save points. But times were simpler then, ya know?\n\n" +
+
+            "Ain't got much hair left to pull out these days...\n\n" +
+
+            "Instead of junk food, it's heartburn and bills\n\n" +
+
+            "Easy to get lost in the {GRADIENT=black;gray}depths{ENDGRADIENT} of nostalgia, " +
+            "but it feels like things are never quite how you remember them..."
+            ;
 
 
 //    String page2 =
@@ -63,13 +71,13 @@ public class IntroScreen extends BaseScreen {
 //        parchmentTexture = assets.parchment;
         font = Fonts.Type.DOGICA.getDefault();
 
-        Main.game.audioManager.playMusic(Musics.Type.SHOW);
+//        Main.game.audioManager.playMusic(Musics.Type.SHOW);
 
         particles = Main.game.particleManager;
 
         typingLabel = new TypingLabel(page1, new Font(font));
         typingLabel.setPosition(worldCamera.viewportWidth * .1f,
-            worldCamera.viewportHeight * .7f);
+            worldCamera.viewportHeight * .5f);
         typingLabel.setWidth(Config.window_width * .8f);
         typingLabel.wrap = true;
         typingLabel.setScale(.6f);

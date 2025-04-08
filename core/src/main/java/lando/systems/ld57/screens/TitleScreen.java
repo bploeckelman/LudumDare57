@@ -110,7 +110,8 @@ public class TitleScreen extends BaseScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, 0, 0, windowCamera.viewportWidth, windowCamera.viewportHeight);
-        batch.draw(logo, logoPosition.x, logoPosition.y, logo.getRegionWidth(), logo.getRegionHeight());
+        batch.draw(logo, logoPosition.x, logoPosition.y-20, logo.getRegionWidth(),
+            logo.getRegionHeight());
         batch.draw(oldGuy, oldGuyPosition.x, oldGuyPosition.y, oldGuy.getRegionWidth() * charScale, oldGuy.getRegionHeight() * charScale);
         batch.draw(zelda, zeldaPosition.x, zeldaPosition.y, zelda.getRegionWidth() * charScale, zelda.getRegionHeight() * charScale);
         batch.draw(megaMan, megaPosition.x, megaPosition.y, megaMan.getRegionWidth() * charScale, megaMan.getRegionHeight() * charScale);
@@ -120,7 +121,7 @@ public class TitleScreen extends BaseScreen {
         if (drawUI) {
             var font = Fonts.Type.DOGICA.getDefault();
             var layout = Main.game.assets.layout;
-            layout.setText(font, "My Back!");
+            layout.setText(font, "Ow, my back!");
             font.draw(batch, layout, Config.window_width / 5f * 3f - 130f, 390f);
             uiStage.draw();
         }
