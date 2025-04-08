@@ -1,4 +1,4 @@
-- ** [HTML6/WebGL](https://lando.systems/games/ld55-LINKHERE) **
+- ** [HTML7/WebGL](https://lando.systems/games/ld55-LINKHERE) **
 - ** [Desktop/Java](https://lando.systems/games/ld55-LINKHERE) **
 - ** [Source](https://github.com/bploeckelman/LudumDare55) **
 # Board to Death: Monarchs and Monsters ️#
