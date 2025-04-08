@@ -304,11 +304,20 @@ public class PlayerBehavior extends Component {
     }
 
     public void nextCharacter() {
-        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
-        else if (character == Characters.Type.BELMONT) character = Characters.Type.LINK;
-        else if (character == Characters.Type.LINK)    character = Characters.Type.MARIO;
-        else if (character == Characters.Type.MARIO)   character = Characters.Type.MEGAMAN;
-        else                                           character = Characters.Type.OLDMAN;
+        var unlockedCharacters = entity.scene.screen.game.unlockedCharacters;
+        var index = unlockedCharacters.indexOf(character, true);
+        if (++index == unlockedCharacters.size) {
+            index = 0;
+        }
+        character = unlockedCharacters.get(index);
+
+//
+//
+//        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.BELMONT;
+//        else if (character == Characters.Type.BELMONT) character = Characters.Type.LINK;
+//        else if (character == Characters.Type.LINK)    character = Characters.Type.MARIO;
+//        else if (character == Characters.Type.MARIO)   character = Characters.Type.MEGAMAN;
+//        else                                           character = Characters.Type.OLDMAN;
 
         var anim = entity.get(Animator.class);
         if (anim != null) {
@@ -320,11 +329,18 @@ public class PlayerBehavior extends Component {
     }
 
     public void prevCharacter() {
-        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.MEGAMAN;
-        else if (character == Characters.Type.BELMONT) character = Characters.Type.OLDMAN;
-        else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
-        else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
-        else                                           character = Characters.Type.BELMONT;
+        var unlockedCharacters = entity.scene.screen.game.unlockedCharacters;
+        var index = unlockedCharacters.indexOf(character, true);
+        if (--index < 0) {
+            index = unlockedCharacters.size - 1;
+        }
+        character = unlockedCharacters.get(index);
+
+//        if      (character == Characters.Type.OLDMAN)  character = Characters.Type.MEGAMAN;
+//        else if (character == Characters.Type.BELMONT) character = Characters.Type.OLDMAN;
+//        else if (character == Characters.Type.MEGAMAN) character = Characters.Type.MARIO;
+//        else if (character == Characters.Type.MARIO)   character = Characters.Type.LINK;
+////        else                                           character = Characters.Type.BELMONT;
 
         var anim = entity.get(Animator.class);
         if (anim != null) {
