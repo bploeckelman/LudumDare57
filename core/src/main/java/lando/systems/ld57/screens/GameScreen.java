@@ -89,7 +89,7 @@ public class GameScreen extends BaseScreen {
                 modalText="You defeated Intro! Now you can switch to him.";
             }
             else if (scene instanceof SceneMario) {
-                modalText="You defeated Mario! Now you can switch to him.";
+                modalText="You defeated Mario! Now you can switch to him.\n\nPush Q and E to select other Characters";
             }
             else if (scene instanceof SceneZelda) {
                 modalText="You defeated Link! Now you can switch to him.";
