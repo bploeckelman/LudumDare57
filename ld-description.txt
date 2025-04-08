@@ -1,33 +1,32 @@
 - ** [HTML6/WebGL](https://lando.systems/games/ld55-LINKHERE) **
 - ** [Desktop/Java](https://lando.systems/games/ld55-LINKHERE) **
 - ** [Source](https://github.com/bploeckelman/LudumDare55) **
-# Board to Death: Monarchs and Monsters ️#
+# Captain N(ostalgia) ️#
 
-Long live the King - or not!
+Ever-unfolding horrors of modern life got you down? Captain Nostalgia to the rescue!
 
-An evil wizard and his army of monsters are trying to storm your castle, and it's up to you to save the kingdom by summoning your team of warriors in this turn-based combat simulation.
+Take a trip down memory lane, when times were simpler and games were fun (albeit unforgiving).
 
-Choose from a familiar set of warriors - pawns, knights, rooks, bishops, and queens - give them the orders: march or fight!
+Play as a middle-aged man who revisits the gaming adventures of his youth - but things are not always as we remember them. 
 
-You have a limited number of moves you can spend in each round though, so you'll want to be strategic about which piece goes where.
-Do you want the pawn who is cheap to summon but limited in range and strength, or the rook who can move but also costs more to spawn?
+Sometimes things get mixed up
 
-If your pieces get to the wizard's side of the field first, you win - but if any of the monsters make it through your gates, it's the end of the line for the monarch.
-
+Conquer your gaming heroes and take their powers as you confront the real challenge: nostalgia's gentle mourning.
 
 
 # Controls:
 ---
 
-* Summon fighters via turn-based combat
-* Choose from a familiar set of fighters: pawns, knights, rooks, bishops, and queens
-* Spend your limited number of action points each round
+* WASD or controller
+* Space to jump
+* J or left-mouse for main attack
+* K or right-mouse for super attack
 
 
 # About the Team:
 ---
 
-[LandoSystems](https://lando.systems) is a group of jammers from Madison, Wisconsin that varies in size from 2 to 12 people. This is the team's 30th Ludum Dare game!! :tada:
+[LandoSystems](https://lando.systems) is a group of jammers from Madison, Wisconsin that varies in size from 2 to 12 people. This is the team's 32th Ludum Dare game!! :tada:
 
 # Team Members:
 ---
@@ -41,11 +40,15 @@ Code:
 Art:
 - Matt Neumann
 
-Music, Writing, Assorted Coolness:
+Music and Text:
 - Pete V
+
+Assorted Coolness:
 - Luke Bain
+- Clayton Mays
+- Melisa Erman
 
 
 ### Attribution:
 ---
-- [kenney.nl](https://kenney.nl/) - misc ui elements and icons
+- The entire population of NES developers and the generation of gamers and asset-creators who have followed
