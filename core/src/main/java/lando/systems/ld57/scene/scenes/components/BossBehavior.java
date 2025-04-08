@@ -74,8 +74,15 @@ public class BossBehavior extends EnemyBehavior {
             var health = part.get(Health.class);
             if (health == null || health.health <= 0) {
                 parts.removeIndex(i);
-                part.selfDestruct();
+                var eb = part.get(EnemyBehavior.class);
+                if (eb != null) {
+                    eb.die();
+                }
             }
+        }
+        if (parts.size == 1) {
+            kill();
+            return;
         }
         facePlayer();
         move(dt);
@@ -104,6 +111,16 @@ public class BossBehavior extends EnemyBehavior {
                 }
             }
         }
+    }
+
+    private void kill() {
+        for (var entity: parts) {
+            var eb = entity.get(EnemyBehavior.class);
+            if (eb != null) {
+                eb.die();
+            }
+        }
+        entity.selfDestruct();
     }
 
     private void move(float dt) {
