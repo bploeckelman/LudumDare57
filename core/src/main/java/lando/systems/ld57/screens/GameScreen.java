@@ -17,6 +17,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
 import lando.systems.ld57.Main;
+import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.assets.Patches;
@@ -91,15 +92,19 @@ public class GameScreen extends BaseScreen {
                 modalText="You defeated Intro! Now you can switch to him.";
             }
             else if (scene instanceof SceneMario) {
+                game.addCharacter(Characters.Type.MARIO);
                 modalText="You defeated Mario! Now you can switch to him.\n\nPush Q and E to select other Characters";
             }
             else if (scene instanceof SceneZelda) {
+                game.addCharacter(Characters.Type.LINK);
                 modalText="You defeated Link! Now you can switch to him.";
             }
             else if (scene instanceof SceneCastlevania) {
+                game.addCharacter(Characters.Type.BELMONT);
                 modalText="You defeated Belmont! Now you can switch to him.";
             }
             else if (scene instanceof SceneMegaman) {
+                game.addCharacter(Characters.Type.MEGAMAN);
                 modalText="You defeated Megaman! Now you can switch to him.";
             }
             else if (scene instanceof SceneBoss) {

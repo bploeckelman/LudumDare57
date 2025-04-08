@@ -17,9 +17,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld57.assets.Assets;
+import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.assets.ScreenTransitions;
 import lando.systems.ld57.audio.AudioManager;
 import lando.systems.ld57.particles.ParticleManager;
@@ -47,8 +49,18 @@ public class Main extends ApplicationAdapter {
 
     public BaseScreen currentScreen;
 
+    public Array<Characters.Type> unlockedCharacters;
+
     public Main() {
         Main.game = this;
+        unlockedCharacters = new Array<>();
+        unlockedCharacters.add(Characters.Type.OLDMAN);
+    }
+
+    public void addCharacter(Characters.Type type) {
+        if (!unlockedCharacters.contains(type, true)) {
+            unlockedCharacters.add(type);
+        }
     }
 
     @Override
