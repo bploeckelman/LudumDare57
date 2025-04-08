@@ -12,11 +12,9 @@ import lando.systems.ld57.utils.Callbacks;
 import lando.systems.ld57.utils.Util;
 
 public class Health extends Component {
-    public static float MAX_IMMUNITIY_TIME = .4f;
 
-    private float maxHealth;
+    public float maxHealth;
     public float health;
-    private float immunityTime;
     Callbacks.NoArg onDeath;
 
     public Health(Entity entity, float maxHealth) {

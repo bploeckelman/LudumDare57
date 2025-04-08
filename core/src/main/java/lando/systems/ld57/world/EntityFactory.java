@@ -1,21 +1,17 @@
 package lando.systems.ld57.world;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import lando.systems.ld57.assets.Anims;
-import lando.systems.ld57.assets.Fonts;
-import lando.systems.ld57.assets.Icons;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.scene.Scene;
-import lando.systems.ld57.scene.components.*;
+import lando.systems.ld57.scene.components.Boundary;
+import lando.systems.ld57.scene.components.Collider;
+import lando.systems.ld57.scene.components.DebugRender;
+import lando.systems.ld57.scene.components.Patch;
+import lando.systems.ld57.scene.components.Position;
+import lando.systems.ld57.scene.components.Tilemap;
+import lando.systems.ld57.scene.components.ViewController;
+import lando.systems.ld57.scene.components.Viewer;
 import lando.systems.ld57.scene.framework.Entity;
-import lando.systems.ld57.scene.scenes.components.EnemyMarioBehavior;
-import lando.systems.ld57.scene.scenes.components.GoombaBehavior;
-import lando.systems.ld57.scene.scenes.components.MonkeyBehavior;
-import lando.systems.ld57.scene.scenes.components.SkeletonBehavior;
 import lando.systems.ld57.screens.BaseScreen;
-import lando.systems.ld57.utils.Time;
-import lando.systems.ld57.utils.Util;
 
 public class EntityFactory {
 

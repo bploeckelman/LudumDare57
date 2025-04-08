@@ -15,10 +15,10 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
-import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.particles.ParticleManager;
-import lando.systems.ld57.particles.effects.*;
+import lando.systems.ld57.particles.effects.ParticleEffect;
+import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.scenes.SceneBoss;
 import lando.systems.ld57.scene.scenes.SceneCastlevania;
@@ -26,6 +26,7 @@ import lando.systems.ld57.scene.scenes.SceneIntro;
 import lando.systems.ld57.scene.scenes.SceneMario;
 import lando.systems.ld57.scene.scenes.SceneMegaman;
 import lando.systems.ld57.scene.scenes.SceneZelda;
+import lando.systems.ld57.ui.Meter;
 import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
@@ -34,30 +35,36 @@ import java.util.Map;
 public class GameScreen extends BaseScreen {
 
     private final Color backgroundColor = new Color(0x131711ff);
-    private final Stage stage;
+    private final Stage stageDebugUI;
     private TextraLabel posLabel;
 
     private Vector3 screenPos;
     private Scene<?> scene;
     private VisTextButton switchSceneButton;
 
+    public Meter playerHealthMeter;
+    public Meter bossHealthMeter;
+
     public Musics.Type music;
 
     public GameScreen() {
         this.scene = new SceneIntro(this);
-        this.stage = new Stage();
+        this.stageDebugUI = new Stage();
         this.screenPos = new Vector3();
         initializeUI();
+
+        this.playerHealthMeter = new Meter(assets, scene.player, 10f, windowCamera.viewportHeight - 50f, windowCamera.viewportWidth - 20f, 20f);
+//        this.bossHealthMeter = new Meter(assets, scene.boss, windowCamera.viewportWidth - 10f, windowCamera.viewportHeight - 50f, 20f, 20f, windowCamera);
     }
 
     @Override
     public void dispose() {
-        stage.dispose();
+        stageDebugUI.dispose();
     }
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        stageDebugUI.getViewport().update(width, height, true);
     }
 
     @Override
@@ -84,8 +91,13 @@ public class GameScreen extends BaseScreen {
         switchSceneButton.setText("Switch Scene (" + currentScene + ")");
 
         scene.update(dt);
-        stage.act(dt);
+        stageDebugUI.act(dt);
         particleManager.update(dt);
+
+        playerHealthMeter.update(dt);
+        if (bossHealthMeter != null) {
+            bossHealthMeter.update(dt);
+        }
 
         super.update(dt);
     }
@@ -104,14 +116,20 @@ public class GameScreen extends BaseScreen {
         }
         batch.end();
 
-        stage.draw();
-
         batch.setProjectionMatrix(windowCamera.combined);
         batch.begin();
         {
-            // ... add any 'overlay' rendering here that would go on top of any scene2d ui
+            playerHealthMeter.render(batch);
+            // TODO(brian): player energy
+
+            // TODO(brian): only show boss if they're active
+            if (bossHealthMeter != null) {
+                bossHealthMeter.render(batch);
+            }
         }
         batch.end();
+
+        stageDebugUI.draw();
     }
 
     @Override
@@ -160,8 +178,8 @@ public class GameScreen extends BaseScreen {
 
         table.add(configTable);
 
-        stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
+        stageDebugUI.addActor(table);
+        Gdx.input.setInputProcessor(stageDebugUI);
     }
 
     private void handleExit() {
@@ -205,7 +223,7 @@ public class GameScreen extends BaseScreen {
             return !Config.stepped_frame;
         }
 
-        stage.setDebugAll(Config.Flag.UI.isEnabled());
+        stageDebugUI.setDebugAll(Config.Flag.UI.isEnabled());
 
         return false;
     }

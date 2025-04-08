@@ -2,6 +2,8 @@ package lando.systems.ld57.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -222,5 +224,14 @@ public class Util {
         batch.setColor(tint);
         ninePatch.draw(batch, x, y, ox, oy, w, h, sx, sy, rot);
         batch.setColor(prevColor);
+    }
+
+    public static TextureRegion getColoredTextureRegion(Color color) {
+        Pixmap pixMap = new Pixmap(100, 20, Pixmap.Format.RGBA8888);
+        pixMap.setColor(color);
+        pixMap.fill();
+        TextureRegion textureRegion = new TextureRegion(new Texture(pixMap));
+        pixMap.dispose();
+        return textureRegion;
     }
 }
