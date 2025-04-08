@@ -46,6 +46,7 @@ public class TitleScreen extends BaseScreen {
     private Vector2 castlePosition = new Vector2(Config.window_width / 5f * 5f - 350f, 750);
     float accum = 0f;
     private boolean oldGuyHurt = false;
+    float oldGuyAccum = 0f;
 
 
     public TitleScreen() {
@@ -88,6 +89,7 @@ public class TitleScreen extends BaseScreen {
             var mousePos = vec3.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             worldCamera.unproject(mousePos);
             particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(mousePos.x, mousePos.y, Color.WHITE));
+            Main.game.tween.update(100f);
         }
         particleManager.update(delta);
         uiStage.act(delta);
@@ -98,7 +100,8 @@ public class TitleScreen extends BaseScreen {
         zelda = Anims.Type.LINK_IDLE.get().getKeyFrame(accum);
         belmont = Anims.Type.BELMONT_IDLE.get().getKeyFrame(accum);
         if (drawUI) {
-            oldGuy = Anims.Type.OLDMAN_HURT.get().getKeyFrame(accum);
+            oldGuyAccum += delta;
+            oldGuy = Anims.Type.OLDMAN_HURT.get().getKeyFrame(oldGuyAccum);
         }
     }
 
