@@ -50,6 +50,7 @@ public class TitleScreen extends BaseScreen {
     private boolean oldGuyHurt = false;
     float oldGuyAccum = 0f;
     private TextureRegion cartridgeTexture;
+    float inputdelay = .1f;
     Rectangle dialogbox = new Rectangle(Config.window_width / 5f * 3f - 190f, 360f, 245f, 40f);
 
 
@@ -91,12 +92,14 @@ public class TitleScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+
+        if (inputdelay < 0 && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             var mousePos = vec3.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             worldCamera.unproject(mousePos);
             particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(mousePos.x, mousePos.y, Color.WHITE));
             Main.game.tween.update(100f);
         }
+        inputdelay -= delta;
         particleManager.update(delta);
         uiStage.act(delta);
         accum += delta;
