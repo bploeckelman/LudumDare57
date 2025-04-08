@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="224" height="34" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="15">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="224" height="34" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="18">
  <tileset firstgid="1" source="tilesets/mario.tsx"/>
  <imagelayer id="6" name="BG" visible="0" tintcolor="#5c94fc" offsetx="-7.38964e-13" offsety="-31.515" repeatx="1" repeaty="1">
   <image source="backgrounds/white.png" width="256" height="256"/>
@@ -81,7 +81,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="objects">
-  <object id="2" template="templates/object-spawn.tx" name="player" x="66.1667" y="464.667">
+  <object id="2" template="templates/object-spawn.tx" name="player" x="56" y="480">
    <properties>
     <property name="character" value="player"/>
     <property name="type" value="spawn"/>
@@ -147,15 +147,16 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="13" template="templates/object-spawn.tx" name="mario" x="213" y="498">
-   <properties>
-    <property name="character" value="mario"/>
-    <property name="type" value="spawn"/>
-   </properties>
-  </object>
   <object id="14" template="templates/object-spawn.tx" name="boss-mario" x="3472" y="460">
    <properties>
     <property name="character" value="boss-mario"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="17" template="templates/object-spawn.tx" name="goomba" x="180" y="512">
+   <properties>
+    <property name="character" value="goomba"/>
+    <property name="type" value="spawn"/>
    </properties>
   </object>
  </objectgroup>

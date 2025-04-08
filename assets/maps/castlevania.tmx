@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="45" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="11">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="45" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="13">
  <tileset firstgid="1" source="tilesets/castlevania1.tsx"/>
- <imagelayer id="5" name="background" tintcolor="#050505" repeatx="1">
+ <imagelayer id="5" name="background" visible="0" tintcolor="#050505" repeatx="1">
   <image source="backgrounds/white.png" width="256" height="256"/>
  </imagelayer>
  <layer id="4" name="back" width="45" height="11">
@@ -41,21 +41,33 @@
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="6" template="templates/object-spawn.tx" name="eagle" x="48" y="172">
+  <object id="6" template="templates/object-spawn.tx" name="eagle" x="24" y="172">
    <properties>
     <property name="character" value="eagle"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="7" template="templates/object-spawn.tx" name="castleBat" x="136" y="172">
+  <object id="7" template="templates/object-spawn.tx" name="castleBat" x="248" y="172">
    <properties>
     <property name="character" value="castleBat"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>
-  <object id="9" template="templates/object-spawn.tx" name="skeleton" x="320" y="144">
+  <object id="9" template="templates/object-spawn.tx" name="skeleton" x="352" y="144">
    <properties>
     <property name="character" value="skeleton"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="11" template="templates/object-spawn.tx" name="monkey" x="208" y="144">
+   <properties>
+    <property name="character" value="monkey"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object id="12" template="templates/object-spawn.tx" name="boss-belmont" x="56" y="144">
+   <properties>
+    <property name="character" value="belmont"/>
     <property name="type" value="spawn"/>
    </properties>
   </object>
