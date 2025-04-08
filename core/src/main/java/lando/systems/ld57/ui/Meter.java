@@ -30,6 +30,7 @@ public class Meter {
     public Entity entity;
     public Health health;
     public float percent;
+    public float bossWidth;
 
     // NOTE: don't have entities on creation, get added via setEntity  later
 
@@ -41,7 +42,9 @@ public class Meter {
 
     public static Meter forBoss(Assets assets, float x, float y, float w, float h) {
         var meter = new Meter(assets, null, x, y, w, h);
+        meter.bossWidth = w;
         meter.type = Type.BOSS;
+
         return meter;
     }
 
@@ -73,7 +76,7 @@ public class Meter {
         if (type == Type.PLAYER) {
             innerBounds.height *= percent;
         } else if (type == Type.BOSS) {
-            innerBounds.width *= percent;
+            innerBounds.width = percent * bossWidth;
         }
         colorRamp(percent);
     }

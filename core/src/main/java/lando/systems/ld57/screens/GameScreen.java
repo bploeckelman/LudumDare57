@@ -243,6 +243,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void handleExit() {
+        if (!Config.Flag.GLOBAL.isEnabled()) return;
         var shouldExit = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
         var shouldQuit = shouldExit && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
         if (shouldQuit) {
