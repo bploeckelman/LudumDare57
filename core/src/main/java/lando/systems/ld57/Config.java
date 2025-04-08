@@ -28,6 +28,7 @@ public class Config {
         , MUTE(false)
         , FRAME_STEP(false)
         , START_ON_GAMESCREEN(false)
+        , SHOW_LAUNCHSCREEN(false)
         ;
         //@formatter:on
 

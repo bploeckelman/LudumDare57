@@ -23,10 +23,7 @@ import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.ScreenTransitions;
 import lando.systems.ld57.audio.AudioManager;
 import lando.systems.ld57.particles.ParticleManager;
-import lando.systems.ld57.screens.BaseScreen;
-import lando.systems.ld57.screens.GameScreen;
-import lando.systems.ld57.screens.TitleScreen;
-import lando.systems.ld57.screens.Transition;
+import lando.systems.ld57.screens.*;
 import lando.systems.ld57.utils.Time;
 import lando.systems.ld57.utils.accessors.CameraAccessor;
 import lando.systems.ld57.utils.accessors.CircleAccessor;
@@ -92,7 +89,8 @@ public class Main extends ApplicationAdapter {
 
         audioManager = new AudioManager(assets);
 
-        var startingScreen = Config.Flag.START_ON_GAMESCREEN.isEnabled() ? new GameScreen() : new TitleScreen();
+        var showLaunchScreen = (Gdx.app.getType() == Application.ApplicationType.WebGL || Config.Flag.SHOW_LAUNCHSCREEN.isEnabled());
+        var startingScreen = showLaunchScreen ? new LaunchScreen() : new TitleScreen();
         setScreen(startingScreen);
 //        Gdx.app.setLogLevel(Application.LOG_DEBUG);
     }
