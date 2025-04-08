@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes;
 
+import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.components.Boundary;
@@ -33,12 +34,11 @@ public class SceneIntro extends Scene<GameScreen> {
         makeMapObjects(tilemap);
 
         ItemFactory.energyCapsule(this, 30, 20);
-        EnemyFactory.monkey(this, 30, 20);
-        EnemyFactory.helmet(this, 50, 20);
 
         BossFactory.linkBoss(this, 50, 70);
 
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());
+
     }
 }

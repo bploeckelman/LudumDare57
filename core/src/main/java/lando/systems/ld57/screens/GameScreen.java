@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,7 +16,10 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import lando.systems.ld57.Config;
+import lando.systems.ld57.Main;
+import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Musics;
+import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ShapeEffect;
@@ -46,6 +50,11 @@ public class GameScreen extends BaseScreen {
     public Meter bossHealthMeter;
 
     public Musics.Type music;
+    private final float MODAL_WIDTH = 640f;
+    private final float MODAL_HEIGHT = 480f;
+    private final Rectangle modal = new Rectangle(Config.window_width / 2f  - MODAL_WIDTH / 2f, Config.window_height / 2f - MODAL_HEIGHT / 2f, MODAL_WIDTH, MODAL_HEIGHT);
+    public String modalText = "You defeated Mario! Now you can switch to him.";
+    public boolean showModal = false;
 
     public GameScreen() {
         this.scene = new SceneIntro(this);
@@ -70,6 +79,47 @@ public class GameScreen extends BaseScreen {
     @Override
     public void update(float dt) {
         handleExit();
+        if (showModal) {
+            if (scene instanceof SceneIntro) {
+                modalText="You defeated Intro! Now you can switch to him.";
+            }
+            else if (scene instanceof SceneMario) {
+                modalText="You defeated Mario! Now you can switch to him.";
+            }
+            else if (scene instanceof SceneZelda) {
+                modalText="You defeated Link! Now you can switch to him.";
+            }
+            else if (scene instanceof SceneCastlevania) {
+                modalText="You defeated Belmont! Now you can switch to him.";
+            }
+            else if (scene instanceof SceneMegaman) {
+                modalText="You defeated Megaman! Now you can switch to him.";
+            }
+            else if (scene instanceof SceneBoss) {
+                Main.game.setScreen(new CreditsScreen());
+            }
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                if (scene instanceof SceneIntro) {
+                    scene = new SceneMario(GameScreen.this);
+                }
+                else if (scene instanceof SceneMario) {
+                    scene = new SceneZelda(GameScreen.this);
+                }
+                else if (scene instanceof SceneZelda) {
+                    scene = new SceneCastlevania(GameScreen.this);
+                }
+                else if (scene instanceof SceneCastlevania) {
+                    scene = new SceneMegaman(GameScreen.this);
+                }
+                else if (scene instanceof SceneMegaman) {
+                    scene = new SceneBoss(GameScreen.this);
+                }
+                else if (scene instanceof SceneBoss) {
+                    Main.game.setScreen(new CreditsScreen());
+                }
+            }
+            return;
+        }
 
         var shouldSkipFrame = handleDebugFlags();
         if (shouldSkipFrame) {
@@ -125,6 +175,14 @@ public class GameScreen extends BaseScreen {
             // TODO(brian): only show boss if they're active
             if (bossHealthMeter != null) {
                 bossHealthMeter.render(batch);
+            }
+
+            if (showModal) {
+                Patches.Type.PLAIN.get().draw(batch, modal.x, modal.y, modal.width, modal.height);
+                var font = Fonts.Type.ROUNDABOUT.getDefault();
+                var layout = Main.game.assets.layout;
+                layout.setText(font, modalText, Color.WHITE, modal.width - 30f, Align.center, true);
+                font.draw(batch, layout, modal.x + 15f, modal.y + modal.height / 2f);
             }
         }
         batch.end();
