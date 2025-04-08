@@ -61,4 +61,6 @@ public abstract class BaseScreen implements Disposable {
     public void renderOffscreenBuffers(SpriteBatch batch) {}
 
     public void initializeUI() {}
+
+    public void init() {}
 }

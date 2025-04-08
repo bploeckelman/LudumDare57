@@ -34,6 +34,7 @@ public class BossFactory {
         new Health(dracula, 3);
 
         new BossBehavior(entity, body, bowser, wily, gannon, dracula);
+        entity.scene.boss = entity;
 
         return entity;
     }
@@ -86,7 +87,7 @@ public class BossFactory {
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
-
+        entity.scene.boss = entity;
         return entity;
     }
 
@@ -114,6 +115,7 @@ public class BossFactory {
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
+        entity.scene.boss = entity;
 
         return entity;
     }
@@ -142,6 +144,7 @@ public class BossFactory {
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
+        entity.scene.boss = entity;
 
         return entity;
     }
@@ -170,6 +173,7 @@ public class BossFactory {
 
         DebugRender.makeForShapes(entity, DebugRender.DRAW_POSITION_AND_COLLIDER);
 
+        entity.scene.boss = entity;
 
         return entity;
     }

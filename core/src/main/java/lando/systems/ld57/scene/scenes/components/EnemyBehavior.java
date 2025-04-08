@@ -28,6 +28,7 @@ public abstract class EnemyBehavior extends ComponentFamily {
 
     public EnemyBehavior(Entity entity) {
         super(entity);
+        new ParticleEmitter(entity);
     }
 
     public void attack() {
@@ -41,6 +42,7 @@ public abstract class EnemyBehavior extends ComponentFamily {
         if (emitter != null) {
             entity.scene.screen.particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(pos.x(), pos.y(), Util.randomColor()));
         }
+        entity.active = false;
         entity.scene.world.destroy(entity);
     }
 

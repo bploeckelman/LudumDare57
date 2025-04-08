@@ -77,6 +77,11 @@ public class GameScreen extends BaseScreen {
     }
 
     @Override
+    public void init() {
+        showModal = false;
+    }
+
+    @Override
     public void update(float dt) {
         handleExit();
         if (showModal) {
@@ -84,7 +89,7 @@ public class GameScreen extends BaseScreen {
                 modalText="You defeated Intro! Now you can switch to him.";
             }
             else if (scene instanceof SceneMario) {
-                modalText="You defeated Mario! Now you can switch to him.";
+                modalText="You defeated Mario! Now you can switch to him.\n\nPush Q and E to select other Characters";
             }
             else if (scene instanceof SceneZelda) {
                 modalText="You defeated Link! Now you can switch to him.";
@@ -180,9 +185,11 @@ public class GameScreen extends BaseScreen {
             if (showModal) {
                 Patches.Type.PLAIN.get().draw(batch, modal.x, modal.y, modal.width, modal.height);
                 var font = Fonts.Type.ROUNDABOUT.getDefault();
+                font.getData().setScale(2f);
                 var layout = Main.game.assets.layout;
                 layout.setText(font, modalText, Color.WHITE, modal.width - 30f, Align.center, true);
                 font.draw(batch, layout, modal.x + 15f, modal.y + modal.height / 2f);
+                font.getData().setScale(1f);
             }
         }
         batch.end();

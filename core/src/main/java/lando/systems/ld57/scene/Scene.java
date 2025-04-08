@@ -20,6 +20,7 @@ import lando.systems.ld57.scene.framework.World;
 import lando.systems.ld57.scene.framework.families.RenderableComponent;
 import lando.systems.ld57.scene.scenes.PlayerBehavior;
 import lando.systems.ld57.screens.BaseScreen;
+import lando.systems.ld57.screens.GameScreen;
 import lando.systems.ld57.utils.Util;
 import lando.systems.ld57.world.BossFactory;
 import lando.systems.ld57.world.EnemyFactory;
@@ -39,11 +40,13 @@ public class Scene<ScreenType extends BaseScreen> {
     public final World<ScreenType> world;
 
     public Entity player;
+    public Entity boss;
     public Entity viewer;
 
     public Scene(ScreenType screen) {
         this.screen = screen;
         this.world = new World<>(this);
+        screen.init();
 
         // reset the screen's world camera to default for each new scene
         var camera = screen.worldCamera;
@@ -60,7 +63,12 @@ public class Scene<ScreenType extends BaseScreen> {
     }
 
     public void update(float dt) {
-        world.update(dt);
+        if (boss.active) {
+            world.update(dt);
+        } else {
+            // the scene is over
+            ((GameScreen)screen).showModal = true;
+        }
     }
 
     public void render(SpriteBatch batch) {
