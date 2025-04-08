@@ -1,5 +1,6 @@
 package lando.systems.ld57.scene.scenes.components;
 
+import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Characters;
 import lando.systems.ld57.scene.components.Animator;
 import lando.systems.ld57.scene.components.Mover;
@@ -11,7 +12,9 @@ public class MiniBossBehavior extends EnemyBehavior {
     public enum State {NORMAL, ATTACK, HURT}
 
     protected Characters.Data charData;
-    private State enemyState;
+    protected State enemyState;
+    protected final Rectangle currentRectFacing = new Rectangle();
+
 
     public MiniBossBehavior(Entity entity, Characters.Data charData) {
         super(entity);

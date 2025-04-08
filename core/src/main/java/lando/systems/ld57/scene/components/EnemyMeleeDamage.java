@@ -3,12 +3,10 @@ package lando.systems.ld57.scene.components;
 import lando.systems.ld57.scene.framework.Component;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Callbacks;
-import lando.systems.ld57.utils.Direction;
-import lando.systems.ld57.utils.Util;
 
 import java.util.EnumSet;
 
-public class MeleeDamage extends Component {
+public class EnemyMeleeDamage extends Component {
 
     public static class OnHitParam implements Callbacks.TypedArg.Params {
         public final Collider hitCollider;
@@ -22,15 +20,15 @@ public class MeleeDamage extends Component {
     private final EnumSet<Collider.Mask> collidesWith = EnumSet.of(Collider.Mask.solid);
 
 
-    public MeleeDamage(Entity entity) {
+    public EnemyMeleeDamage(Entity entity) {
         this(entity, null);
     }
 
-    public MeleeDamage(Entity entity,  Callbacks.TypedArg<OnHitParam> onHit) {
+    public EnemyMeleeDamage(Entity entity, Callbacks.TypedArg<OnHitParam> onHit) {
         super(entity);
         this.onHit = onHit;
         collidesWith.clear();
-        collidesWith.add(Collider.Mask.enemy);
+        collidesWith.add(Collider.Mask.player);
     }
 
     public void setOnHit(Callbacks.TypedArg<OnHitParam> onHit) {

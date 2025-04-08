@@ -92,7 +92,7 @@ public class BossFactory {
         new ParticleEmitter(entity);
         new Health(entity, 4f);
         var animator =  new Animator(entity, Anims.Type.BELMONT_IDLE);
-        animator.origin.set(16, 1);
+        animator.origin.set(25, 3);
         animator.facing = -1;
         var collider = Collider.makeRect(entity, Collider.Mask.enemy, -5, 0, 10, 28);
 
