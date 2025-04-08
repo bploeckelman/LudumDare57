@@ -76,7 +76,7 @@ public class CreditsScreen extends BaseScreen {
 
         leftCreditLabel = new TypingLabel(developers.toLowerCase() + "\n\n" + emotionalSupport.toLowerCase() + "\n\n", typingFont);
         leftCreditLabel.setWidth(Config.window_width / 2f - 150f);
-        leftCreditLabel.setPosition(75f, Config.window_height / 2f - 40f);
+        leftCreditLabel.setPosition(75f, Config.window_height / 2f - 70f);
 
         background = Main.game.assets.titleScreen;
 
