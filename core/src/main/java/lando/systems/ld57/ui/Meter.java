@@ -7,10 +7,13 @@ import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld57.assets.Assets;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.scene.components.Health;
+import lando.systems.ld57.scene.components.WaitToMove;
 import lando.systems.ld57.scene.framework.Entity;
 import lando.systems.ld57.utils.Util;
 
 public class Meter {
+
+    public enum Type { PLAYER, BOSS }
 
     private static final String TAG = Meter.class.getSimpleName();
     private static final float PAD_X = 10f;
@@ -23,12 +26,25 @@ public class Meter {
     public final Rectangle outerBounds;
     public final Rectangle innerBounds;
 
+    public Type type;
     public Entity entity;
     public Health health;
-    // TODO(brian): energy?
     public float percent;
 
-    public Meter(Assets assets, Entity entity, float x, float y, float w, float h) {
+    public static Meter forPlayer(Assets assets, Entity entity, float x, float y, float w, float h) {
+        var meter = new Meter(assets, entity, x, y, w, h);
+        meter.type = Type.PLAYER;
+        return meter;
+    }
+
+    public static Meter forBoss(Assets assets, float x, float y, float w, float h) {
+        // NOTE: don't have a boss on creation, gets added via setEntity  later
+        var meter = new Meter(assets, null, x, y, w, h);
+        meter.type = Type.BOSS;
+        return meter;
+    }
+
+    private Meter(Assets assets, Entity entity, float x, float y, float w, float h) {
         this.assets = assets;
         this.outerBounds = new Rectangle(x, y, w, h);
         this.innerBounds = new Rectangle(x + PAD_X, y + PAD_Y, w - (PAD_X * 2), h - (PAD_Y * 2));
@@ -58,6 +74,13 @@ public class Meter {
     }
 
     public void render(SpriteBatch batch) {
+        // if its a boss, only show if it's not waiting to be active
+        if (type == Type.BOSS) {
+            if (entity != null && entity.get(WaitToMove.class) == null) {
+                return;
+            }
+        }
+
         batch.setColor(Color.WHITE);
         patch.draw(batch, outerBounds.x, outerBounds.y, outerBounds.width, outerBounds.height);
 

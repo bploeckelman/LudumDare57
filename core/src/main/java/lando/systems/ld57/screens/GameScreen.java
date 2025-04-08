@@ -21,8 +21,6 @@ import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Musics;
 import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.particles.ParticleManager;
-import lando.systems.ld57.particles.effects.ParticleEffect;
-import lando.systems.ld57.particles.effects.ShapeEffect;
 import lando.systems.ld57.scene.Scene;
 import lando.systems.ld57.scene.scenes.SceneBoss;
 import lando.systems.ld57.scene.scenes.SceneCastlevania;
@@ -31,7 +29,6 @@ import lando.systems.ld57.scene.scenes.SceneMario;
 import lando.systems.ld57.scene.scenes.SceneMegaman;
 import lando.systems.ld57.scene.scenes.SceneZelda;
 import lando.systems.ld57.ui.Meter;
-import lando.systems.ld57.utils.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,11 +59,11 @@ public class GameScreen extends BaseScreen {
         this.screenPos = new Vector3();
         initializeUI();
 
-        this.playerHealthMeter = new Meter(assets, scene.player,
+        this.playerHealthMeter = Meter.forPlayer(assets, scene.player,
             10f, windowCamera.viewportHeight - 100f,
             20f, windowCamera.viewportHeight - 20f);
 
-        this.bossHealthMeter = new Meter(assets, null,
+        this.bossHealthMeter = Meter.forBoss(assets,
             40f, windowCamera.viewportHeight - 50f,
             windowCamera.viewportWidth - 80f, 40f);
     }
@@ -181,10 +178,7 @@ public class GameScreen extends BaseScreen {
         {
             playerHealthMeter.render(batch);
             // TODO(brian): player energy
-
-            if (bossHealthMeter.entity != null) {
-                bossHealthMeter.render(batch);
-            }
+            bossHealthMeter.render(batch);
 
             if (showModal) {
                 Patches.Type.PLAIN.get().draw(batch, modal.x, modal.y, modal.width, modal.height);
