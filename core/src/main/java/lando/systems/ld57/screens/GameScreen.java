@@ -182,7 +182,7 @@ public class GameScreen extends BaseScreen {
                 var font = Fonts.Type.ROUNDABOUT.getDefault();
                 font.getData().setScale(2f);
                 var layout = Main.game.assets.layout;
-                layout.setText(font, modalText, Color.WHITE, modal.width - 30f, Align.center, true);
+                layout.setText(font, modalText + "\nClick Mouse to Continue", Color.WHITE, modal.width - 30f, Align.center, true);
                 font.draw(batch, layout, modal.x + 15f, modal.y + modal.height / 2f + layout.height/2f);
                 font.getData().setScale(1f);
             }
