@@ -115,8 +115,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .5f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
-                    data.attackInfo.attackEnergyCost = 2;
-                    data.attackInfo.powerAttackEnergyCost = 2f;
+                    data.attackInfo.attackEnergyCost = 0;
+                    data.attackInfo.powerAttackEnergyCost = 0f;
                     data.size.set(78, 34);
                     data.attackColliderRects = List.of(
                           new Rectangle(-28, -23, 8, 29)
@@ -129,8 +129,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .1f;
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
-                    data.attackInfo.attackEnergyCost = 1;
-                    data.attackInfo.powerAttackEnergyCost = 5f;
+                    data.attackInfo.attackEnergyCost = 0;
+                    data.attackInfo.powerAttackEnergyCost = 0f;
                     data.size.set(34, 34);
                     data.attackColliderRects = List.of(
                         new Rectangle(-18, 0, 8, 15)
@@ -143,7 +143,7 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.attackDamage = 1f;
                     data.attackInfo.powerAttackDamage = 2f;
                     data.attackInfo.attackEnergyCost = 0;
-                    data.attackInfo.powerAttackEnergyCost = 3f;
+                    data.attackInfo.powerAttackEnergyCost = 0f;
                     data.size.set(34, 34);
                     break;
                 case MEGAMAN:
@@ -151,8 +151,8 @@ public class Characters extends AssetContainer<Characters.Type, Characters.Data>
                     data.attackInfo.powerAttackCooldown = .3f;
                     data.attackInfo.attackDamage = .2f;
                     data.attackInfo.powerAttackDamage = 2f;
-                    data.attackInfo.attackEnergyCost = 1;
-                    data.attackInfo.powerAttackEnergyCost = 8f;
+                    data.attackInfo.attackEnergyCost = 0;
+                    data.attackInfo.powerAttackEnergyCost = 0f;
                     data.size.set(34, 34);
                     break;
             }
