@@ -122,9 +122,11 @@ public class TitleScreen extends BaseScreen {
             var font = Fonts.Type.DOGICA.getDefault();
             var layout = Main.game.assets.layout;
             layout.setText(font, "Ow, my back!");
-            font.draw(batch, layout, Config.window_width / 5f * 3f - 130f, 390f);
-            uiStage.draw();
+            font.draw(batch, layout, Config.window_width / 5f * 3f - 180f, 390f);
         }
         batch.end();
+        if (drawUI) {
+            uiStage.draw();
+        }
     }
 }
