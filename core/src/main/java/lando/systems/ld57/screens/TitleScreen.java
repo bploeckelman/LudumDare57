@@ -47,6 +47,7 @@ public class TitleScreen extends BaseScreen {
     float accum = 0f;
     private boolean oldGuyHurt = false;
     float oldGuyAccum = 0f;
+    private TextureRegion cartridgeTexture;
 
 
     public TitleScreen() {
@@ -54,6 +55,8 @@ public class TitleScreen extends BaseScreen {
         logo = Anims.Type.TITLE_LOGO.get().getKeyFrame(0f);
         game.audioManager.playMusic(Musics.Type.MEGAMAN3);
         initializeUI();
+
+        cartridgeTexture = assets.atlas.findRegion("captain-n-ostalgia-nes-cart");
 
         Timeline.createSequence()
             .delay(.1f)
@@ -113,8 +116,8 @@ public class TitleScreen extends BaseScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, 0, 0, windowCamera.viewportWidth, windowCamera.viewportHeight);
-        batch.draw(logo, logoPosition.x, logoPosition.y-20, logo.getRegionWidth(),
-            logo.getRegionHeight());
+        batch.draw(logo, logoPosition.x, logoPosition.y-20, logo.getRegionWidth(), logo.getRegionHeight());
+        batch.draw(cartridgeTexture, (camera.viewportWidth - cartridgeTexture.getRegionWidth()) / 2f, 60);
         batch.draw(oldGuy, oldGuyPosition.x, oldGuyPosition.y, oldGuy.getRegionWidth() * charScale, oldGuy.getRegionHeight() * charScale);
         batch.draw(zelda, zeldaPosition.x, zeldaPosition.y, zelda.getRegionWidth() * charScale, zelda.getRegionHeight() * charScale);
         batch.draw(megaMan, megaPosition.x, megaPosition.y, megaMan.getRegionWidth() * charScale, megaMan.getRegionHeight() * charScale);
