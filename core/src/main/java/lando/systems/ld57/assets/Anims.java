@@ -39,6 +39,7 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         private static final String HOTHEAD_THROWING = "enemies/megaman/hothead_throwing/";
         private static final String BOSS = "boss/";
         private static final String ITEMS = "items/";
+        private static final String TITLE = "title/";
     }
 
     public enum Type implements AssetEnum<Animation> {
@@ -131,6 +132,9 @@ public class Anims extends AssetContainer<Anims.Type, Animation> {
         , LINK_SWORD(Path.LINK)
         // items ------------------------------------------------------
         , ENERGY_CAPSULE(Path.ITEMS)
+
+        //titlescreen -------------------------------------------------
+        , TITLE_LOGO(Path.TITLE)
         ;
 
         private final String path;
