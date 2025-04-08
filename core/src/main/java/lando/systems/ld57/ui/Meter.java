@@ -31,14 +31,15 @@ public class Meter {
     public Health health;
     public float percent;
 
-    public static Meter forPlayer(Assets assets, Entity entity, float x, float y, float w, float h) {
-        var meter = new Meter(assets, entity, x, y, w, h);
+    // NOTE: don't have entities on creation, get added via setEntity  later
+
+    public static Meter forPlayer(Assets assets, float x, float y, float w, float h) {
+        var meter = new Meter(assets, null, x, y, w, h);
         meter.type = Type.PLAYER;
         return meter;
     }
 
     public static Meter forBoss(Assets assets, float x, float y, float w, float h) {
-        // NOTE: don't have a boss on creation, gets added via setEntity  later
         var meter = new Meter(assets, null, x, y, w, h);
         meter.type = Type.BOSS;
         return meter;
@@ -76,9 +77,8 @@ public class Meter {
     public void render(SpriteBatch batch) {
         // if its a boss, only show if it's not waiting to be active
         if (type == Type.BOSS) {
-            if (entity != null && entity.get(WaitToMove.class) == null) {
-                return;
-            }
+            if (entity == null) return;
+            if (entity.get(WaitToMove.class) == null) return;
         }
 
         batch.setColor(Color.WHITE);

@@ -36,5 +36,8 @@ public class SceneCastlevania extends Scene<GameScreen> {
 
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(playerPos);
+
+        screen.playerHealthMeter.setEntity(player);
+        screen.bossHealthMeter.setEntity(boss);
     }
 }

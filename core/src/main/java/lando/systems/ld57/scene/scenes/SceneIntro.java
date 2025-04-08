@@ -40,5 +40,7 @@ public class SceneIntro extends Scene<GameScreen> {
         viewer = EntityFactory.cam(this, boundary);
         viewer.get(ViewController.class).target(boundary.center());
 
+//        screen.playerHealthMeter.setEntity(player);
+//        screen.bossHealthMeter.setEntity(boss);
     }
 }

@@ -42,5 +42,7 @@ public class SceneMario extends Scene<GameScreen> {
         EnemyFactory.bulletBill(this, 2700f,  50f);
         EnemyFactory.angrySun(this, 1200f,  80f);
 
+        screen.playerHealthMeter.setEntity(player);
+        screen.bossHealthMeter.setEntity(boss);
     }
 }

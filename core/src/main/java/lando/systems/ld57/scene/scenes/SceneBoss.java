@@ -36,5 +36,8 @@ public class SceneBoss extends Scene<GameScreen> {
 
         var cam = EntityFactory.cam(this, boundary);
         cam.get(ViewController.class).target(playerPos);
+
+        screen.playerHealthMeter.setEntity(player);
+//        screen.bossHealthMeter.setEntity(boss);
     }
 }

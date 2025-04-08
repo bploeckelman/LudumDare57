@@ -59,9 +59,9 @@ public class GameScreen extends BaseScreen {
         this.screenPos = new Vector3();
         initializeUI();
 
-        this.playerHealthMeter = Meter.forPlayer(assets, scene.player,
-            10f, windowCamera.viewportHeight - 100f,
-            20f, windowCamera.viewportHeight - 20f);
+        this.playerHealthMeter = Meter.forPlayer(assets,
+            10f, 40f,
+            20f, windowCamera.viewportHeight - 80f);
 
         this.bossHealthMeter = Meter.forBoss(assets,
             40f, windowCamera.viewportHeight - 50f,
@@ -131,13 +131,6 @@ public class GameScreen extends BaseScreen {
         var shouldSkipFrame = handleDebugFlags();
         if (shouldSkipFrame) {
             return;
-        }
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-
-//            particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(screenPos.x, screenPos.y, Util.randomColor()));
-//            particleManager.spawn(ParticleEffect.Type.BLOOD, new BloodEffect.Params(screenPos.x, screenPos.y));
-//            particleManager.spawn(ParticleEffect.Type.BLOOD_SPLAT, new BloodSplatEffect.Params(screenPos.x, screenPos.y));
-//            particleManager.spawn(ParticleEffect.Type.BLOOD_FOUNTAIN, new BloodFountainEffect.Params(screenPos.x, screenPos.y));
         }
 
         screenPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);

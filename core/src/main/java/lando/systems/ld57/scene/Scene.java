@@ -165,10 +165,6 @@ public class Scene<ScreenType extends BaseScreen> {
                     "name='%s', type='%s', x=%.1f, y=%.1f", name, type, x, y));
             }
         }
-
-        if (player != null && screen instanceof GameScreen) {
-            ((GameScreen) screen).playerHealthMeter.setEntity(player);
-        }
     }
 
     protected static class Resolutions {
