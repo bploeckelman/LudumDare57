@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,6 +19,7 @@ import lando.systems.ld57.Main;
 import lando.systems.ld57.assets.Anims;
 import lando.systems.ld57.assets.Fonts;
 import lando.systems.ld57.assets.Musics;
+import lando.systems.ld57.assets.Patches;
 import lando.systems.ld57.particles.ParticleManager;
 import lando.systems.ld57.particles.effects.ParticleEffect;
 import lando.systems.ld57.particles.effects.ShapeEffect;
@@ -48,6 +50,8 @@ public class TitleScreen extends BaseScreen {
     private boolean oldGuyHurt = false;
     float oldGuyAccum = 0f;
     private TextureRegion cartridgeTexture;
+    float inputdelay = .1f;
+    Rectangle dialogbox = new Rectangle(Config.window_width / 5f * 3f - 190f, 360f, 245f, 40f);
 
 
     public TitleScreen() {
@@ -88,12 +92,14 @@ public class TitleScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+
+        if (inputdelay < 0 && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             var mousePos = vec3.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             worldCamera.unproject(mousePos);
             particleManager.spawn(ParticleEffect.Type.SHAPE, new ShapeEffect.Params(mousePos.x, mousePos.y, Color.WHITE));
             Main.game.tween.update(100f);
         }
+        inputdelay -= delta;
         particleManager.update(delta);
         uiStage.act(delta);
         accum += delta;
@@ -125,7 +131,8 @@ public class TitleScreen extends BaseScreen {
         batch.draw(belmont, castlePosition.x, castlePosition.y, belmont.getRegionWidth() * charScale, belmont.getRegionHeight() * charScale);
         particleManager.render(batch, ParticleManager.Layer.FOREGROUND);
         if (drawUI) {
-            var font = Fonts.Type.DOGICA.getDefault();
+            Patches.Type.PLAIN.get().draw(batch, dialogbox.x, dialogbox.y, dialogbox.width, dialogbox.height);
+            var font = Fonts.Type.DOGICABOLD.getDefault();
             var layout = Main.game.assets.layout;
             layout.setText(font, "Ow, my back!");
             font.draw(batch, layout, Config.window_width / 5f * 3f - 180f, 390f);
