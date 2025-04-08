@@ -70,15 +70,21 @@ public class Meter {
         if (health != null) {
             percent = health.getHealthPercent();
         }
-        innerBounds.width *= percent;
+        if (type == Type.PLAYER) {
+            innerBounds.height *= percent;
+        } else if (type == Type.BOSS) {
+            innerBounds.width *= percent;
+        }
         colorRamp(percent);
     }
 
     public void render(SpriteBatch batch) {
         // if its a boss, only show if it's not waiting to be active
+        if (entity == null) return;
         if (type == Type.BOSS) {
-            if (entity == null) return;
-            if (entity.get(WaitToMove.class) == null) return;
+            if (entity.get(WaitToMove.class) != null) {
+                return;
+            }
         }
 
         batch.setColor(Color.WHITE);

@@ -55,18 +55,17 @@ public class GameScreen extends BaseScreen {
     public boolean showModal = false;
 
     public GameScreen() {
+        this.playerHealthMeter = Meter.forPlayer(assets,
+            10f, 40f,
+            20f, windowCamera.viewportHeight - 80f);
+        this.bossHealthMeter = Meter.forBoss(assets,
+            40f, windowCamera.viewportHeight - 50f,
+            windowCamera.viewportWidth - 80f, 40f);
+
         this.scene = new SceneMario(this);
         this.stageDebugUI = new Stage();
         this.screenPos = new Vector3();
         initializeUI();
-
-        this.playerHealthMeter = Meter.forPlayer(assets,
-            10f, 40f,
-            20f, windowCamera.viewportHeight - 80f);
-
-        this.bossHealthMeter = Meter.forBoss(assets,
-            40f, windowCamera.viewportHeight - 50f,
-            windowCamera.viewportWidth - 80f, 40f);
     }
 
     @Override
